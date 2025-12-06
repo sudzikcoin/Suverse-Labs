@@ -7,17 +7,42 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { siteConfig } from "@/lib/siteConfig";
-import { Mail, MapPin, CheckCircle } from "lucide-react";
+import { Mail, MapPin, CheckCircle, Loader2 } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { insertContactMessageSchema, type InsertContactMessage } from "@shared/schema";
 
 export default function Contact() {
   const { toast } = useToast();
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    organization: "",
+    company: "",
+    subject: "",
     message: "",
+  });
+
+  const contactMutation = useMutation({
+    mutationFn: async (data: InsertContactMessage) => {
+      const response = await apiRequest("POST", "/api/contact", data);
+      return response.json();
+    },
+    onSuccess: (data) => {
+      setFormData({ name: "", email: "", company: "", subject: "", message: "" });
+      setIsSubmitted(true);
+      toast({
+        title: "Message sent!",
+        description: data.message || "We'll get back to you as soon as possible.",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Failed to send message",
+        description: error.message || "Please try again later.",
+        variant: "destructive",
+      });
+    },
   });
 
   const handleInputChange = (
@@ -29,19 +54,19 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    console.log("Contact form submitted:", formData);
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    setIsSubmitting(false);
-    setIsSubmitted(true);
     
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you as soon as possible.",
-    });
+    const validation = insertContactMessageSchema.safeParse(formData);
+    if (!validation.success) {
+      const firstError = validation.error.errors[0];
+      toast({
+        title: "Validation Error",
+        description: firstError.message,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    contactMutation.mutate(validation.data);
   };
 
   if (isSubmitted) {
@@ -68,7 +93,8 @@ export default function Contact() {
                 variant="outline"
                 onClick={() => {
                   setIsSubmitted(false);
-                  setFormData({ name: "", email: "", organization: "", message: "" });
+                  setFormData({ name: "", email: "", company: "", subject: "", message: "" });
+                  contactMutation.reset();
                 }}
                 data-testid="button-send-another"
               >
@@ -132,18 +158,35 @@ export default function Contact() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="organization" className="text-sm font-medium text-foreground">
-                    Organization
+                  <Label htmlFor="company" className="text-sm font-medium text-foreground">
+                    Company / Organization
                   </Label>
                   <Input
-                    id="organization"
-                    name="organization"
+                    id="company"
+                    name="company"
                     type="text"
-                    value={formData.organization}
+                    value={formData.company}
                     onChange={handleInputChange}
                     placeholder="Your company or organization"
                     className="bg-slate-900 border-slate-700 focus:border-chart-1 focus:ring-chart-1/20"
-                    data-testid="input-organization"
+                    data-testid="input-company"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="subject" className="text-sm font-medium text-foreground">
+                    Subject *
+                  </Label>
+                  <Input
+                    id="subject"
+                    name="subject"
+                    type="text"
+                    required
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    placeholder="What is this regarding?"
+                    className="bg-slate-900 border-slate-700 focus:border-chart-1 focus:ring-chart-1/20"
+                    data-testid="input-subject"
                   />
                 </div>
 
@@ -165,11 +208,18 @@ export default function Contact() {
 
                 <Button 
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={contactMutation.isPending}
                   className="w-full md:w-auto bg-gradient-to-r from-chart-1 to-chart-1/80"
                   data-testid="button-submit"
                 >
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {contactMutation.isPending ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    "Send Message"
+                  )}
                 </Button>
               </form>
             </Card>

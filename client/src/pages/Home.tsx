@@ -29,7 +29,7 @@ export default function Home() {
         <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-8 text-center py-20">
           <Badge 
             variant="secondary" 
-            className="mb-6 bg-white/5 text-muted-foreground border-white/10 px-4 py-1.5"
+            className="mb-6 bg-gray-100 text-muted-foreground border-border px-4 py-1.5"
             data-testid="badge-hero-tagline"
           >
             {siteConfig.siteName} · AI · Blockchain · Green Logistics
@@ -68,7 +68,7 @@ export default function Home() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="w-full sm:w-auto backdrop-blur-sm bg-white/5 border-white/20 hover:bg-white/10"
+                className="w-full sm:w-auto bg-white border-border hover:bg-gray-50"
                 data-testid="button-for-partners"
               >
                 For Partners & Investors
@@ -107,7 +107,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section className="bg-slate-900/30">
+      <Section className="bg-section-alt">
         <SectionHeading 
           title="Our Projects" 
           subtitle="Explore the initiatives driving our vision for sustainable transportation"
@@ -123,7 +123,7 @@ export default function Home() {
           <Link href="/projects">
             <Button 
               variant="outline" 
-              className="backdrop-blur-sm bg-white/5 border-white/20 hover:bg-white/10"
+              className="bg-white border-border hover:bg-gray-50"
               data-testid="button-view-all-projects"
             >
               View All Projects
@@ -198,7 +198,7 @@ export default function Home() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="w-full sm:w-auto backdrop-blur-sm bg-white/5 border-white/20 hover:bg-white/10"
+                className="w-full sm:w-auto bg-white border-border hover:bg-gray-50"
                 data-testid="button-cta-about"
               >
                 About SuVerse Labs

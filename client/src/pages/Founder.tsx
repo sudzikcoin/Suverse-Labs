@@ -91,7 +91,7 @@ export default function Founder() {
         </ContentSection>
       </Section>
 
-      <Section className="bg-slate-900/30">
+      <Section className="bg-section-alt">
         <ContentSection>
           <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-6">
             Areas of Expertise
@@ -102,7 +102,7 @@ export default function Founder() {
               <Badge 
                 key={index}
                 variant="secondary"
-                className="px-4 py-2 bg-white/5 text-foreground border-white/10 text-sm"
+                className="px-4 py-2 bg-gray-100 text-foreground border-border text-sm"
                 data-testid={`badge-expertise-${index}`}
               >
                 <item.icon className="w-4 h-4 mr-2 text-chart-2" />
@@ -123,7 +123,7 @@ export default function Founder() {
             {initiatives.map((initiative, index) => (
               <Card 
                 key={index}
-                className="bg-slate-900/50 border-white/10 p-5"
+                className="bg-white border-border shadow-sm p-5"
                 data-testid={`card-initiative-${index}`}
               >
                 <div className="flex items-start gap-4">

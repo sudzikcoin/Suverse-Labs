@@ -19,7 +19,7 @@ export function NewsCard({ post, featured = false }: NewsCardProps) {
   return (
     <Link href={`/news/${post.slug}`}>
       <Card 
-        className={`group relative overflow-visible bg-slate-900/50 border-white/10 transition-all duration-300 hover:border-chart-1/30 hover:shadow-xl hover:shadow-chart-1/5 ${
+        className={`group relative overflow-visible bg-white border-border transition-all duration-300 hover:border-chart-1/50 hover:shadow-lg ${
           featured ? "md:col-span-2" : ""
         }`}
         data-testid={`card-news-${post.slug}`}

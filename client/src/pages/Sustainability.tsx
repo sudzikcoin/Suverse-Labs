@@ -15,7 +15,7 @@ export default function Sustainability() {
 
       <Section className="pt-0">
         <ContentSection>
-          <Card className="bg-slate-900/50 border-white/10 p-6 md:p-8">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-lg bg-chart-2/10 flex items-center justify-center flex-shrink-0">
                 <Truck className="w-6 h-6 text-chart-2" />
@@ -36,7 +36,7 @@ export default function Sustainability() {
         </ContentSection>
       </Section>
 
-      <Section className="bg-slate-900/30">
+      <Section className="bg-section-alt">
         <SectionHeading 
           title="How SuVerse Labs Contributes"
           subtitle="Our three-pillar approach to sustainable transportation"
@@ -44,7 +44,7 @@ export default function Sustainability() {
         />
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          <Card className="bg-background border-white/10 p-6 md:p-8 text-center" data-testid="card-pillar-measurement">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8 text-center" data-testid="card-pillar-measurement">
             <div className="w-14 h-14 rounded-full bg-chart-1/10 flex items-center justify-center mx-auto mb-6">
               <BarChart3 className="w-7 h-7 text-chart-1" />
             </div>
@@ -55,7 +55,7 @@ export default function Sustainability() {
             </p>
           </Card>
 
-          <Card className="bg-background border-white/10 p-6 md:p-8 text-center" data-testid="card-pillar-reduction">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8 text-center" data-testid="card-pillar-reduction">
             <div className="w-14 h-14 rounded-full bg-chart-2/10 flex items-center justify-center mx-auto mb-6">
               <TrendingDown className="w-7 h-7 text-chart-2" />
             </div>
@@ -66,7 +66,7 @@ export default function Sustainability() {
             </p>
           </Card>
 
-          <Card className="bg-background border-white/10 p-6 md:p-8 text-center" data-testid="card-pillar-connection">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8 text-center" data-testid="card-pillar-connection">
             <div className="w-14 h-14 rounded-full bg-chart-3/10 flex items-center justify-center mx-auto mb-6">
               <Truck className="w-7 h-7 text-chart-3" />
             </div>
@@ -87,7 +87,7 @@ export default function Sustainability() {
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="bg-slate-900/50 border-white/10 p-6 md:p-8" data-testid="card-comparison-traditional">
+            <Card className="bg-white border-border shadow-sm p-6 md:p-8" data-testid="card-comparison-traditional">
               <h4 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
                 <X className="w-5 h-5 text-destructive" />
                 Traditional Operations
@@ -116,7 +116,7 @@ export default function Sustainability() {
               </ul>
             </Card>
 
-            <Card className="bg-slate-900/50 border-chart-2/30 p-6 md:p-8" data-testid="card-comparison-suverse">
+            <Card className="bg-white border-chart-2/30 shadow-sm p-6 md:p-8" data-testid="card-comparison-suverse">
               <h4 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
                 <Check className="w-5 h-5 text-chart-2" />
                 SuVerse-Enabled Operations

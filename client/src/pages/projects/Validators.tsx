@@ -19,9 +19,9 @@ export default function Validators() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2 mb-4">
-          <Badge variant="secondary" className="bg-white/5 text-muted-foreground border-white/10">Blockchain</Badge>
-          <Badge variant="secondary" className="bg-white/5 text-muted-foreground border-white/10">Validators</Badge>
-          <Badge variant="secondary" className="bg-white/5 text-muted-foreground border-white/10">DePIN</Badge>
+          <Badge variant="secondary" className="bg-gray-100 text-muted-foreground border-border">Blockchain</Badge>
+          <Badge variant="secondary" className="bg-gray-100 text-muted-foreground border-border">Validators</Badge>
+          <Badge variant="secondary" className="bg-gray-100 text-muted-foreground border-border">DePIN</Badge>
         </div>
 
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4" data-testid="text-project-title">
@@ -38,7 +38,7 @@ export default function Validators() {
 
       <Section className="pt-0">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          <Card className="bg-slate-900/50 border-white/10 p-6 md:p-8" data-testid="card-project-role">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8" data-testid="card-project-role">
             <div className="w-12 h-12 rounded-lg bg-chart-1/10 flex items-center justify-center mb-6">
               <Shield className="w-6 h-6 text-chart-1" />
             </div>
@@ -51,7 +51,7 @@ export default function Validators() {
             </p>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/10 p-6 md:p-8" data-testid="card-project-importance">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8" data-testid="card-project-importance">
             <div className="w-12 h-12 rounded-lg bg-chart-2/10 flex items-center justify-center mb-6">
               <Network className="w-6 h-6 text-chart-2" />
             </div>
@@ -64,7 +64,7 @@ export default function Validators() {
             </p>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/10 p-6 md:p-8" data-testid="card-project-relevance">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8" data-testid="card-project-relevance">
             <div className="w-12 h-12 rounded-lg bg-chart-3/10 flex items-center justify-center mb-6">
               <Target className="w-6 h-6 text-chart-3" />
             </div>
@@ -79,7 +79,7 @@ export default function Validators() {
         </div>
       </Section>
 
-      <Section className="bg-slate-900/30">
+      <Section className="bg-section-alt">
         <ContentSection className="text-center">
           <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
             Interested in Our Infrastructure Operations?

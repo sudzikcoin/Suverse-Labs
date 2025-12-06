@@ -11,7 +11,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-border shadow-sm">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link href="/" className="flex items-center gap-2" data-testid="link-logo">
@@ -53,7 +53,7 @@ export function Header() {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[280px] bg-background border-l border-white/10">
+              <SheetContent side="right" className="w-[280px] bg-white border-l border-border">
                 <div className="flex flex-col gap-4 mt-8">
                   {navItems.map((item) => {
                     const isActive = location === item.href || 
@@ -68,7 +68,7 @@ export function Header() {
                           className={`block px-4 py-3 text-base font-medium rounded-md transition-colors ${
                             isActive
                               ? "text-chart-2 bg-chart-2/10"
-                              : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                              : "text-muted-foreground hover:text-foreground hover:bg-gray-100"
                           }`}
                           data-testid={`link-mobile-nav-${item.label.toLowerCase()}`}
                         >

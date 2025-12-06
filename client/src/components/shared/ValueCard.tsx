@@ -11,7 +11,7 @@ interface ValueCardProps {
 export function ValueCard({ icon: Icon, title, description, testId }: ValueCardProps) {
   return (
     <Card 
-      className="bg-slate-900/50 border-white/10 p-6 md:p-8 transition-all duration-300 hover:border-chart-1/30"
+      className="bg-white border-border p-6 md:p-8 transition-all duration-300 hover:border-chart-1/50 hover:shadow-md"
       data-testid={testId}
     >
       <div className="flex flex-col items-start">

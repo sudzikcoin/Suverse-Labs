@@ -19,9 +19,9 @@ export default function PingPoint() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2 mb-4">
-          <Badge variant="secondary" className="bg-white/5 text-muted-foreground border-white/10">AI</Badge>
-          <Badge variant="secondary" className="bg-white/5 text-muted-foreground border-white/10">Tracking</Badge>
-          <Badge variant="secondary" className="bg-white/5 text-muted-foreground border-white/10">Logistics</Badge>
+          <Badge variant="secondary" className="bg-gray-100 text-muted-foreground border-border">AI</Badge>
+          <Badge variant="secondary" className="bg-gray-100 text-muted-foreground border-border">Tracking</Badge>
+          <Badge variant="secondary" className="bg-gray-100 text-muted-foreground border-border">Logistics</Badge>
         </div>
 
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4" data-testid="text-project-title">
@@ -38,7 +38,7 @@ export default function PingPoint() {
 
       <Section className="pt-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          <Card className="bg-slate-900/50 border-white/10 p-6 md:p-8" data-testid="card-project-problem">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8" data-testid="card-project-problem">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center flex-shrink-0">
                 <AlertTriangle className="w-6 h-6 text-destructive" />
@@ -55,7 +55,7 @@ export default function PingPoint() {
             </div>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/10 p-6 md:p-8" data-testid="card-project-solution">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8" data-testid="card-project-solution">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-lg bg-chart-2/10 flex items-center justify-center flex-shrink-0">
                 <Lightbulb className="w-6 h-6 text-chart-2" />
@@ -72,7 +72,7 @@ export default function PingPoint() {
             </div>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/10 p-6 md:p-8" data-testid="card-project-technology">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8" data-testid="card-project-technology">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-lg bg-chart-1/10 flex items-center justify-center flex-shrink-0">
                 <Cpu className="w-6 h-6 text-chart-1" />
@@ -89,7 +89,7 @@ export default function PingPoint() {
             </div>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/10 p-6 md:p-8" data-testid="card-project-impact">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8" data-testid="card-project-impact">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-lg bg-chart-3/10 flex items-center justify-center flex-shrink-0">
                 <TrendingUp className="w-6 h-6 text-chart-3" />
@@ -108,7 +108,7 @@ export default function PingPoint() {
         </div>
       </Section>
 
-      <Section className="bg-slate-900/30">
+      <Section className="bg-section-alt">
         <ContentSection className="text-center">
           <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
             Interested in PingPoint?

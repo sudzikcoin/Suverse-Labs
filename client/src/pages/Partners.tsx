@@ -64,7 +64,7 @@ export default function Partners() {
           {audiences.map((audience, index) => (
             <Card 
               key={index}
-              className="bg-slate-900/50 border-white/10 p-6"
+              className="bg-white border-border shadow-sm p-6"
               data-testid={`card-audience-${index}`}
             >
               <div className="w-10 h-10 rounded-lg bg-chart-1/10 flex items-center justify-center mb-4">
@@ -77,7 +77,7 @@ export default function Partners() {
         </div>
       </Section>
 
-      <Section className="bg-slate-900/30">
+      <Section className="bg-section-alt">
         <SectionHeading 
           title="Ways to Collaborate"
           subtitle="Different engagement models to fit your needs"
@@ -87,7 +87,7 @@ export default function Partners() {
           {collaborationTypes.map((collab, index) => (
             <Card 
               key={index}
-              className="bg-background border-white/10 p-6 md:p-8"
+              className="bg-white border-border shadow-sm p-6 md:p-8"
               data-testid={`card-collaboration-${index}`}
             >
               <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6">

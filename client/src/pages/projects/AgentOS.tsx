@@ -37,9 +37,9 @@ export default function AgentOS() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2 mb-4">
-          <Badge variant="secondary" className="bg-white/5 text-muted-foreground border-white/10">AI</Badge>
-          <Badge variant="secondary" className="bg-white/5 text-muted-foreground border-white/10">Automation</Badge>
-          <Badge variant="secondary" className="bg-white/5 text-muted-foreground border-white/10">Enterprise</Badge>
+          <Badge variant="secondary" className="bg-gray-100 text-muted-foreground border-border">AI</Badge>
+          <Badge variant="secondary" className="bg-gray-100 text-muted-foreground border-border">Automation</Badge>
+          <Badge variant="secondary" className="bg-gray-100 text-muted-foreground border-border">Enterprise</Badge>
         </div>
 
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4" data-testid="text-project-title">
@@ -56,7 +56,7 @@ export default function AgentOS() {
 
       <Section className="pt-0">
         <div className="max-w-4xl">
-          <Card className="bg-slate-900/50 border-white/10 p-6 md:p-8 mb-8" data-testid="card-project-overview">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8 mb-8" data-testid="card-project-overview">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-lg bg-chart-1/10 flex items-center justify-center flex-shrink-0">
                 <Bot className="w-6 h-6 text-chart-1" />
@@ -82,7 +82,7 @@ export default function AgentOS() {
             {agents.map((agent, index) => (
               <Card 
                 key={index}
-                className="bg-slate-900/50 border-white/10 p-6"
+                className="bg-white border-border shadow-sm p-6"
                 data-testid={`card-agent-${index}`}
               >
                 <div className="w-10 h-10 rounded-lg bg-chart-2/10 flex items-center justify-center mb-4">
@@ -96,9 +96,9 @@ export default function AgentOS() {
         </div>
       </Section>
 
-      <Section className="bg-slate-900/30">
+      <Section className="bg-section-alt">
         <div className="max-w-4xl">
-          <Card className="bg-background border-white/10 p-6 md:p-8" data-testid="card-project-integration">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8" data-testid="card-project-integration">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-lg bg-chart-3/10 flex items-center justify-center flex-shrink-0">
                 <Plug className="w-6 h-6 text-chart-3" />

@@ -13,7 +13,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
   return (
     <Link href={project.href}>
       <Card 
-        className={`group relative overflow-visible bg-slate-900/50 border-white/10 p-6 md:p-8 transition-all duration-300 hover:border-chart-2/30 hover:shadow-xl hover:shadow-chart-2/5 ${
+        className={`group relative overflow-visible bg-white border-border p-6 md:p-8 transition-all duration-300 hover:border-chart-2/50 hover:shadow-lg ${
           featured ? "md:col-span-2" : ""
         }`}
         data-testid={`card-project-${project.slug}`}
@@ -24,7 +24,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
               <Badge 
                 key={tag} 
                 variant="secondary" 
-                className="text-xs bg-white/5 text-muted-foreground border-white/10"
+                className="text-xs bg-gray-100 text-muted-foreground border-border"
               >
                 {tag}
               </Badge>

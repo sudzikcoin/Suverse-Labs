@@ -1,0 +1,40 @@
+You are editing the existing SuVerse Labs landing page and full site. Task: convert the entire project from a dark theme to a bright, clean LIGHT THEME without changing layout, structure, sections, or text content.
+
+Global theme:
+- Background: light and airy. Use #FFFFFF as the base page background. For alternating sections use very light neutrals like #F5F7FB or #F8FAFF.
+- Text: switch all body and heading text to dark colors suitable for light background: main text #111827 or #0F172A, secondary text #4B5563–#6B7280.
+- Brand accent: keep the SuVerse Labs blue–green gradient but adapt it for light theme. Example gradient: from #1D9BF0 (blue) through #3B82F6 to #22C55E (green). Use this gradient for key accents only (main CTA, highlighted words, small gradient lines), not for full backgrounds.
+- Border radius and shadows: keep existing rounding but change card styling to white cards (#FFFFFF) with very soft shadows and 1px subtle borders in #E5E7EB where needed.
+
+Hero section:
+- Remove the dark hero background. Replace with a very subtle light gradient or vignette (e.g., top: #F0F4FF, bottom: #FFFFFF) so the section feels bright and open.
+- Keep the main H1 copy the same, but ensure the highlighted word “Sustainable Transportation” is in a soft blue–green gradient fill on light background for emphasis.
+- Hero paragraph text should be dark gray (#374151) for high readability.
+- Primary CTA button “Explore Projects”: filled style with blue–green gradient background, white label, slightly stronger shadow on hover.
+- Secondary CTA “For Partners & Investors”: white background, dark border #D1D5DB, dark label, subtle hover (light gray background).
+
+Navigation:
+- Keep current desktop and mobile layout, but change nav bar background to solid white (#FFFFFF) with a faint bottom border (#E5E7EB) or soft shadow.
+- Logo text “SuVerse Labs”: dark color (#111827). If gradient is used in logo, make sure it remains readable on white.
+- Hamburger/mobile menu: when opened, the panel should be white with dark text and clear dividers.
+
+Sections and cards:
+- All feature, project, and metrics sections should use light backgrounds. Alternate between #FFFFFF and #F5F7FB for visual rhythm.
+- Cards / tiles (for projects, features, metrics): white background, soft radius, thin border #E5E7EB, subtle shadow and hover lift. Headlines in dark, small labels in medium gray, icons in brand blue/green.
+- Any existing dark overlays or gradients behind text should be removed or replaced with light neutrals.
+
+Buttons, chips, and labels:
+- Primary actions: filled gradient (blue→green) with white text, rounded corners.
+- Secondary actions: outlined buttons with white background, border #D1D5DB, dark text, light hover background.
+- Tag/chip elements (like “AI · Blockchain · Green Logistics”): use light gray pill backgrounds (#E5E7EB) with dark text, optional small gradient border or left accent bar.
+
+Footer:
+- Change footer background to #F3F4F6 or #E5E7EB (slightly darker than the main page but still light).
+- All text in dark gray (#374151). Links in brand blue with clear hover underline.
+
+Accessibility and responsiveness:
+- Maintain all current spacing, layout, and responsive behavior. Do NOT move sections, change copy, or alter navigation links.
+- Ensure contrast ratios are accessible on light background: headings and body text must be clearly readable.
+- Check all states (hover, active, focus) for buttons and links in both desktop and mobile views to confirm they work visually on the light theme.
+
+Apply this light theme consistently across ALL pages in the SuVerse Labs site (home, projects, investors/partners, about, etc.) so the experience feels unified, modern, and presentation-ready for visas and investor review, while keeping all existing content and structure exactly the same.

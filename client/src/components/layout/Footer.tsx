@@ -9,7 +9,7 @@ export function Footer() {
   const projectLinks = projects.slice(0, 4);
 
   return (
-    <footer className="bg-background border-t border-white/10 mt-auto">
+    <footer className="bg-footer-bg border-t border-border mt-auto">
       <div className="max-w-7xl mx-auto px-6 md:px-8 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div className="lg:col-span-1">
@@ -125,7 +125,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10">
+        <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
               {new Date().getFullYear()} {siteConfig.siteName}. All rights reserved.

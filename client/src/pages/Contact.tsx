@@ -79,7 +79,7 @@ export default function Contact() {
 
         <Section className="pt-0">
           <div className="max-w-2xl mx-auto">
-            <Card className="bg-slate-900/50 border-white/10 p-8 md:p-12 text-center">
+            <Card className="bg-white border-border p-8 md:p-12 text-center shadow-sm">
               <div className="w-16 h-16 rounded-full bg-chart-2/10 flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="w-8 h-8 text-chart-2" />
               </div>
@@ -117,7 +117,7 @@ export default function Contact() {
       <Section className="pt-0">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <Card className="bg-slate-900/50 border-white/10 p-6 md:p-8">
+            <Card className="bg-white border-border p-6 md:p-8 shadow-sm">
               <h2 className="text-xl font-semibold text-foreground mb-6">Send us a message</h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -134,7 +134,7 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="Your name"
-                      className="bg-slate-900 border-slate-700 focus:border-chart-1 focus:ring-chart-1/20"
+                      className="bg-white border-border focus:border-chart-1 focus:ring-chart-1/20"
                       data-testid="input-name"
                     />
                   </div>
@@ -151,7 +151,7 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="your@email.com"
-                      className="bg-slate-900 border-slate-700 focus:border-chart-1 focus:ring-chart-1/20"
+                      className="bg-white border-border focus:border-chart-1 focus:ring-chart-1/20"
                       data-testid="input-email"
                     />
                   </div>
@@ -168,7 +168,7 @@ export default function Contact() {
                     value={formData.company}
                     onChange={handleInputChange}
                     placeholder="Your company or organization"
-                    className="bg-slate-900 border-slate-700 focus:border-chart-1 focus:ring-chart-1/20"
+                    className="bg-white border-border focus:border-chart-1 focus:ring-chart-1/20"
                     data-testid="input-company"
                   />
                 </div>
@@ -185,7 +185,7 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     placeholder="What is this regarding?"
-                    className="bg-slate-900 border-slate-700 focus:border-chart-1 focus:ring-chart-1/20"
+                    className="bg-white border-border focus:border-chart-1 focus:ring-chart-1/20"
                     data-testid="input-subject"
                   />
                 </div>
@@ -201,7 +201,7 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleInputChange}
                     placeholder="How can we help you?"
-                    className="bg-slate-900 border-slate-700 focus:border-chart-1 focus:ring-chart-1/20 min-h-[150px] resize-none"
+                    className="bg-white border-border focus:border-chart-1 focus:ring-chart-1/20 min-h-[150px] resize-none"
                     data-testid="input-message"
                   />
                 </div>
@@ -226,7 +226,7 @@ export default function Contact() {
           </div>
 
           <div className="space-y-6">
-            <Card className="bg-slate-900/50 border-white/10 p-6">
+            <Card className="bg-white border-border p-6 shadow-sm">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-lg bg-chart-1/10 flex items-center justify-center flex-shrink-0">
                   <Mail className="w-5 h-5 text-chart-1" />
@@ -244,7 +244,7 @@ export default function Contact() {
               </div>
             </Card>
 
-            <Card className="bg-slate-900/50 border-white/10 p-6">
+            <Card className="bg-white border-border p-6 shadow-sm">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-lg bg-chart-2/10 flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-5 h-5 text-chart-2" />
@@ -258,7 +258,7 @@ export default function Contact() {
               </div>
             </Card>
 
-            <div className="p-6 rounded-lg bg-slate-900/30 border border-white/5">
+            <div className="p-6 rounded-lg bg-section-alt border border-border">
               <h4 className="font-semibold text-foreground mb-2">Response Time</h4>
               <p className="text-sm text-muted-foreground">
                 We typically respond to inquiries within 1-2 business days. For urgent 

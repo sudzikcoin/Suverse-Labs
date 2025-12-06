@@ -81,6 +81,8 @@ export default {
           busy: "rgb(239 68 68)",
           offline: "rgb(156 163 175)",
         },
+        "section-alt": "hsl(var(--section-alt) / <alpha-value>)",
+        "footer-bg": "hsl(var(--footer-bg) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["var(--font-sans)"],

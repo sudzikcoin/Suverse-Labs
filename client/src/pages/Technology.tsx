@@ -14,7 +14,7 @@ export default function Technology() {
       <Section className="pt-0">
         <ContentSection>
           <div className="space-y-8">
-            <Card className="bg-slate-900/50 border-white/10 p-6 md:p-8">
+            <Card className="bg-white border-border shadow-sm p-6 md:p-8">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-lg bg-chart-1/10 flex items-center justify-center flex-shrink-0">
                   <Cpu className="w-6 h-6 text-chart-1" />
@@ -34,9 +34,9 @@ export default function Technology() {
         </ContentSection>
       </Section>
 
-      <Section className="bg-slate-900/30">
+      <Section className="bg-section-alt">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          <Card className="bg-background border-white/10 p-6 md:p-8" data-testid="card-tech-ai">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8" data-testid="card-tech-ai">
             <div className="w-12 h-12 rounded-lg bg-chart-2/10 flex items-center justify-center mb-6">
               <Bot className="w-6 h-6 text-chart-2" />
             </div>
@@ -62,7 +62,7 @@ export default function Technology() {
             </ul>
           </Card>
 
-          <Card className="bg-background border-white/10 p-6 md:p-8" data-testid="card-tech-blockchain">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8" data-testid="card-tech-blockchain">
             <div className="w-12 h-12 rounded-lg bg-chart-1/10 flex items-center justify-center mb-6">
               <Network className="w-6 h-6 text-chart-1" />
             </div>
@@ -88,7 +88,7 @@ export default function Technology() {
             </ul>
           </Card>
 
-          <Card className="bg-background border-white/10 p-6 md:p-8" data-testid="card-tech-iot">
+          <Card className="bg-white border-border shadow-sm p-6 md:p-8" data-testid="card-tech-iot">
             <div className="w-12 h-12 rounded-lg bg-chart-3/10 flex items-center justify-center mb-6">
               <Radio className="w-6 h-6 text-chart-3" />
             </div>
@@ -124,28 +124,28 @@ export default function Technology() {
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-lg bg-slate-900/30 border border-white/5">
+            <div className="p-6 rounded-lg bg-section-alt border border-border">
               <h4 className="font-semibold text-foreground mb-2">Practical Over Theoretical</h4>
               <p className="text-sm text-muted-foreground">
                 We apply technologies where they solve real problems, not for their own sake. 
                 Blockchain for transparency, AI for automation, IoT for data—each has its place.
               </p>
             </div>
-            <div className="p-6 rounded-lg bg-slate-900/30 border border-white/5">
+            <div className="p-6 rounded-lg bg-section-alt border border-border">
               <h4 className="font-semibold text-foreground mb-2">Modular & Extensible</h4>
               <p className="text-sm text-muted-foreground">
                 Our systems are designed as composable components that can be adopted 
                 individually or combined. Start with what you need, expand as you grow.
               </p>
             </div>
-            <div className="p-6 rounded-lg bg-slate-900/30 border border-white/5">
+            <div className="p-6 rounded-lg bg-section-alt border border-border">
               <h4 className="font-semibold text-foreground mb-2">Integration-First</h4>
               <p className="text-sm text-muted-foreground">
                 Rather than replacing existing systems, we build bridges. Our tools are 
                 designed to work with the TMS, accounting, and telematics platforms you already use.
               </p>
             </div>
-            <div className="p-6 rounded-lg bg-slate-900/30 border border-white/5">
+            <div className="p-6 rounded-lg bg-section-alt border border-border">
               <h4 className="font-semibold text-foreground mb-2">Security & Privacy</h4>
               <p className="text-sm text-muted-foreground">
                 Transportation data is sensitive. We implement strong security practices 

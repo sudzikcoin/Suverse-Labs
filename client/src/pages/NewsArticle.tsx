@@ -81,7 +81,7 @@ export default function NewsArticle() {
         </ContentSection>
       </Section>
 
-      <Section className="bg-slate-900/30">
+      <Section className="bg-section-alt">
         <ContentSection className="text-center">
           <h3 className="text-xl font-semibold text-foreground mb-4">
             Want to Learn More?

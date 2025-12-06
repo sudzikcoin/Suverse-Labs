@@ -90,7 +90,7 @@ export default function About() {
         </ContentSection>
       </Section>
 
-      <Section className="bg-slate-900/30">
+      <Section className="bg-section-alt">
         <SectionHeading 
           title="Focus Areas"
           subtitle="The key technology domains where we concentrate our efforts"
@@ -100,7 +100,7 @@ export default function About() {
           {focusAreas.map((area, index) => (
             <Card 
               key={index}
-              className="bg-slate-900/50 border-white/10 p-6 md:p-8"
+              className="bg-white border-border p-6 md:p-8 shadow-sm"
               data-testid={`card-focus-area-${index}`}
             >
               <div className="flex items-start gap-4">

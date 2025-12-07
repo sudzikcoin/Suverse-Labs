@@ -1,0 +1,204 @@
+META / IMPORTANT:
+You are editing an existing Next.js 14 + App Router + TypeScript + Tailwind project in Replit.
+– Make the SMALLEST, MOST LOCALIZED changes needed.  
+– Do NOT break existing layouts, routing, or styles.  
+– Do NOT touch other pages.  
+The goal is ONLY to add a new **visual “energy & infrastructure” section with images/icons** on the HOME page (`/`).
+
+Current hero on `/` already shows:
+- SuVerse Labs pill (“SuVerse Labs · AI · Blockchain · Green Logistics”),
+- Main H1 (“AI & Blockchain Infrastructure for Sustainable Transportation”),
+- Short paragraph,
+- Buttons “Explore Projects” and “For Partners & Investors”.
+
+We want to **keep all of that** and add a new visual section *below the hero*, featuring imagery / icon-cards for:
+- Wind turbines,
+- Solar farm,
+- Trucks / freight,
+- Blockchain,
+- AI,
+- CO₂ / climate,
+- Data centers.
+
+Use clean, modern, NOT cartoonish styling; think “tech + climate”.
+
+------------------------------------------------------------
+1. FILE TO EDIT
+------------------------------------------------------------
+Edit the Home page route file, most likely:
+
+- `app/page.tsx`
+
+(or `app/(site)/page.tsx` if the project uses route groups; use the existing root page for `/`).
+
+Do NOT create a new route.
+
+------------------------------------------------------------
+2. NEW SECTION – HIGH-LEVEL REQUIREMENTS
+------------------------------------------------------------
+Add a new section **directly under the existing hero section**, before any other content on the page (e.g. before projects grid or other sections).
+
+The section should:
+- Visually suggest the domains:
+  - Wind energy (wind turbine),
+  - Solar energy (solar farm),
+  - Trucks / logistics,
+  - Blockchain / data network,
+  - AI,
+  - CO₂ / climate,
+  - Data centers / infrastructure.
+- Use a responsive **grid of “visual cards”**:
+  - 2 columns on small screens,
+  - 3–4 columns on larger screens (e.g. `md:grid-cols-3`, `xl:grid-cols-4`).
+- Each card should include:
+  - A visual icon/emoji or simple illustration avatar circle,  
+  - A short title (e.g. “Wind Power”, “Solar Farm”, “Freight Trucks”, etc.),
+  - A 1–2 line description.
+- Maintain the existing light hero background style; this section can be on a subtle, slightly darker or neutral background (but still within the design language).
+
+We do NOT need real photo files for now; use **simple Tailwind-styled cards with emoji icons** as placeholders. They should look like “image tiles”: round icon over gradient circle + short text.
+
+------------------------------------------------------------
+3. IMPLEMENTATION DETAILS
+------------------------------------------------------------
+A. Create a small, reusable component for the visual cards (inside `app/page.tsx` or in `components/VisualCard.tsx`—use whichever is closer to the current structure and requires fewer changes).
+
+Pseudo-interface:
+
+```tsx
+type VisualCardProps = {
+  icon: string;       // emoji string, e.g. "💨"
+  title: string;
+  description: string;
+};
+
+Component sketch (adapt to project style):
+
+function VisualCard({ icon, title, description }: VisualCardProps) {
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-slate-100/70 bg-white/60 shadow-sm backdrop-blur-sm dark:border-slate-800/80 dark:bg-slate-900/60">
+      <div className="p-4 sm:p-5 flex flex-col gap-3">
+        <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-emerald-400/80 via-sky-400/80 to-blue-500/80 text-lg">
+          <span aria-hidden="true">{icon}</span>
+          <span className="sr-only">{title}</span>
+        </div>
+        <div className="space-y-1">
+          <h3 className="text-sm font-semibold tracking-tight text-slate-900 dark:text-slate-50">
+            {title}
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300/90 leading-relaxed">
+            {description}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+B. Add a data array on the Home page for the cards:
+
+const visualAreas = [
+  {
+    icon: "💨",
+    title: "Wind Power",
+    description: "Modern wind turbines feeding clean electricity into digital logistics and data infrastructure.",
+  },
+  {
+    icon: "🔆",
+    title: "Solar Farms",
+    description: "Utility-scale solar supporting low-carbon energy for fleets, data centers, and blockchains.",
+  },
+  {
+    icon: "🚚",
+    title: "Freight Trucks",
+    description: "Real-world trucking data: routes, fuel, and operations that SuVerse Labs connects to AI and blockchain.",
+  },
+  {
+    icon: "🔗",
+    title: "Blockchain Networks",
+    description: "Decentralized ledgers and validators securing the data and incentives behind sustainable logistics.",
+  },
+  {
+    icon: "🤖",
+    title: "AI Agents",
+    description: "AgentOS and AI-driven automation orchestrating decisions across fleets, finance, and operations.",
+  },
+  {
+    icon: "🌍",
+    title: "CO₂ & Climate Data",
+    description: "Emissions metrics and carbon signals that can be measured, reported, and tokenized over time.",
+  },
+  {
+    icon: "🏢",
+    title: "Data Centers",
+    description: "Infrastructure where AI models run and blockchain nodes live, powered by smarter energy choices.",
+  },
+];
+
+C. New section JSX (place BELOW hero):
+
+Assuming you have a wrapper container already (e.g. max-w-5xl mx-auto or similar), insert a new <section> after the hero’s main container. Adapt class names to match existing spacing utilities.
+
+Example:
+
+// After hero content and buttons in app/page.tsx
+
+<section className="mt-10 sm:mt-14">
+  <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div className="mb-6 flex flex-col gap-2 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h2 className="text-base font-semibold tracking-tight text-slate-900 dark:text-slate-50">
+          Energy & Infrastructure Landscape
+        </h2>
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-300/90 max-w-2xl">
+          SuVerse Labs connects real-world energy and logistics—wind and solar assets, freight trucks,
+          data centers, and decentralized networks—into one AI- and blockchain-powered stack.
+        </p>
+      </div>
+    </div>
+
+    <div className="grid gap-4 sm:gap-5 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+      {visualAreas.map((area) => (
+        <VisualCard
+          key={area.title}
+          icon={area.icon}
+          title={area.title}
+          description={area.description}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+If the project already has a generic Section or Card component, you may reuse it instead of VisualCard, but keep the icons, titles, and descriptions as above.
+
+⸻
+
+	4.	DESIGN & RESPONSIVENESS
+
+⸻
+
+	•	Ensure the section looks good on mobile:
+	•	grid-cols-2 on the smallest screens,
+	•	Cards should have comfortable padding and not feel cramped.
+	•	On larger screens:
+	•	Use md:grid-cols-3 or more to display multiple cards in a row.
+	•	Keep backgrounds light behind the cards in the current hero area; the cards themselves can be white / slightly transparent with subtle shadows (see sample above).
+
+⸻
+
+	5.	FINAL CHECK
+
+⸻
+
+After implementing:
+	1.	Run the dev server and open /.
+	2.	Confirm:
+	•	Original hero (title, subtitle, buttons) is unchanged.
+	•	Below the hero, a new section “Energy & Infrastructure Landscape” appears.
+	•	It shows cards for: Wind Power, Solar Farms, Freight Trucks, Blockchain Networks, AI Agents, CO₂ & Climate Data, Data Centers.
+	•	Layout is responsive and visually consistent with the rest of the page.
+	3.	Make sure there are no TypeScript errors and no imports are left unused.
+
+Only when all checks pass, consider this task done.
+

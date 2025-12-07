@@ -14,8 +14,53 @@ import {
   ArrowRight, 
   TrendingDown, 
   BarChart3, 
-  Globe 
+  Globe,
+  Wind,
+  Sun,
+  Truck,
+  Link2,
+  Cloud,
+  Server,
+  LucideIcon
 } from "lucide-react";
+
+const visualAreas: { icon: LucideIcon; title: string; description: string }[] = [
+  {
+    icon: Wind,
+    title: "Wind Power",
+    description: "Modern wind turbines feeding clean electricity into digital logistics and data infrastructure.",
+  },
+  {
+    icon: Sun,
+    title: "Solar Farms",
+    description: "Utility-scale solar supporting low-carbon energy for fleets, data centers, and blockchains.",
+  },
+  {
+    icon: Truck,
+    title: "Freight Trucks",
+    description: "Real-world trucking data: routes, fuel, and operations that SuVerse Labs connects to AI and blockchain.",
+  },
+  {
+    icon: Link2,
+    title: "Blockchain Networks",
+    description: "Decentralized ledgers and validators securing the data and incentives behind sustainable logistics.",
+  },
+  {
+    icon: Bot,
+    title: "AI Agents",
+    description: "AgentOS and AI-driven automation orchestrating decisions across fleets, finance, and operations.",
+  },
+  {
+    icon: Cloud,
+    title: "CO2 & Climate Data",
+    description: "Emissions metrics and carbon signals that can be measured, reported, and tokenized over time.",
+  },
+  {
+    icon: Server,
+    title: "Data Centers",
+    description: "Infrastructure where AI models run and blockchain nodes live, powered by smarter energy choices.",
+  },
+];
 
 export default function Home() {
   const featuredProjects = projects.slice(0, 4);
@@ -77,6 +122,42 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Section className="bg-section-alt">
+        <div className="mb-6 sm:mb-8">
+          <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-2">
+            Energy & Infrastructure Landscape
+          </h2>
+          <p className="text-muted-foreground max-w-2xl">
+            SuVerse Labs connects real-world energy and logistics—wind and solar assets, freight trucks,
+            data centers, and decentralized networks—into one AI- and blockchain-powered stack.
+          </p>
+        </div>
+
+        <div className="grid gap-4 sm:gap-5 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+          {visualAreas.map((area) => (
+            <div
+              key={area.title}
+              className="relative overflow-hidden rounded-xl border border-border bg-white shadow-sm"
+              data-testid={`card-visual-${area.title.toLowerCase().replace(/\s+/g, '-')}`}
+            >
+              <div className="p-4 sm:p-5 flex flex-col gap-3">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-chart-2/80 via-chart-1/60 to-chart-3/80">
+                  <area.icon className="w-5 h-5 text-white" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="text-sm font-semibold tracking-tight text-foreground">
+                    {area.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    {area.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
 
       <Section className="bg-background">
         <SectionHeading 

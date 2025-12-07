@@ -1,0 +1,137 @@
+META / IMPORTANT:
+You are editing an existing Next.js 14 + App Router + TypeScript + Tailwind project in Replit.
+– Make the SMALLEST, MOST LOCALIZED changes needed.  
+– Do NOT break existing layouts, components, routing, or styles.  
+– Do NOT change any schemas, configs, or global structures.  
+– Only update the **Founder page content** (text) to match the new biography below.  
+If something in the instructions conflicts with the current project structure, follow the EXISTING structure and adapt the text accordingly.
+
+GOAL:
+Update the `/founder` page so that it:
+1) Keeps the existing layout / design (header, spacing, icon, etc.).
+2) Uses updated, more detailed English content that reflects the founder’s background and contribution to U.S. national interests.
+3) Replaces only the textual content (titles, subtitle, paragraphs, bullet lists), not the high-level component structure.
+
+-------------------------------------------------------------------
+1. FILE TO EDIT
+-------------------------------------------------------------------
+Locate and edit the file that defines the `/founder` route. It is most likely:
+
+- `app/founder/page.tsx`
+
+If the path/name is slightly different (e.g. `app/(site)/founder/page.tsx` or similar), use the existing route file for `/founder`.
+
+Do NOT create a new route. Reuse the existing one.
+
+-------------------------------------------------------------------
+2. PAGE SUBTITLE / INTRO LINE
+-------------------------------------------------------------------
+On the Founder page, immediately under the main page title "Founder", there should be a short subtitle line describing the purpose of the page.
+
+Replace the existing subtitle text with:
+
+> The vision and leadership behind SuVerse Labs and its mission to modernize sustainable logistics and digital infrastructure in the United States.
+
+If the page uses a `PageHeader` or similar component with `subtitle` prop, update that prop value to this new string.
+
+-------------------------------------------------------------------
+3. MAIN CONTENT BLOCK
+-------------------------------------------------------------------
+Below the icon/avatar, replace the current biography text with the following updated content. Preserve the basic structure (e.g. name as heading, role subtitle in green, etc.), but update the text inside the paragraphs and bullet lists.
+
+Target content (to be converted into JSX):
+
+Title under avatar (keep as existing H2/H3 element, just ensure it contains this exact text):
+- `Dmitrii Sudzerovskii`
+
+Role line (usually styled in green or as a subtitle under the name):
+- `Founder & Systems Architect`
+
+Main biography text (split into several paragraphs):
+
+Paragraph 1:
+> Dmitrii Sudzerovskii is an engineer and systems architect whose work sits at the intersection of transportation, energy, and advanced digital infrastructure. Trained as an industrial engineer and starting his career as an electrician, he spent several years on the ground in heavy industry, steadily advancing his rank and responsibilities. He later served as an engineer at Gazprom Energoholding, working with complex energy and electrical systems before relocating to the United States.
+
+Paragraph 2:
+> After moving to the U.S., Dmitrii gained direct, hands-on experience in American logistics as a long-haul truck driver. This combination of industrial engineering, energy-sector experience, and real-world trucking gives him a rare perspective on how technology can actually improve safety, efficiency, and sustainability in day-to-day freight operations.
+
+Paragraph 3:
+> Determined to bring modern infrastructure to this space, Dmitrii completed the PostHuman validator school in the Cosmos ecosystem and became deeply involved in blockchain and DePIN (decentralized physical infrastructure) networks. Building on this foundation, he founded SuVerse Labs, a company focused on AI agents, blockchain infrastructure, and tools for decarbonizing transportation.
+
+Section: “Key Initiatives at SuVerse Labs” (use a heading like H3/H4):
+
+Short intro sentence:
+> At SuVerse Labs, Dmitrii leads several ongoing initiatives, including:
+
+Bullet list (unordered list `<ul><li>`):
+
+- **AgentOS** – an AI "robot-application" platform that automates key workflows for carriers, brokers, and finance teams.
+- **SuVerse Tax Credit** – tooling to help logistics companies and small businesses access and manage tax credits and incentives in a transparent, data-driven way.
+- **PingPoint** – a tracking core for freight that improves visibility, reduces empty miles, and supports more efficient use of equipment and fuel.
+- **CO₂ Blockchain Infrastructure** – systems for measuring, recording, and eventually tokenizing emissions-related data in a secure, auditable way.
+- **Validator Portal** – infrastructure and tools that support validators and decentralized networks aligned with real-world use cases.
+- **AI & Blockchain Tooling** – frameworks that connect AI agents with on-chain logic and off-chain data.
+- **REC Certificate RWA** – concepts for bringing Renewable Energy Certificates and similar climate assets on-chain as real-world assets (RWA).
+
+Section: “Alignment with U.S. national interests” (another heading + paragraph):
+
+Heading text (e.g. `h3`):
+- `Supporting U.S. National Interests`
+
+Paragraph:
+> Through these projects, Dmitrii’s work is directly aligned with U.S. national interests: strengthening critical digital infrastructure, supporting cleaner and more efficient freight transportation, and enabling better use of data for climate and energy decisions. By combining practical trucking experience with deep technical knowledge, he designs systems that are not only innovative on paper but also realistic for adoption by American fleets and logistics companies.
+
+Final personal paragraph (family):
+
+> Dmitrii lives in the United States with his wife and two children and is committed to building long-term solutions that support sustainable economic growth, modern infrastructure, and the transition to a lower-carbon future.
+
+-------------------------------------------------------------------
+4. JSX IMPLEMENTATION GUIDELINES
+-------------------------------------------------------------------
+1. Keep the existing layout/wrapper components exactly as they are (for example `PageShell`, `Container`, or any grid/flex layout).
+2. Replace only the textual nodes inside existing elements. If necessary, you may re-group paragraphs or add a small number of new `<p>`, `<h3>`, `<ul>`, `<li>` tags to structure the new content.
+3. Do NOT change imports unless absolutely required by TypeScript. Do NOT remove any layout components used for styling.
+4. Ensure all text is plain strings (no backticks in JSX). Escape apostrophes correctly as needed (e.g. `Dmitrii’s` with a proper apostrophe).
+
+Example structure (adapt to the existing code, DO NOT blindly overwrite if component names differ):
+
+```tsx
+// inside app/founder/page.tsx render function / component
+<PageShell>
+  <PageHeader
+    title="Founder"
+    subtitle="The vision and leadership behind SuVerse Labs and its mission to modernize sustainable logistics and digital infrastructure in the United States."
+  />
+  <section className="max-w-3xl mx-auto space-y-6">
+    <div className="text-center space-y-2">
+      {/* keep existing icon/avatar component above if present */}
+      <h2 className="text-2xl font-semibold">Dmitrii Sudzerovskii</h2>
+      <p className="text-sm font-medium text-emerald-500">
+        Founder &amp; Systems Architect
+      </p>
+    </div>
+
+    <div className="space-y-4 text-sm leading-relaxed md:text-base">
+      <p>...</p>
+      {/* all paragraphs from the biography and national interest section */}
+      {/* ul/li for initiatives */}
+    </div>
+  </section>
+</PageShell>
+
+Again: this code sample is ONLY for reference. Use the project’s existing layout and component structure, inserting the new text content accordingly.
+
+⸻
+
+	5.	FINAL CHECK
+
+⸻
+
+After applying the changes:
+	•	Run the dev server and open the /founder page.
+	•	Confirm:
+	•	The subtitle under “Founder” is updated.
+	•	The name and role lines are correct.
+	•	All paragraphs and bullet points from the new biography are present and readable.
+	•	Layout, colors, and spacing remain consistent with the rest of the site and nothing else is broken.
+

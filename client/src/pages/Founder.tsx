@@ -6,10 +6,12 @@ import {
   Bot, 
   Network, 
   BarChart3, 
-  Leaf, 
   Cpu,
   Target,
-  Zap
+  Leaf,
+  Shield,
+  Zap,
+  FileText
 } from "lucide-react";
 
 const expertise = [
@@ -21,29 +23,39 @@ const expertise = [
 
 const initiatives = [
   {
-    icon: Target,
-    title: "PingPoint Tracking Core",
-    description: "AI-powered freight tracking system for real-time visibility",
+    icon: Bot,
+    title: "AgentOS",
+    description: "An AI robot-application platform that automates key workflows for carriers, brokers, and finance teams.",
   },
   {
-    icon: BarChart3,
-    title: "SuVerse Fleet & Carbon Dashboard",
-    description: "Comprehensive monitoring for fleet performance and emissions",
+    icon: FileText,
+    title: "SuVerse Tax Credit",
+    description: "Tooling to help logistics companies and small businesses access and manage tax credits and incentives in a transparent, data-driven way.",
+  },
+  {
+    icon: Target,
+    title: "PingPoint",
+    description: "A tracking core for freight that improves visibility, reduces empty miles, and supports more efficient use of equipment and fuel.",
   },
   {
     icon: Leaf,
-    title: "Carbon Vault & REC Marketplace",
-    description: "Blockchain-based carbon credit and REC tracking system",
+    title: "CO2 Blockchain Infrastructure",
+    description: "Systems for measuring, recording, and eventually tokenizing emissions-related data in a secure, auditable way.",
   },
   {
-    icon: Bot,
-    title: "AgentOS Robot Applications",
-    description: "LLM-powered agents for business process automation",
+    icon: Shield,
+    title: "Validator Portal",
+    description: "Infrastructure and tools that support validators and decentralized networks aligned with real-world use cases.",
   },
   {
     icon: Network,
-    title: "Validator Infrastructure",
-    description: "Decentralized network security for modern blockchain ecosystems",
+    title: "AI & Blockchain Tooling",
+    description: "Frameworks that connect AI agents with on-chain logic and off-chain data.",
+  },
+  {
+    icon: Zap,
+    title: "REC Certificate RWA",
+    description: "Concepts for bringing Renewable Energy Certificates and similar climate assets on-chain as real-world assets (RWA).",
   },
 ];
 
@@ -52,7 +64,7 @@ export default function Founder() {
     <PageShell>
       <PageHeader 
         title="Founder"
-        subtitle="The vision and leadership behind SuVerse Labs"
+        subtitle="The vision and leadership behind SuVerse Labs and its mission to modernize sustainable logistics and digital infrastructure in the United States."
       />
 
       <Section className="pt-0">
@@ -74,16 +86,13 @@ export default function Founder() {
               
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Dmitrii Sudzerovskii brings deep experience across the trucking and logistics 
-                  industry, artificial intelligence, and blockchain technology. His background 
-                  spans hands-on operations in freight transportation to designing complex 
-                  distributed systems.
+                  Dmitrii Sudzerovskii is an engineer and systems architect whose work sits at the intersection of transportation, energy, and advanced digital infrastructure. Trained as an industrial engineer and starting his career as an electrician, he spent several years on the ground in heavy industry, steadily advancing his rank and responsibilities. He later served as an engineer at Gazprom Energoholding, working with complex energy and electrical systems before relocating to the United States.
                 </p>
                 <p>
-                  As the architect of SuVerse Labs' technology stack, Dmitrii leads the 
-                  development of end-to-end systems that connect physical fleets with digital 
-                  infrastructure. His vision drives the company's focus on practical, 
-                  measurable solutions for sustainable transportation.
+                  After moving to the U.S., Dmitrii gained direct, hands-on experience in American logistics as a long-haul truck driver. This combination of industrial engineering, energy-sector experience, and real-world trucking gives him a rare perspective on how technology can actually improve safety, efficiency, and sustainability in day-to-day freight operations.
+                </p>
+                <p>
+                  Determined to bring modern infrastructure to this space, Dmitrii completed the PostHuman validator school in the Cosmos ecosystem and became deeply involved in blockchain and DePIN (decentralized physical infrastructure) networks. Building on this foundation, he founded SuVerse Labs, a company focused on AI agents, blockchain infrastructure, and tools for decarbonizing transportation.
                 </p>
               </div>
             </div>
@@ -115,9 +124,12 @@ export default function Founder() {
 
       <Section>
         <ContentSection>
-          <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-8">
-            Key Initiatives
+          <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-4">
+            Key Initiatives at SuVerse Labs
           </h3>
+          <p className="text-muted-foreground mb-8">
+            At SuVerse Labs, Dmitrii leads several ongoing initiatives, including:
+          </p>
           
           <div className="space-y-4">
             {initiatives.map((initiative, index) => (
@@ -137,6 +149,23 @@ export default function Founder() {
                 </div>
               </Card>
             ))}
+          </div>
+        </ContentSection>
+      </Section>
+
+      <Section className="bg-section-alt">
+        <ContentSection>
+          <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-4">
+            Supporting U.S. National Interests
+          </h3>
+          
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              Through these projects, Dmitrii's work is directly aligned with U.S. national interests: strengthening critical digital infrastructure, supporting cleaner and more efficient freight transportation, and enabling better use of data for climate and energy decisions. By combining practical trucking experience with deep technical knowledge, he designs systems that are not only innovative on paper but also realistic for adoption by American fleets and logistics companies.
+            </p>
+            <p>
+              Dmitrii lives in the United States with his wife and two children and is committed to building long-term solutions that support sustainable economic growth, modern infrastructure, and the transition to a lower-carbon future.
+            </p>
           </div>
         </ContentSection>
       </Section>

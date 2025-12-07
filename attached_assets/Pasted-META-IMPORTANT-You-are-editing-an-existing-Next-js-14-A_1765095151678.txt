@@ -1,0 +1,192 @@
+META / IMPORTANT:
+You are editing an existing Next.js 14 + App Router + TypeScript + Tailwind project in Replit.
+– Make the SMALLEST, MOST LOCALIZED changes needed.  
+– Do NOT break existing layouts, routing, or styles.  
+– Do NOT change any APIs, schemas, or global project structure.
+
+There is a SHORT VIDEO FILE ATTACHED to this Agent chat (the user just uploaded it).  
+Use THAT attached file as the intro video for the site.
+
+GOAL:
+1) Save the attached video into the project as `/public/intro.mp4`.  
+2) Show this video as a full-screen intro overlay when the site first loads.  
+3) The video should auto-play once (muted, inline), with a “Skip intro” button to close it at any time.  
+4) When the video finishes OR the user clicks “Skip intro” OR a safety timeout fires, hide the overlay and reveal the existing site.  
+5) Do not change any other pages or logic beyond wrapping content with this intro gate.
+
+------------------------------------------------------------
+1. SAVE ATTACHED VIDEO TO /public/intro.mp4
+------------------------------------------------------------
+1) Take the video file attached to this Agent conversation (e.g. `download_....mp4`).
+2) Add it into the project’s `public/` directory.
+3) Rename it to:
+
+   `public/intro.mp4`
+
+This is the file that will be used by the intro overlay.
+
+------------------------------------------------------------
+2. CREATE CLIENT COMPONENT: components/IntroGate.tsx
+------------------------------------------------------------
+Create a new file:
+
+- `components/IntroGate.tsx`
+
+This must be a client component that:
+- shows the full-screen intro overlay with the video,
+- hides the overlay after the video ends or when the user clicks “Skip intro”,
+- applies a timeout fallback (~8 seconds) to hide the overlay even if autoplay is blocked.
+
+Implement the component similar to the code below.  
+Adjust only classNames if necessary to fit the project’s existing design, but KEEP the behavior.
+
+```tsx
+"use client";
+
+import React, { useEffect, useState } from "react";
+
+type IntroGateProps = {
+  children: React.ReactNode;
+};
+
+export function IntroGate({ children }: IntroGateProps) {
+  const [showIntro, setShowIntro] = useState(true);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  // Safety timeout: hide intro even if video doesn't autoplay.
+  useEffect(() => {
+    if (!showIntro) return;
+    const timeout = setTimeout(() => {
+      setShowIntro(false);
+    }, 8000); // 8 seconds fallback
+    return () => clearTimeout(timeout);
+  }, [showIntro]);
+
+  const handleVideoCanPlay = () => {
+    setHasStarted(true);
+  };
+
+  const handleVideoEnd = () => {
+    setShowIntro(false);
+  };
+
+  const handleSkip = () => {
+    setShowIntro(false);
+  };
+
+  return (
+    <>
+      {showIntro && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950">
+          <div className="absolute inset-0 pointer-events-none bg-slate-950/40" />
+          <div className="relative z-10 flex h-full w-full flex-col items-center justify-center">
+            <div className="relative w-full max-w-4xl px-4">
+              <div className="overflow-hidden rounded-3xl border border-slate-800 bg-black shadow-2xl">
+                <video
+                  src="/intro.mp4"
+                  className="h-[60vh] w-full object-cover sm:h-[70vh]"
+                  autoPlay
+                  muted
+                  playsInline
+                  onCanPlay={handleVideoCanPlay}
+                  onEnded={handleVideoEnd}
+                />
+              </div>
+
+              <div className="mt-4 flex items-center justify-between text-xs text-slate-300 sm:text-sm">
+                <span>
+                  {hasStarted
+                    ? "SuVerse Labs · AI · Blockchain · Green Logistics"
+                    : "Loading intro…"}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleSkip}
+                  className="inline-flex items-center gap-1 rounded-full border border-slate-600 bg-slate-900/80 px-4 py-1.5 text-xs font-medium text-slate-100 shadow-sm transition hover:border-slate-300 hover:bg-slate-800/90"
+                >
+                  Skip intro
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Main app content */}
+      <div className={showIntro ? "opacity-0" : "opacity-100 transition-opacity duration-500"}>
+        {children}
+      </div>
+    </>
+  );
+}
+
+Notes:
+	•	showIntro controls whether the overlay is visible.
+	•	IntroGate always renders children; they’re just faded out while showIntro is true.
+	•	The video file path is /intro.mp4, which comes from public/intro.mp4.
+
+⸻
+
+	3.	WRAP ROOT LAYOUT WITH IntroGate
+
+⸻
+
+Open the root layout file that wraps the whole app, most likely:
+	•	app/layout.tsx
+(or app/(site)/layout.tsx if using route groups; use the main root layout).
+
+	1.	Import the new component at the top:
+
+import { IntroGate } from "@/components/IntroGate";
+
+Adjust the import path if your alias is different; use the existing pattern for other component imports.
+	2.	Inside the returned JSX, wrap {children} with <IntroGate>.
+
+Example (adapt to the existing body, do NOT remove existing classNames or providers):
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body className="bg-slate-50 text-slate-900">
+        {/* keep existing providers / layout wrappers if present */}
+        <IntroGate>{children}</IntroGate>
+      </body>
+    </html>
+  );
+}
+
+If there are existing layout components (e.g. ThemeProvider, AppShell, etc.), keep their current order and simply wrap the part that ultimately renders the page content with IntroGate.
+
+Do NOT mark layout.tsx with "use client"; IntroGate itself already is a client component.
+
+⸻
+
+	4.	DO NOT CHANGE ANY OTHER BEHAVIOR
+
+⸻
+
+	•	Do not modify existing pages, routes, or components (Home, Projects, Founder, etc.).
+	•	Do not change project configuration, Tailwind config, or TypeScript settings.
+	•	Only:
+	•	add public/intro.mp4 using the attached video,
+	•	create components/IntroGate.tsx,
+	•	wrap layout children with IntroGate in app/layout.tsx.
+
+⸻
+
+	5.	FINAL CHECK
+
+⸻
+
+After implementing:
+	1.	Run the dev server.
+	2.	Open the site at / in a fresh tab (or private window) so it loads from scratch.
+	3.	Confirm:
+	•	The intro overlay with the ATTACHED video appears full-screen.
+	•	The video auto-plays muted and ends normally.
+	•	The “Skip intro” button is visible and closes the overlay immediately when clicked.
+	•	When the video ends OR Skip is pressed OR after ~8 seconds, the main SuVerse Labs site becomes visible.
+	•	All existing pages and navigation still work exactly as before, with no new errors.
+
+Only these modifications are required; do not perform any additional refactors.
+

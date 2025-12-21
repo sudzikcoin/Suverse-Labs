@@ -1,0 +1,65 @@
+You are a senior full-stack developer working inside this Replit project (Vite + React, SuVerse Labs marketing site). Your task: wire up real social links in the website footer and add the missing social buttons without changing the existing design.
+
+1) Locate the footer component that contains:
+   - “SuVerse Labs” branding (logo/name)
+   - QUICK LINKS section
+   - PROJECTS section
+   - the social icons row (currently X, LinkedIn, GitHub)
+   This file is likely named `Footer.tsx` / `Footer.jsx` and located in `src/components` or near the main layout. Identify the exact file and modify that component.
+
+2) Ensure the footer uses a single consistent structure for social links (preferably an array like `socialLinks` and a `.map()` render). If an array already exists, update it. If it doesn’t, create it — but DO NOT change layout, spacing, sizes, colors, hover effects, or icon style. Keep the existing icons for X/LinkedIn/GitHub exactly as they are (same library, same styling), only update their `href`.
+
+3) Set these real URLs for the existing icons:
+   - X (Twitter): `https://x.com/dsudzerovskiy?s=21`
+   - LinkedIn: `https://www.linkedin.com/in/dmitrii-sudzerovskii-17397b262?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app`
+   - GitHub: `https://github.com/sudzikcoin`
+
+4) Add THREE additional social items to the same footer social icons row: Telegram, Instagram, and Medium. They must look and behave exactly like the existing social icons (same size, color, hover, spacing). Use the same icon system already used for X/LinkedIn/GitHub:
+   - If the project uses `lucide-react`, `react-icons`, or another icon library, use the closest matching icons (Telegram, Instagram, Medium).
+   - If one of them is not available in the current icon set, use a reasonable fallback that matches the style (or add an inline SVG only if the project already uses inline SVGs in the same style).
+
+   Use these URLs:
+   - Telegram: `https://t.me/sudzikcoin`
+   - Instagram: `https://www.instagram.com/dao_suverse/`
+   - Medium: `https://medium.com/me/settings#account`
+
+5) Implement this as a single array and render with `.map()` so the JSX stays clean. Example structure (adapt to the current codebase, types, and imports; do not break existing patterns):
+
+   ```ts
+   const socialLinks = [
+     { name: 'X', href: 'https://x.com/dsudzerovskiy?s=21', icon: XIcon },
+     { name: 'LinkedIn', href: 'https://www.linkedin.com/in/dmitrii-sudzerovskii-17397b262?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app', icon: LinkedinIcon },
+     { name: 'GitHub', href: 'https://github.com/sudzikcoin', icon: GithubIcon },
+     { name: 'Telegram', href: 'https://t.me/sudzikcoin', icon: TelegramIcon },
+     { name: 'Instagram', href: 'https://www.instagram.com/dao_suverse/', icon: InstagramIcon },
+     { name: 'Medium', href: 'https://medium.com/me/settings#account', icon: MediumIcon },
+   ];
+
+Render like (adapt to the real code):
+
+<div className="...same classes as before...">
+  {socialLinks.map((item) => (
+    <a
+      key={item.name}
+      href={item.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={item.name}
+      className="...keep the existing icon link classes..."
+    >
+      <item.icon className="...keep the existing icon sizing..." />
+    </a>
+  ))}
+</div>
+
+Requirements:
+	•	Always use target="_blank" and rel="noopener noreferrer"
+	•	Provide an aria-label for accessibility
+
+	6.	Do not modify footer text, headings, QUICK LINKS, PROJECTS, or any other sections. Only update the social icons block and their links. Make sure the footer still looks the same on mobile and desktop (just with additional icons).
+	7.	Validate the change:
+	•	Run npm run dev
+	•	Click each icon and confirm it opens the correct URL in a new tab
+	•	Confirm alignment/spacing/hover effects match the original style
+	8.	Commit the changes with message: chore: update footer social links and avoid unrelated edits.
+

@@ -2,7 +2,16 @@ import { Link } from "wouter";
 import { siteConfig } from "@/lib/siteConfig";
 import { navItems } from "@/data/nav";
 import { projects } from "@/data/projects";
-import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
+import { SiGithub, SiLinkedin, SiX, SiTelegram, SiInstagram, SiMedium } from "react-icons/si";
+
+const socialLinks = [
+  { name: "X", href: siteConfig.socialLinks.twitter, icon: SiX, testId: "link-social-twitter" },
+  { name: "LinkedIn", href: siteConfig.socialLinks.linkedin, icon: SiLinkedin, testId: "link-social-linkedin" },
+  { name: "GitHub", href: siteConfig.socialLinks.github, icon: SiGithub, testId: "link-social-github" },
+  { name: "Telegram", href: siteConfig.socialLinks.telegram, icon: SiTelegram, testId: "link-social-telegram" },
+  { name: "Instagram", href: siteConfig.socialLinks.instagram, icon: SiInstagram, testId: "link-social-instagram" },
+  { name: "Medium", href: siteConfig.socialLinks.medium, icon: SiMedium, testId: "link-social-medium" },
+];
 
 export function Footer() {
   const quickLinks = navItems.slice(0, 5);
@@ -19,31 +28,20 @@ export function Footer() {
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
               {siteConfig.tagline}
             </p>
-            <div className="flex items-center gap-4 mt-6">
-              <a
-                href={siteConfig.socialLinks.twitter}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="Twitter"
-                data-testid="link-social-twitter"
-              >
-                <SiX className="w-5 h-5" />
-              </a>
-              <a
-                href={siteConfig.socialLinks.linkedin}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="LinkedIn"
-                data-testid="link-social-linkedin"
-              >
-                <SiLinkedin className="w-5 h-5" />
-              </a>
-              <a
-                href={siteConfig.socialLinks.github}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="GitHub"
-                data-testid="link-social-github"
-              >
-                <SiGithub className="w-5 h-5" />
-              </a>
+            <div className="flex items-center gap-4 mt-6 flex-wrap">
+              {socialLinks.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label={item.name}
+                  data-testid={item.testId}
+                >
+                  <item.icon className="w-5 h-5" />
+                </a>
+              ))}
             </div>
           </div>
 

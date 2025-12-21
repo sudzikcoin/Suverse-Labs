@@ -6,6 +6,37 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+async function sendTelegramMessage(text: string): Promise<{ ok: boolean; messageId?: number }> {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+
+  if (!token || !chatId) {
+    console.error("Telegram credentials not configured");
+    return { ok: false };
+  }
+
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text,
+        disable_web_page_preview: true,
+      }),
+    });
+
+    const json = await response.json();
+    if (response.ok && json.ok) {
+      return { ok: true, messageId: json.result?.message_id };
+    }
+    return { ok: false };
+  } catch (error) {
+    console.error("Telegram API error");
+    return { ok: false };
+  }
+}
+
 export async function registerRoutes(
   httpServer: Server,
   app: Express
@@ -17,16 +48,42 @@ export async function registerRoutes(
       if (!result.success) {
         const flattened = result.error.flatten();
         const firstFieldError = Object.values(flattened.fieldErrors)[0]?.[0];
-        const message = firstFieldError || "Validation failed. Please check your input.";
+        const errorMessage = firstFieldError || "Validation failed. Please check your input.";
         return res.status(400).json({ 
-          message,
+          ok: false,
+          error: errorMessage,
           errors: flattened.fieldErrors 
         });
       }
 
       const { name, email, company, subject, message } = result.data;
+      const timestamp = new Date().toISOString();
+      const clientIp = req.headers["x-forwarded-for"] || req.socket.remoteAddress || "Unknown";
 
-      const contactMessage = await storage.createContactMessage(result.data);
+      const telegramText = `📬 New Contact Form Submission
+
+🌐 Site: SuVerse Labs
+👤 Name: ${name}
+📧 Email: ${email}
+🏢 Company: ${company || "Not provided"}
+📌 Subject: ${subject}
+
+💬 Message:
+${message}
+
+⏰ Timestamp: ${timestamp}
+🔗 IP: ${clientIp}`;
+
+      const telegramResult = await sendTelegramMessage(telegramText);
+
+      if (!telegramResult.ok) {
+        return res.status(502).json({ 
+          ok: false, 
+          error: "Telegram send failed" 
+        });
+      }
+
+      await storage.createContactMessage(result.data);
 
       try {
         await resend.emails.send({
@@ -44,20 +101,24 @@ export async function registerRoutes(
             <p><strong>Message:</strong></p>
             <p>${message.replace(/\n/g, "<br />")}</p>
             <hr />
-            <p><small>Submitted at: ${new Date().toISOString()}</small></p>
+            <p><small>Submitted at: ${timestamp}</small></p>
           `,
         });
       } catch (emailError) {
-        console.error("Failed to send email via Resend:", emailError);
+        console.error("Failed to send email via Resend");
       }
       
-      return res.status(201).json({ 
-        message: "Thank you for your message. We will get back to you soon!",
-        id: contactMessage.id 
+      return res.status(200).json({ 
+        ok: true,
+        telegramMessageId: telegramResult.messageId,
+        message: "Thank you for your message. We will get back to you soon!"
       });
     } catch (error) {
-      console.error("Error creating contact message:", error);
-      return res.status(500).json({ message: "An error occurred. Please try again later." });
+      console.error("Error processing contact message");
+      return res.status(500).json({ 
+        ok: false, 
+        error: "An error occurred. Please try again later." 
+      });
     }
   });
 

@@ -26,7 +26,11 @@ export default function Contact() {
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContactMessage) => {
       const response = await apiRequest("POST", "/api/contact", data);
-      return response.json();
+      const json = await response.json();
+      if (!json.ok) {
+        throw new Error(json.error || "Failed to send message");
+      }
+      return json;
     },
     onSuccess: (data) => {
       setFormData({ name: "", email: "", company: "", subject: "", message: "" });

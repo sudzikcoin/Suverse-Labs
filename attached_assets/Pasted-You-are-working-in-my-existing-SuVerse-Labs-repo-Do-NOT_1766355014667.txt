@@ -1,0 +1,49 @@
+You are working in my existing SuVerse Labs repo. Do NOT refactor the project. Make the smallest, safest changes.
+
+GOAL
+When a user submits the Contact form on the website, the backend must send the submission as a Telegram message into my Telegram group “Suverse_labs” using my bot. The UI must only show success if Telegram confirms delivery.
+
+IMPORTANT SECURITY
+- Never hardcode or print Telegram tokens/chat IDs in code or logs.
+- I will store secrets in Replit “Secrets”.
+
+ENV VARS (will be set in Replit Secrets)
+- TELEGRAM_BOT_TOKEN
+- TELEGRAM_CHAT_ID
+
+BACKEND REQUIREMENTS
+1) Implement (or update) POST /api/contact in the server (Express/Node).
+2) Validate required fields: name, email, subject, message.
+3) Send message via Telegram Bot API:
+   POST https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage
+   Body JSON:
+   {
+     "chat_id": process.env.TELEGRAM_CHAT_ID,
+     "text": "...formatted message...",
+     "disable_web_page_preview": true
+   }
+4) The formatted message must include:
+   - Site: SuVerse Labs
+   - Name, Email, Company/Organization (if present), Subject, Message
+   - Timestamp (ISO) and request IP (if available)
+5) If Telegram response is not ok (HTTP not 200 OR json.ok !== true), return HTTP 502 with JSON:
+   { "ok": false, "error": "Telegram send failed" }
+6) On success, return HTTP 200 with JSON:
+   { "ok": true, "telegramMessageId": json.result.message_id }
+
+NGINX / ROUTING REQUIREMENTS
+- Ensure POST requests from the client to /api/contact reach the backend server, not nginx static hosting.
+- If nginx is configured separately, add/verify a proxy rule so /api/* is forwarded to the Node server.
+- Fix the “405 Not Allowed” for POST if it occurs by ensuring nginx location for /api allows POST and proxies to the backend.
+
+FRONTEND REQUIREMENTS
+1) Contact form must submit to POST /api/contact (same origin).
+2) Show “Message sent!” only when backend returns { ok:true }.
+3) Otherwise show a readable error message.
+
+DELIVERABLES
+- List exactly which files were changed and what changed.
+- Provide a curl command to test:
+  curl -i -X POST https://suverse.io/api/contact -H "Content-Type: application/json" \
+  -d '{"name":"Test","email":"test@example.com","company":"Test Co","subject":"Hello","message":"Test message"}'
+- Confirm what TELEGRAM_CHAT_ID and TELEGRAM_BOT_TOKEN env vars are required (names only, no values).

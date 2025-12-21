@@ -72,9 +72,8 @@ export default function Founder() {
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
             <div className="w-full md:w-auto flex-shrink-0">
               <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-chart-1/30 to-chart-2/30 flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-4 ring-chart-2/20">
-                {/* TODO: Upload founder photo to client/public/images/founder.jpg */}
                 <img
-                  src="/images/founder.jpg"
+                  src="/images/IMG_6332.jpeg"
                   alt="Dmitrii Sudzerovskii — Founder & Systems Architect"
                   loading="lazy"
                   className="w-full h-full object-cover object-center"

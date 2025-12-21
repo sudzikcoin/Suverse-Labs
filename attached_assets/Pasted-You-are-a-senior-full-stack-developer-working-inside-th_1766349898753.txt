@@ -1,0 +1,96 @@
+You are a senior full-stack developer working inside this Replit project (Vite + React “SuVerse Labs” site). Task: update the Contact section to use the real email address and make the contact form actually send submissions to that email.
+
+GOALS
+1) Replace the displayed contact email in the Contact page/section:
+   - From: contact@suverse.example
+   - To: info@suverse.io
+
+2) Make the Contact form submit messages to the same address (info@suverse.io) in production, reliably.
+   - The form should show a success message on successful send, and a clear error message if sending fails.
+   - Keep the UI/spacing/styles the same (no redesign).
+   - Do not break anything else on the site.
+
+IMPORTANT CONSTRAINTS
+- This is a static Vite site, so direct SMTP from the browser is NOT allowed (would expose secrets). You must implement a small backend endpoint for email sending.
+- Use Node/Express already present in the project if it exists (I saw “rest-express” and tsx server usage in previous logs). If an API server already exists, extend it; if not, add a minimal one.
+- All secrets must be stored in environment variables (Replit Secrets / server env), never in client code.
+- The solution must work on the Contabo server behind nginx.
+- Use a well-supported mail provider approach (SendGrid or Resend recommended). Prefer RESEND if available; otherwise SendGrid. Do NOT require Gmail password in code.
+
+IMPLEMENTATION PLAN
+A) Update displayed email in UI
+1) Locate the Contact component/page by searching for:
+   - “Contact”
+   - “Send us a message”
+   - “contact@suverse.example”
+2) Replace that string with `info@suverse.io`.
+3) If the email is clickable, ensure it uses `mailto:info@suverse.io`.
+
+B) Implement backend endpoint: POST /api/contact
+1) Locate or create server entry:
+   - Look for something like `server/index.ts` or `server.ts` referenced by `tsx server/index.ts`.
+   - Ensure Express JSON parsing is enabled.
+2) Add a POST endpoint:
+   - `POST /api/contact`
+   - Accept JSON body: { name, email, company, subject, message }
+   - Validate required fields (name, email, subject, message). Return 400 with a clear message if missing.
+3) Send email to `info@suverse.io` using Resend (preferred):
+   - Add dependency: `resend`
+   - Use env var: `RESEND_API_KEY`
+   - From address: use a verified sender domain if available, otherwise `onboarding@resend.dev` as fallback (but document that production should use a verified domain like `no-reply@suverse.io` once set up in Resend).
+   - To: `info@suverse.io`
+   - Reply-To: the user’s provided email
+   - Subject format: `[SuVerse.io Contact] <subject>`
+   - Email body: include name, email, company, subject, message, and timestamp in a clean text or simple HTML.
+4) If Resend is not used, implement SendGrid alternative:
+   - Dependency: `@sendgrid/mail`
+   - Env: `SENDGRID_API_KEY`, `SENDGRID_FROM`
+   - To: info@suverse.io
+
+C) Wire the frontend form to the endpoint
+1) Find the contact form submit handler in the Contact component.
+2) On submit, call:
+   - `fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) })`
+3) Handle responses:
+   - If response ok: clear the form + show “Message sent. We’ll get back to you soon.”
+   - If not ok: show “Could not send message. Please email info@suverse.io.”
+4) Keep the existing button and inputs; only adjust the submit logic and add minimal status text.
+
+D) Make nginx/proxy work on Contabo
+1) If the app is served as static files from nginx (root /var/www/suverse.io/public), then the API must be proxied to the Node server.
+2) Update nginx site config for suverse.io:
+   - Add:
+     location /api/ {
+       proxy_pass http://127.0.0.1:5000;
+       proxy_http_version 1.1;
+       proxy_set_header Host $host;
+       proxy_set_header X-Real-IP $remote_addr;
+       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       proxy_set_header X-Forwarded-Proto $scheme;
+     }
+   - Ensure the Node server listens on 127.0.0.1:5000 (or any free port) and runs via pm2.
+3) Confirm nginx still serves the SPA with:
+   - try_files $uri $uri/ /index.html;
+
+E) Environment variables / secrets
+- Add to README or comments:
+  - RESEND_API_KEY=...
+  - (optional) RESEND_FROM=no-reply@suverse.io  (once domain verified)
+- Do NOT commit secrets.
+
+TESTING
+1) Run locally/dev:
+   - start server + client
+   - submit form and confirm 200 response
+2) On server:
+   - curl POST to /api/contact
+   - submit form from mobile browser on https://suverse.io/contact
+3) Verify email arrives to info@suverse.io
+
+COMMIT
+- Commit message: `feat: wire contact form to info@suverse.io`
+
+DELIVERABLE
+- Contact page shows info@suverse.io
+- Contact form sends submissions to info@suverse.io via /api/contact backend endpoint
+- Frontend shows success/error states without changing layout

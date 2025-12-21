@@ -1,0 +1,103 @@
+YOU ARE A REPLIT AGENT WORKING IN THE EXISTING REPO “suverse-site”.
+
+NON-NEGOTIABLE RULES
+- Make the smallest possible, localized changes. Do NOT refactor unrelated code.
+- Do NOT change routes, database schema, or app architecture unless absolutely required to make the contact form email work.
+- Keep existing UI/UX the same (only wire links, photo, and contact form sending).
+- Use existing patterns already in the repo. If something already exists (API route, mail util), extend it instead of rewriting.
+- After changes: run lint/build/tests if present, restart the app, and report EXACT files changed + key line ranges.
+- Commit with a clear message.
+
+GOALS
+1) Wire existing social buttons to real links:
+   - GitHub: https://github.com/sudzikcoin
+   - X: https://x.com/dsudzerovskiy?s=21
+   - LinkedIn: https://www.linkedin.com/in/dmitrii-sudzerovskii-17397b262?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app
+   Also add buttons (with icons matching current style) for:
+   - Telegram: https://t.me/sudzikcoin
+   - Instagram: https://instagram.com/dao_suverse   (if an Instagram link already exists in the code, prefer that; otherwise use this)
+   - Medium: https://medium.com/me/settings#account  (use exactly this link as requested)
+
+2) Founder page: replace the generic icon with the uploaded photo IMG_1423.jpeg that is already in:
+   client/public/images/IMG_1423.jpeg
+   Requirements:
+   - Show it in the same circular frame area where the icon is now.
+   - Use an <img> tag (or existing Image component) that works in BOTH dev and production builds.
+   - Use src="/images/IMG_1423.jpeg" (absolute path from public) unless the repo’s existing asset strategy requires another approach.
+   - Ensure it has alt text like “Dmitrii Sudzerovskii”.
+   - If any cache-busting is needed, append a simple query string like ?v=1.
+
+3) Contact section:
+   - Change the displayed email from contact@suverse.example to: info@suverse.io
+   - Make the contact form actually SEND an email to info@suverse.io using Resend (server-side, NOT from the browser).
+   - Use an environment variable RESEND_API_KEY (read from Replit Secrets). Do NOT hardcode it.
+   - The form currently fails with “405 Not Allowed” which indicates Nginx is serving static and not proxying POST requests.
+     Fix this by implementing a backend endpoint and ensuring Nginx proxies /api/* to the Node server.
+
+IMPLEMENTATION DETAILS (DO THIS IN ORDER)
+
+A) FIND THE FILES
+- Locate the Founder page component and the current “avatar/icon” render block.
+- Locate the footer (or header) social icons/buttons and their href values.
+- Locate the Contact page/section and its displayed email + form submit handler (what URL it POSTs to).
+- Locate the server entry (there is a /server directory and production build output dist/index.cjs exists; confirm how the server is intended to run).
+
+B) FOUNDER PHOTO
+- Update Founder page so the avatar uses IMG_1423.jpeg.
+- Do NOT require renaming files. Use the file that already exists.
+- If the Founder component currently references something like /images/founder.jpg or /images/founder.jpeg, change it to /images/IMG_1423.jpeg.
+- Ensure styling preserves the circular look (e.g., width/height square, border-radius: 9999px, object-fit: cover).
+
+C) SOCIAL LINKS
+- Update existing buttons’ href to the provided GitHub/X/LinkedIn links.
+- Add Telegram/Instagram/Medium in the same group and style as existing ones.
+- Ensure they open in a new tab (target="_blank") and include rel="noreferrer noopener".
+
+D) CONTACT EMAIL + RESEND SENDING
+1) Backend endpoint
+- Create or update an API route: POST /api/contact
+- Validate input (basic): name, email, subject, message; require subject + message + email at minimum.
+- Use Resend (Node) server-side:
+  - To: info@suverse.io
+  - Reply-To: the user’s provided email
+  - Subject: prefix like “[SuVerse.io Contact] ${subject}”
+  - Email body: include name, email, company/organization (if provided), subject, message, timestamp.
+- Return JSON success/error to the client.
+
+2) Client form
+- Make the form submit to POST /api/contact (same origin).
+- Show a success message on 200 OK, and a meaningful error on failure.
+- Remove any direct “mailto:” or placeholder behavior if it conflicts.
+
+3) Nginx proxy fix (to stop 405)
+- Update /etc/nginx/sites-available/suverse.io (and enabled symlink) to include:
+  location /api/ {
+    proxy_pass http://127.0.0.1:5001;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+- Keep the existing static site root as-is for / (do not break the currently working page).
+- Test: curl -i https://suverse.io/api/contact with POST should reach Node (should not return nginx 405).
+
+4) Ensure the Node server is actually running
+- Build if needed: npm run build
+- Start a PM2 process that runs the production server on port 5001 (localhost), e.g.:
+  PORT=5001 node dist/index.cjs
+  (If the repo uses a different start command, use the repo’s intended one.)
+- pm2 save
+- Confirm: curl -i http://127.0.0.1:5001/health or /api/contact (if no health route exists, just test /api/contact with POST)
+
+E) VERIFY
+- Confirm Founder page shows the real photo (not the icon) on /founder.
+- Confirm footer/header social links navigate correctly.
+- Confirm Contact page shows info@suverse.io and submitting the form sends an email via Resend to info@suverse.io.
+- Confirm no 405 error. If there is still a 405, it means the request never reached Node—re-check nginx location matching and the client POST path.
+
+F) DELIVERABLE
+- Commit changes with message: “Wire social links, founder photo, and contact form email via Resend”
+- Report:
+  - Files changed
+  - Exact lines/sections updated for: (1) founder image src, (2) social hrefs, (3) contact email text, (4) API route, (5) nginx config, (6) pm2/start command used

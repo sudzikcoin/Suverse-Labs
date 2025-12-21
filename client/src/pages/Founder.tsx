@@ -71,8 +71,19 @@ export default function Founder() {
         <ContentSection>
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
             <div className="w-full md:w-auto flex-shrink-0">
-              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-chart-1/30 to-chart-2/30 flex items-center justify-center mx-auto md:mx-0">
-                <Cpu className="w-16 h-16 md:w-20 md:h-20 text-chart-2/70" />
+              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-chart-1/30 to-chart-2/30 flex items-center justify-center mx-auto md:mx-0 overflow-hidden ring-4 ring-chart-2/20">
+                {/* TODO: Upload founder photo to client/public/images/founder.jpg */}
+                <img
+                  src="/images/founder.jpg"
+                  alt="Dmitrii Sudzerovskii — Founder & Systems Architect"
+                  loading="lazy"
+                  className="w-full h-full object-cover object-center"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+                <Cpu className="w-16 h-16 md:w-20 md:h-20 text-chart-2/70 hidden" />
               </div>
             </div>
             

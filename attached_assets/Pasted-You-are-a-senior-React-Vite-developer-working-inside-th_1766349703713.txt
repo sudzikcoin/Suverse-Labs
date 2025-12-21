@@ -1,0 +1,43 @@
+You are a senior React/Vite developer working inside this Replit project (SuVerse Labs website). Goal: add the provided founder photo to the Founder section/page, replacing the current generic icon/avatar, without changing the overall layout or styles beyond what’s necessary to display the photo cleanly.
+
+CONSTRAINTS
+- Make minimal, localized changes.
+- Do NOT redesign the page. Keep spacing, typography, and structure the same.
+- The photo must render well on mobile (circular/portrait avatar style is fine).
+- Use an image file in the repository (served statically), not an external URL.
+- Add proper accessibility (alt text) and safe link behavior where relevant.
+
+TASK
+1) Add the founder photo file to the repo:
+   - Create a folder if it doesn’t exist: `public/images/`
+   - Add the image file as: `public/images/founder.jpg`
+   - IMPORTANT: If the image is not already present in the Replit filesystem, create the path and add a placeholder file reference plus a clear TODO comment telling the user exactly to upload/replace `public/images/founder.jpg` with the provided photo (same filename), but keep all code changes ready so it works immediately after upload.
+
+2) Locate the Founder page/section component.
+   - Search for the “Founder” heading and the name “Dmitrii Sudzerovskii”.
+   - The file is likely something like `src/pages/Founder.tsx`, `src/pages/founder.tsx`, `src/routes/founder.tsx`, or a section component under `src/components/`.
+   - Identify the current avatar/icon (looks like a circular green chip icon).
+
+3) Replace the avatar/icon with the founder photo:
+   - Use `<img src="/images/founder.jpg" ... />` (since it’s in `public/`).
+   - Preserve the existing circular container size and styling.
+   - Ensure the image is centered, cropped nicely, and fills the circle:
+     - `object-fit: cover; object-position: center; border-radius: 9999px;`
+   - Keep any existing subtle background ring/shadow if present.
+
+4) Add basic best practices:
+   - `alt="Dmitrii Sudzerovskii — Founder & Systems Architect"`
+   - `loading="lazy"`
+   - If the image is clickable anywhere, don’t change behavior; otherwise no links needed.
+
+5) Verify:
+   - Run `npm run dev`
+   - Confirm the Founder page shows the photo instead of the icon on mobile and desktop.
+   - Ensure no layout shift or broken spacing.
+
+6) Commit message:
+   - `chore: add founder photo to founder page`
+
+DELIVERABLE
+- Updated code that references `/images/founder.jpg`
+- The repo contains `public/images/founder.jpg` (or a clearly documented placeholder + TODO if the environment cannot ingest the actual photo automatically)

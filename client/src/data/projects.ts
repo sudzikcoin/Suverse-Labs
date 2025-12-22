@@ -18,6 +18,7 @@ export const projects: Project[] = [
     description: "Simple mobile/web tracking core that provides real-time status updates and reduces empty miles through AI-driven automation.",
     tags: ["AI", "Tracking", "Logistics"],
     href: "/projects/pingpoint",
+    demoUrl: "https://telematics.suverse.io/",
   },
   {
     id: "fleet-carbon-dashboard",

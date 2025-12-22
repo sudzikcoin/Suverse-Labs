@@ -3,7 +3,9 @@ import { PageShell, Section, ContentSection } from "@/components/layout/PageShel
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, AlertTriangle, Lightbulb, Cpu, TrendingUp } from "lucide-react";
+import { ArrowLeft, AlertTriangle, Lightbulb, Cpu, TrendingUp, ExternalLink } from "lucide-react";
+
+const PINGPOINT_DEMO_URL = "https://telematics.suverse.io/";
 
 export default function PingPoint() {
   return (
@@ -27,9 +29,22 @@ export default function PingPoint() {
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4" data-testid="text-project-title">
           PingPoint
         </h1>
-        <p className="text-xl text-chart-2 font-medium mb-6">
+        <p className="text-xl text-chart-2 font-medium mb-4">
           AI-powered Freight Tracking Core
         </p>
+        <div className="mb-6">
+          <a
+            href={PINGPOINT_DEMO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="link-pingpoint-demo"
+          >
+            <Button className="bg-gradient-to-r from-chart-1 to-chart-2">
+              <ExternalLink className="w-4 h-4 mr-2" />
+              Open Demo
+            </Button>
+          </a>
+        </div>
         <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed">
           A simple yet powerful tracking system that provides real-time status updates and 
           reduces empty miles through AI-driven automation and intelligent prediction.

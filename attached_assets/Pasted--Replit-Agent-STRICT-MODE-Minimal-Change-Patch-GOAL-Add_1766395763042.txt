@@ -1,0 +1,43 @@
+[Replit Agent | STRICT MODE | Minimal-Change Patch]
+GOAL: Add an “Open Demo” external link for the existing PingPoint project card, EXACTLY like AgentOS card behavior, using this URL:
+https://telematics.suverse.io/
+Do NOT change AgentOS. Do NOT change Tax Credit. Only update PingPoint to match the same UX pattern.
+
+REQUIREMENTS (PingPoint only):
+1) On /projects, PingPoint card must include BOTH:
+   - “Learn more →” (internal navigation to PingPoint details page; keep existing internal behavior)
+   - “Open Demo” button (external link to https://telematics.suverse.io/ in new tab)
+2) Clicking the PingPoint CARD body (not buttons) must still open the internal PingPoint details page (same as before).
+3) “Open Demo” must not trigger internal navigation (stopPropagation).
+4) If PingPoint details page exists (e.g. /projects/pingpoint), add the same “Open Demo” button there too (same placement style as AgentOS/Tax Credit). If it does not exist, create it by copying the current PingPoint learnMore route pattern (minimal) and add the button.
+
+IMPLEMENTATION STEPS:
+A) LOCATE PROJECTS DATA
+1) Find where PingPoint is defined (search for “PingPoint”, “AI-powered Freight Tracking Core”, “Learn more”).
+2) In the PingPoint project entry, add:
+   - demoUrl: "https://telematics.suverse.io/"
+
+B) ENSURE CARD RENDERS OPEN DEMO
+3) Confirm the card component already conditionally renders “Open Demo” when demoUrl exists (AgentOS uses it).
+4) If PingPoint card currently lacks the button because demoUrl is missing, adding demoUrl should automatically show it.
+5) Make sure the “Open Demo” anchor/button has:
+   - target="_blank"
+   - rel="noopener noreferrer"
+   - onClick={(e)=>e.stopPropagation()} (and preventDefault only if needed)
+   This MUST match how AgentOS card prevents whole-card click.
+
+C) DETAILS PAGE (IF APPLICABLE)
+6) If there is a PingPoint details page route (likely /projects/pingpoint), add a prominent “Open Demo” button there too that points to https://telematics.suverse.io/ (new tab), matching AgentOS/Tax Credit layout.
+
+VERIFICATION:
+- /projects:
+  - PingPoint shows “Open Demo”
+  - Clicking card body -> internal PingPoint page
+  - Clicking Learn more -> internal PingPoint page
+  - Clicking Open Demo -> opens https://telematics.suverse.io/ in a new tab
+- No changes in AgentOS behavior.
+- No changes in Tax Credit behavior.
+
+OUTPUT:
+- List exact files changed and show exact diffs.
+- Minimal localized edits only.

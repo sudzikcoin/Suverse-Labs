@@ -1,0 +1,72 @@
+[Replit Agent | STRICT MODE | Minimal-Change Patch]
+GOAL: Add a new project card “SuVerse Tax Credit” that behaves EXACTLY like the existing AgentOS card behavior:
+- On /projects: the card must have BOTH:
+  1) “Learn more →” (internal navigation to a project details page)
+  2) “Open Demo” button (external link to https://app.suverse.io)
+- Clicking the CARD body (not the buttons) must open the INTERNAL project page (same UX as AgentOS).
+- Do NOT modify AgentOS content/route/behavior at all. Only replicate the pattern for the new project.
+- Keep styling consistent with existing UI and components. Minimal localized edits only.
+
+ACCEPTANCE CRITERIA:
+1) /projects shows “SuVerse Tax Credit” card with tags “Tax Credits”, “Marketplace”, “Compliance”, title, subtitle, description.
+2) The “Learn more →” link goes to an internal route (e.g. /projects/tax-credit) and DOES NOT open https://app.suverse.io directly.
+3) The “Open Demo” button opens https://app.suverse.io in a new tab (target=_blank, rel=noopener noreferrer).
+4) Clicking anywhere on the Tax Credit card (except on “Learn more” and “Open Demo”) navigates to /projects/tax-credit.
+5) /projects/tax-credit page exists and looks like AgentOS details page: Back to Projects link + tags + title + subtitle + a prominent “Open Demo” button + basic overview text.
+6) No changes to AgentOS route/pages/components beyond reuse/imports; do not rename or refactor existing shared code unless absolutely required.
+
+IMPLEMENTATION STEPS (DO EXACTLY THIS ORDER):
+
+A) FIND THE EXISTING PATTERN
+1) Locate the Projects list page and the card component:
+   - Search for: “Projects”, “Learn more”, “Open Demo”, “AgentOS”, and the route “/projects/agentos”.
+   - Identify where the list of projects is defined (often a data array like projects = [...]).
+   - Identify the component that renders a project card (often something like ProjectCard).
+
+B) ADD NEW PROJECT ENTRY (DATA ONLY)
+2) In the same place where AgentOS is defined, add a new project entry for Tax Credit:
+   - slug: "tax-credit"
+   - title: "SuVerse Tax Credit"
+   - subtitle (green line): "Transferable Tax Credits Marketplace"
+   - description:
+     "Discover, reserve, and purchase transferable tax credits (ITC, PTC, 45Q, 48C, 48E) with transparent pricing and a broker-verified closing flow."
+   - tags: ["Tax Credits", "Marketplace", "Compliance"]
+   - learnMoreHref: "/projects/tax-credit"   (IMPORTANT: internal)
+   - demoUrl: "https://app.suverse.io"      (IMPORTANT: external)
+   Ensure you do NOT alter AgentOS entry.
+
+C) MAKE THE CARD BEHAVE LIKE AGENTOS (CLICKABLE CARD + 2 CTAs)
+3) Ensure the card component supports:
+   - Whole-card click -> router push to learnMoreHref (internal)
+   - “Learn more →” link -> learnMoreHref (internal)
+   - “Open Demo” button -> demoUrl (external new tab)
+4) If the AgentOS card already has this behavior, copy the same approach:
+   - If the card is wrapped in a Link, make sure the Open Demo button does NOT trigger navigation to the internal page:
+     add onClick={(e)=>e.stopPropagation()} for the button (and for the “Learn more” if needed).
+   - If the card uses onClick handler, ensure the button/link stops propagation.
+5) Confirm Tax Credit “Learn more →” no longer points to app.suverse.io.
+
+D) ADD DETAILS PAGE (NEW FILE/ROUTE)
+6) Create a new route page for the project details:
+   - Route MUST match learnMoreHref: /projects/tax-credit
+   - Use the AgentOS project page as the template (same layout and spacing).
+   - Content should include:
+     - Back to Projects link (same as AgentOS)
+     - Tags row (same chips style)
+     - H1: SuVerse Tax Credit
+     - Subtitle in green: Transferable Tax Credits Marketplace
+     - “Open Demo” button that links to https://app.suverse.io (new tab)
+     - 1–2 short sections (like “Overview”) reusing the same component styles used on AgentOS page.
+   Keep it simple; match style; no new design system.
+
+E) VERIFY
+7) Run and verify:
+   - /projects loads and shows the new Tax Credit card.
+   - Clicking card body -> /projects/tax-credit
+   - Clicking “Learn more →” -> /projects/tax-credit
+   - Clicking “Open Demo” -> https://app.suverse.io opens externally
+   - AgentOS remains unchanged and still works.
+
+OUTPUT REQUIREMENT:
+- Provide the exact files changed/created and the exact code diffs.
+- Keep changes minimal. No broad refactors. No dependency changes.

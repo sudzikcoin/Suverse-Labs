@@ -63,7 +63,8 @@ export const projects: Project[] = [
     shortTagline: "Transferable Tax Credits Marketplace",
     description: "Discover, reserve, and purchase transferable tax credits (ITC, PTC, 45Q, 48C, 48E) with transparent pricing and a broker-verified closing flow.",
     tags: ["Tax Credits", "Marketplace", "Compliance"],
-    href: "https://app.suverse.io",
+    href: "/projects/tax-credit",
+    demoUrl: "https://app.suverse.io",
   },
 ];
 

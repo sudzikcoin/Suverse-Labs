@@ -1,0 +1,51 @@
+ROLE: Replit Code Agent (for this repo). GOAL: Add a visible link/button in the SuVerse Labs website that opens the external AgentOS demo: https://suverseagentos.replit.app/loads
+
+STRICT RULES:
+- Make the smallest, localized changes possible. Do NOT refactor unrelated code.
+- Keep existing routes, project cards, and “Узнать больше” behavior unchanged.
+- The new link must open in a new tab: target="_blank" and rel="noopener noreferrer".
+- Keep styling consistent with existing UI components (Button/Link classes already used in the project).
+- After changes: run build and verify in browser on mobile width.
+
+WHAT TO BUILD (UI):
+1) On the Projects list page (where cards like “AgentOS” are shown):
+   - In the AgentOS card, add a second action link/button next to/under “Узнать больше”:
+     Label (RU): “Открыть демо”
+     URL: https://suverseagentos.replit.app/loads
+     Opens in new tab.
+
+2) On the AgentOS detail page (where the header says “AgentOS” and description is shown):
+   - Add a small CTA button/link near the top (under title/near tags):
+     Label (RU): “Открыть демо AgentOS”
+     URL: https://suverseagentos.replit.app/loads
+     Opens in new tab.
+
+IMPLEMENTATION STEPS (DO THIS EXACTLY):
+A) Find where the AgentOS card is rendered:
+   - Search in repo for the text "AgentOS" (case sensitive).
+   - Identify the component/page that renders the Projects grid/cards (likely under: client/src/pages/** or client/src/components/**).
+   - In the AgentOS card JSX, add an external <a> styled like other buttons/links. Do not change other cards.
+
+B) Find where the AgentOS detail page is rendered:
+   - Search for the AgentOS page title/subtitle block (again by "AgentOS" text).
+   - Add the CTA link/button near the top of that page.
+
+C) Use existing UI primitives:
+   - If the repo has <Button> component (e.g., from "@/components/ui/button"), use it and render asChild with <a> if that pattern exists.
+   - Otherwise, copy the same className approach used by other buttons/links in that page.
+
+CODE REQUIREMENTS (EXTERNAL LINK):
+- Must be exactly:
+  href="https://suverseagentos.replit.app/loads"
+  target="_blank"
+  rel="noopener noreferrer"
+
+TEST:
+1) Build/preview site.
+2) On the Projects page: open AgentOS card → tap “Открыть демо” → it should open the Replit app in a new tab.
+3) On AgentOS detail page: tap “Открыть демо AgentOS” → opens same URL in new tab.
+4) No console errors.
+
+DELIVERABLE:
+- Commit the minimal code changes.
+- Reply with: (1) which files changed, (2) short description of UI placement, (3) confirmation that build passed.

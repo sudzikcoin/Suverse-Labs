@@ -6,6 +6,7 @@ export interface Project {
   description: string;
   tags: string[];
   href: string;
+  demoUrl?: string;
 }
 
 export const projects: Project[] = [
@@ -44,6 +45,7 @@ export const projects: Project[] = [
     description: "Platform of AI agents that automate routine workflows in logistics and finance, from invoicing to capacity management.",
     tags: ["AI", "Automation", "Enterprise"],
     href: "/projects/agentos",
+    demoUrl: "https://suverseagentos.replit.app/loads",
   },
   {
     id: "validators",

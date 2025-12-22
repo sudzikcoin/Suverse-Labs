@@ -3,7 +3,9 @@ import { PageShell, Section, ContentSection } from "@/components/layout/PageShel
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Bot, Calculator, Package, Gauge, Plug } from "lucide-react";
+import { ArrowLeft, Bot, Calculator, Package, Gauge, Plug, ExternalLink } from "lucide-react";
+
+const AGENTOS_DEMO_URL = "https://suverseagentos.replit.app/loads";
 
 const agents = [
   {
@@ -45,9 +47,22 @@ export default function AgentOS() {
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4" data-testid="text-project-title">
           AgentOS
         </h1>
-        <p className="text-xl text-chart-2 font-medium mb-6">
+        <p className="text-xl text-chart-2 font-medium mb-4">
           AI Robot Applications for Business
         </p>
+        <div className="mb-6">
+          <a
+            href={AGENTOS_DEMO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="link-agentos-demo"
+          >
+            <Button className="bg-gradient-to-r from-chart-1 to-chart-2">
+              <ExternalLink className="w-4 h-4 mr-2" />
+              Open AgentOS Demo
+            </Button>
+          </a>
+        </div>
         <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed">
           A platform of AI agents—robot applications—that automate routine workflows in 
           logistics and finance, freeing teams to focus on high-value work.

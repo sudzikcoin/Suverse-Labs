@@ -1,0 +1,108 @@
+[Replit Agent | STRICT MODE | Minimal-Change Patch | PWA Icons Fix]
+GOAL: iOS “Add to Home Screen” is using a wrong/random icon (looks like Replit). Fix by creating and wiring proper SuVerse icons (apple-touch-icon + PNG icons) and ensuring Safari uses them. The agent MUST generate the icon files itself and commit them into the repo (do not ask the user to upload images).
+
+RULES:
+- Do NOT change any UI/components/layout besides PWA meta/manifest/icon plumbing.
+- Keep existing routes, API, and styling untouched.
+- Generate icons programmatically (Node script using sharp or canvas) so we don’t need external assets.
+- Use a simple branded icon: teal/green gradient background + white “S” (or “Su”) centered, plus small “SuVerse” wordmark optional. Must look clean on iOS.
+- Output must include correct sizes for iOS + manifest.
+- After changes: iOS Share → Add to Home Screen must show the new icon (not Replit).
+
+STEP 1 — DETECT STACK
+Inspect project:
+- If Next.js App Router: has /app and app/layout.tsx
+- If Next.js Pages Router: has /pages/_document.tsx
+- Else Vite/static: has index.html
+
+STEP 2 — ADD ICON GENERATOR (AUTO)
+2.1 Add dependency:
+- If not installed, add "sharp" as a dependency (preferred).
+2.2 Create script: /scripts/generate-pwa-icons.mjs
+The script must:
+- Create folder: /public/icons (or equivalent public root)
+- Generate these PNGs (overwrite if exist):
+  - /public/apple-touch-icon.png (180x180)
+  - /public/icons/icon-192.png (192x192)
+  - /public/icons/icon-512.png (512x512)
+  - /public/icons/icon-192-maskable.png (192x192) with safe padding
+  - /public/icons/icon-512-maskable.png (512x512) with safe padding
+Design requirements:
+- Background: smooth gradient (dark navy → teal) OR solid brand teal (#1BCB92-ish). Pick something that matches SuVerse vibe.
+- Foreground: white “S” (bold) centered. Use a simple geometric S made with SVG text (system font) or path; if using text, set font to a common sans (e.g., "Arial Black") with strong weight.
+- For maskable icons: add extra padding so the “S” doesn’t get clipped.
+
+2.3 Add npm script in package.json:
+- "gen:pwa-icons": "node scripts/generate-pwa-icons.mjs"
+Run it once and ensure files are created and committed.
+
+STEP 3 — WIRE ICONS + MANIFEST
+Implement depending on stack:
+
+=========================
+A) Next.js App Router
+=========================
+A1) Create /app/manifest.ts referencing the generated icons:
+- name: "SuVerse"
+- short_name: "SuVerse"
+- start_url: "/"
+- scope: "/"
+- display: "standalone"
+- background_color: "#0b1220" (or your chosen)
+- theme_color: "#1BCB92" (or your chosen)
+- icons: list all generated icons with correct sizes and purposes
+
+A2) Update /app/layout.tsx:
+- Add in metadata (preferred) or <head>:
+  - appleWebApp: { capable: true, statusBarStyle: "default", title: "SuVerse" } (or equivalent meta tags)
+  - icons: { apple: "/apple-touch-icon.png", icon: ["/icons/icon-192.png", "/icons/icon-512.png"] }
+  - themeColor set to match manifest
+- Add explicit:
+  - <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  - <meta name="apple-mobile-web-app-capable" content="yes" />
+  - <meta name="apple-mobile-web-app-title" content="SuVerse" />
+(Do minimal edits; do not refactor.)
+
+=========================
+B) Next.js Pages Router
+=========================
+B1) Add /public/manifest.json referencing icons
+B2) Update /pages/_document.tsx <Head>:
+- <link rel="manifest" href="/manifest.json" />
+- <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+- <meta name="apple-mobile-web-app-capable" content="yes" />
+- <meta name="apple-mobile-web-app-title" content="SuVerse" />
+- <meta name="theme-color" content="..." />
+
+=========================
+C) Vite/static
+=========================
+C1) Add /public/manifest.json referencing icons
+C2) Update index.html <head> with same tags as above.
+
+STEP 4 — VERIFY (MUST)
+- Build passes.
+- Confirm endpoints:
+  - /apple-touch-icon.png returns 200 and is the generated SuVerse icon
+  - /manifest.json or Next manifest route returns 200
+  - /icons/icon-192.png and /icons/icon-512.png return 200
+- In Safari iOS:
+  - After making changes, you may need to: close Safari tab, clear website data for suverse.io, or use a private tab to force refresh icon.
+  - Share → Add to Home Screen shows new icon.
+- In Chrome:
+  - Application → Manifest shows icons.
+
+DELIVERABLE:
+- List files created/modified
+- Paste the final contents of:
+  - scripts/generate-pwa-icons.mjs
+  - app/manifest.ts OR public/manifest.json
+  - layout/document head changes
+- Confirm icon files exist in /public and are tracked by git.
+
+IMPORTANT:
+- Do not use any Replit icons or defaults.
+- Do not require user-provided assets.
+- Generate and commit the icons in this PR.
+
+GO IMPLEMENT NOW.

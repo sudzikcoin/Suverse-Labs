@@ -1,0 +1,105 @@
+[Replit Agent | STRICT MODE | Minimal-Change Patch]
+TASK: Make this website installable to the Home Screen (PWA). After this change, users should be able to tap “Add to Home Screen” on iOS Safari and install on Android/Chrome. Do NOT redesign UI. Only add PWA plumbing (manifest + icons + meta + optional service worker). Keep changes minimal and localized.
+
+CONTEXT / RULES:
+- Do not touch existing business logic or routes.
+- Keep existing SEO/metadata; only extend it.
+- Must work on HTTPS (already). Do not add any paid services.
+- If project is Next.js (App Router), implement using Next’s native manifest support.
+- If project is Vite/React or plain HTML, implement via public/manifest.json + <link rel="manifest">.
+- Provide exact file diffs + list of files changed.
+
+STEP 1 — DETECT STACK
+1) Inspect package.json and folder structure:
+   - Next.js App Router: has /app directory (app/layout.tsx, app/page.tsx) and next.config.*
+   - Next.js Pages Router: has /pages directory (pages/_document.tsx or _app.tsx)
+   - Vite/React: has index.html and src/main.tsx
+2) Choose the correct implementation path below.
+
+========================================
+PATH A — Next.js (App Router)
+========================================
+A1) Add icons to /public
+Create these files in /public (use existing if present; if missing, generate simple placeholder icons):
+- /public/icons/icon-192.png
+- /public/icons/icon-512.png
+- /public/icons/icon-192-maskable.png
+- /public/icons/icon-512-maskable.png
+- /public/apple-touch-icon.png (180x180)
+
+If there is already a logo, use it; otherwise generate basic PNG placeholders (solid background + “SuVerse” text) so install works.
+
+A2) Add manifest via Next native support
+Create file: /app/manifest.ts
+Export a Web App Manifest:
+- name: "SuVerse Labs"
+- short_name: "SuVerse"
+- start_url: "/"
+- scope: "/"
+- display: "standalone"
+- background_color: "#ffffff"
+- theme_color: choose existing brand color from site (if unknown, use "#0ea5e9" or keep neutral "#111827")
+- icons: include the 192/512 and maskable variants with correct sizes and purposes
+
+A3) Add iOS + PWA meta links in /app/layout.tsx
+In the exported metadata (or in <head>):
+- link rel="apple-touch-icon" href="/apple-touch-icon.png"
+- meta name="apple-mobile-web-app-capable" content="yes"
+- meta name="apple-mobile-web-app-status-bar-style" content="default"
+- meta name="theme-color" content="(same as manifest theme_color)"
+Also ensure manifest is discoverable automatically (Next does this via app/manifest.ts).
+
+A4) Optional but recommended: service worker for better install/offline
+Only if easy/minimal:
+- Add a very small service worker file in /public/sw.js that caches the start page + assets.
+- Register it client-side only (e.g., in a small component used in layout) without breaking SSR.
+If this risks complexity, SKIP SW. Add-to-home-screen still works without SW.
+
+========================================
+PATH B — Next.js (Pages Router)
+========================================
+B1) Add /public/manifest.json with fields identical to PATH A manifest.
+B2) Add icons in /public/icons and /public/apple-touch-icon.png (same filenames).
+B3) Add tags in pages/_document.tsx <Head>:
+- <link rel="manifest" href="/manifest.json" />
+- <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+- <meta name="theme-color" content="..." />
+- <meta name="apple-mobile-web-app-capable" content="yes" />
+- <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+========================================
+PATH C — Vite/React or plain index.html
+========================================
+C1) Add /public/manifest.json (or in the project’s public root)
+C2) Add icons and apple-touch-icon.png
+C3) Update index.html <head>:
+- <link rel="manifest" href="/manifest.json" />
+- <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+- <meta name="theme-color" content="..." />
+- <meta name="apple-mobile-web-app-capable" content="yes" />
+- <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+========================================
+COMMON REQUIREMENTS (ALL PATHS)
+========================================
+1) Manifest must include icons sizes 192x192 and 512x512, and maskable versions.
+2) start_url must be "/" and display "standalone".
+3) Ensure all paths are correct and files exist (no 404 for manifest or icons).
+4) Do NOT break build; run build/test locally in Replit.
+5) Keep the app name consistent with current branding (“SuVerse Labs”).
+
+VERIFICATION CHECKLIST (MUST DO):
+- Open site in browser and verify:
+  - GET /manifest.json or /manifest.webmanifest (or Next manifest route) returns 200
+  - GET /apple-touch-icon.png returns 200
+  - Icons return 200
+- Chrome DevTools → Application → Manifest shows valid install prompt.
+- On iPhone Safari:
+  - Share → “Add to Home Screen” shows correct name & icon
+  - Launch from home screen opens standalone (no browser chrome)
+
+DELIVERABLE:
+- Provide the exact files created/modified + diffs.
+- Short “How to test on iPhone/Android” steps.
+
+GO.

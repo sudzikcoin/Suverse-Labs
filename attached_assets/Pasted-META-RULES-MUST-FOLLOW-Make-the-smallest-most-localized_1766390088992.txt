@@ -1,0 +1,48 @@
+META-RULES (MUST FOLLOW):
+- Make the smallest, most localized change possible. Do NOT refactor or edit unrelated code.
+- Do NOT change existing routes, schemas, styling system, component APIs, or any other project cards.
+- DO NOT touch AgentOS anywhere.
+- Preserve current UI/UX, spacing, typography, and responsive behavior.
+- External links must use: target="_blank" rel="noopener noreferrer" (unless the project already has a standard helper).
+- After changes, run: npm run lint && npm run build and fix any failures.
+
+GOAL:
+Add ONE new project card "SuVerse Tax Credit" to the Projects list. Do not modify any existing cards (including AgentOS).
+
+CARD CONTENT (EXACT):
+Title: SuVerse Tax Credit
+Tags (use only if this Projects section already uses tags/chips; otherwise omit):
+- Tax Credits
+- Marketplace
+- Compliance
+Headline (short green line / subtitle style to match other cards):
+Transferable Tax Credits Marketplace
+Description (use this exact text):
+Discover, reserve, and purchase transferable tax credits (ITC, PTC, 45Q, 48C, 48E) with transparent pricing and a broker-verified closing flow.
+CTA text (use existing card CTA text pattern, e.g. "Learn more" / "Узнать больше"):
+Keep whatever the other project cards use (do not introduce a new CTA style).
+Link (external):
+https://app.suverse.io
+
+IMPLEMENTATION STEPS:
+1) Find where Projects cards are defined (search for "Projects" heading and existing cards like "PingPoint" / "SuVerse Fleet & Carbon Dashboard").
+   Likely patterns:
+   - A data array (projects) in a data/config file, OR
+   - Inline JSX rendering multiple <Card> blocks.
+
+2) Add a new entry / JSX block for "SuVerse Tax Credit" in the Projects list.
+   - Place it in a logical order (e.g., near other platform products), but do NOT reorder existing cards.
+   - Ensure the card uses the exact same layout/classes/components as the other project cards.
+
+3) Ensure the card link opens externally:
+   - If the card uses an <a>, add target="_blank" rel="noopener noreferrer".
+   - If the card uses Next/Router <Link>, and the project already supports external URLs with Link, keep that; otherwise render <a> just for this new external link.
+   - Do NOT change shared link logic unless absolutely required.
+
+4) Verify:
+   - The Projects page renders the new card.
+   - Clicking its CTA opens https://app.suverse.io in a new tab.
+   - Run: npm run lint && npm run build.
+
+DELIVERABLE:
+- Provide the exact files changed and the exact diff for the added card only.

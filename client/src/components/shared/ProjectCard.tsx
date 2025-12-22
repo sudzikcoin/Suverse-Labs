@@ -53,12 +53,25 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
         </p>
         
         <div className="flex flex-wrap items-center gap-4 mt-6">
-          <Link href={project.href}>
-            <span className="flex items-center gap-2 text-sm font-medium text-chart-2 group-hover:gap-3 transition-all cursor-pointer">
+          {project.href.startsWith("http") ? (
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm font-medium text-chart-2 group-hover:gap-3 transition-all cursor-pointer"
+              data-testid={`link-learn-more-${project.slug}`}
+            >
               <span>Learn more</span>
               <ArrowRight className="w-4 h-4" />
-            </span>
-          </Link>
+            </a>
+          ) : (
+            <Link href={project.href}>
+              <span className="flex items-center gap-2 text-sm font-medium text-chart-2 group-hover:gap-3 transition-all cursor-pointer">
+                <span>Learn more</span>
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </Link>
+          )}
           {project.demoUrl && (
             <a
               href={project.demoUrl}

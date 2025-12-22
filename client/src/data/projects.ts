@@ -56,6 +56,15 @@ export const projects: Project[] = [
     tags: ["Blockchain", "Validators", "DePIN"],
     href: "/projects/validators",
   },
+  {
+    id: "tax-credit",
+    slug: "tax-credit",
+    name: "SuVerse Tax Credit",
+    shortTagline: "Transferable Tax Credits Marketplace",
+    description: "Discover, reserve, and purchase transferable tax credits (ITC, PTC, 45Q, 48C, 48E) with transparent pricing and a broker-verified closing flow.",
+    tags: ["Tax Credits", "Marketplace", "Compliance"],
+    href: "https://app.suverse.io",
+  },
 ];
 
 export function getProjectBySlug(slug: string): Project | undefined {

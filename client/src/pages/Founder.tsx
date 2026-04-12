@@ -1,5 +1,4 @@
-import { PageShell, PageHeader, Section, ContentSection } from "@/components/layout/PageShell";
-import { Badge } from "@/components/ui/badge";
+import { PageShell } from "@/components/layout/PageShell";
 import { motion } from "framer-motion";
 import {
   Truck,
@@ -16,257 +15,268 @@ import {
   Rocket,
 } from "lucide-react";
 
-const expertise = [
-  { icon: Truck, label: "Green Logistics & Telematics" },
-  { icon: Bot, label: "AI Agents & Automation" },
-  { icon: Network, label: "Blockchain / DePIN Infrastructure" },
-  { icon: BarChart3, label: "Systems Architecture" },
+/* ── Framer variants ── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.7,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  }),
+};
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
+
+/* ── Data ── */
+const backgroundStory = [
+  {
+    icon: Wrench,
+    era: "Early Career",
+    title: "Industrial Engineer & Electrician",
+    description:
+      "Started as an electrician, advancing through heavy industry with steadily increasing rank and responsibilities. Served as engineer at Gazprom Energoholding, working with complex energy and electrical systems at an industrial scale. This foundation in physical infrastructure — how systems actually behave under real conditions — shapes every product built at SuVerse Labs.",
+    color: "#8899AA",
+    bg: "rgba(136, 153, 170, 0.08)",
+    ring: "rgba(136, 153, 170, 0.15)",
+  },
+  {
+    icon: Truck,
+    era: "USA Chapter",
+    title: "OTR Long-Haul Truck Driver",
+    description:
+      "After relocating to the United States, gained direct hands-on experience in American logistics as an over-the-road truck driver. Saw firsthand the inefficiencies, data gaps, and opportunities in freight transportation — empty miles, fuel waste, lack of real-time visibility, and the complete absence of carbon tracking at the carrier level. This experience became the foundation for every logistics product at SuVerse Labs.",
+    color: "#00FF88",
+    bg: "rgba(0, 255, 136, 0.08)",
+    ring: "rgba(0, 255, 136, 0.15)",
+  },
+  {
+    icon: Code2,
+    era: "Builder Phase",
+    title: "AI, Blockchain & DePIN",
+    description:
+      "Completed PostHuman validator school in the Cosmos ecosystem and built deep expertise in decentralized physical infrastructure (DePIN) and validator operations. Combined industrial engineering, trucking experience, and blockchain knowledge to found SuVerse Labs — focused on AI agents, telematics, and the infrastructure needed to decarbonize freight at scale.",
+    color: "#00D4FF",
+    bg: "rgba(0, 212, 255, 0.08)",
+    ring: "rgba(0, 212, 255, 0.15)",
+  },
+];
+
+const expertiseTags = [
+  { label: "Green Logistics & Telematics", color: "#00FF88" },
+  { label: "AI Agents & Automation", color: "#00D4FF" },
+  { label: "Blockchain / DePIN Infrastructure", color: "#6366F1" },
+  { label: "Systems Architecture", color: "#8899AA" },
 ];
 
 const initiatives = [
   {
     icon: Bot,
     title: "AgentOS",
-    description: "An AI robot-application platform that automates key workflows for carriers, brokers, and finance teams.",
+    description:
+      "An AI robot-application platform that automates key workflows for carriers, brokers, and finance teams — from document processing to decision support.",
+    color: "#00D4FF",
+    bg: "rgba(0, 212, 255, 0.08)",
   },
   {
     icon: FileText,
     title: "SuVerse Tax Credit",
-    description: "Tooling to help logistics companies and small businesses access and manage tax credits and incentives in a transparent, data-driven way.",
+    description:
+      "Tooling to help logistics companies and small businesses access and manage tax credits and incentives in a transparent, data-driven way.",
+    color: "#00FF88",
+    bg: "rgba(0, 255, 136, 0.08)",
   },
   {
     icon: Target,
     title: "PingPoint",
-    description: "A tracking core for freight that improves visibility, reduces empty miles, and supports more efficient use of equipment and fuel.",
+    description:
+      "A tracking core for freight that improves visibility, reduces empty miles, and supports more efficient use of equipment and fuel.",
+    color: "#00D4FF",
+    bg: "rgba(0, 212, 255, 0.08)",
   },
   {
     icon: Leaf,
     title: "CO2 Blockchain Infrastructure",
-    description: "Systems for measuring, recording, and eventually tokenizing emissions-related data in a secure, auditable way.",
+    description:
+      "Systems for measuring, recording, and tokenizing emissions-related data in a secure, auditable, on-chain ledger.",
+    color: "#00FF88",
+    bg: "rgba(0, 255, 136, 0.08)",
   },
   {
     icon: Shield,
     title: "Validator Portal",
-    description: "Infrastructure and tools that support validators and decentralized networks aligned with real-world use cases.",
+    description:
+      "Infrastructure and tools that support validators and decentralized networks aligned with real-world logistics use cases.",
+    color: "#6366F1",
+    bg: "rgba(99, 102, 241, 0.08)",
   },
   {
     icon: Network,
     title: "AI & Blockchain Tooling",
-    description: "Frameworks that connect AI agents with on-chain logic and off-chain data.",
-  },
-  {
-    icon: Zap,
-    title: "REC Certificate RWA",
-    description: "Concepts for bringing Renewable Energy Certificates and similar climate assets on-chain as real-world assets (RWA).",
-  },
-];
-
-const timeline = [
-  {
-    icon: Wrench,
-    year: "Early Career",
-    title: "Industrial Engineer & Electrician",
-    description: "Started as an electrician, advancing through heavy industry. Served as engineer at Gazprom Energoholding working with complex energy and electrical systems.",
-    color: "#8899AA",
-  },
-  {
-    icon: Truck,
-    year: "USA Chapter",
-    title: "Long-Haul Truck Driver",
-    description: "Gained hands-on experience in American logistics as an OTR truck driver. Saw firsthand the inefficiencies and opportunities in freight transportation.",
-    color: "#00FF88",
-  },
-  {
-    icon: Code2,
-    year: "Transition",
-    title: "Blockchain & DePIN",
-    description: "Completed PostHuman validator school in the Cosmos ecosystem. Built deep expertise in decentralized infrastructure and validator operations.",
-    color: "#00D4FF",
-  },
-  {
-    icon: Rocket,
-    year: "Present",
-    title: "Founder — SuVerse Labs",
-    description: "Founded SuVerse Labs combining industrial engineering, trucking experience, and blockchain expertise to build AI and blockchain infrastructure for sustainable transportation.",
+    description:
+      "Frameworks that connect AI agents with on-chain logic and off-chain data, enabling automated, trustless logistics operations.",
     color: "#6366F1",
+    bg: "rgba(99, 102, 241, 0.08)",
   },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.12, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-  }),
-};
-
+/* ══════════════════════════════════════════════
+   FOUNDER PAGE
+══════════════════════════════════════════════ */
 export default function Founder() {
   return (
     <PageShell>
-      {/* ── FOUNDER HERO ── */}
-      <section className="relative pt-24 md:pt-32 pb-16 overflow-hidden">
-        <div className="absolute inset-0 gradient-mesh opacity-30" />
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#00D4FF]/[0.03] blur-[120px]" />
+      {/* ──────────────────────────────────────────
+          HERO — Split layout with cyan radial glow
+      ────────────────────────────────────────── */}
+      <section
+        className="relative min-h-[70vh] flex items-center overflow-hidden py-24 md:py-32"
+        style={{ background: "#060910" }}
+      >
+        {/* Cyan radial glow */}
+        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#00D4FF]/[0.04] blur-[140px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-[#6366F1]/[0.04] blur-[120px] pointer-events-none" />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-8">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col items-center text-center mb-10"
-          >
-            {/* Avatar with cyan gradient border */}
-            <div className="relative mb-8">
-              <div className="w-[200px] h-[200px] rounded-full p-[3px] bg-gradient-to-br from-[#00D4FF] via-[#00FF88] to-[#6366F1]">
-                <div className="w-full h-full rounded-full overflow-hidden bg-[#0C1018]">
-                  <img
-                    src="/images/IMG_1423.jpeg"
-                    alt="Dmitrii Sudzerovskii"
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
-              </div>
-              {/* Glow behind avatar */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#00D4FF]/20 to-[#00FF88]/20 blur-[30px] -z-10" />
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Left — text */}
+            <div>
+              <motion.span
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="inline-block px-4 py-1.5 rounded-full text-xs font-medium border border-[#00D4FF]/30 text-[#00D4FF] tracking-widest uppercase bg-[#00D4FF]/5 mb-6"
+              >
+                Founder & Systems Architect
+              </motion.span>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                className="text-5xl md:text-6xl font-bold text-white leading-[1.05] mb-4 tracking-tight"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Meet the Founder
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className="text-lg text-[#8899AA] mb-6 leading-relaxed max-w-xl"
+              >
+                From Gazprom engineer to OTR truck driver to AI & blockchain builder
+              </motion.p>
+
+              {/* Name badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-white/[0.08]"
+                style={{ background: "rgba(0, 212, 255, 0.06)" }}
+              >
+                <div
+                  className="w-2 h-2 rounded-full"
+                  style={{ background: "#00D4FF", boxShadow: "0 0 8px #00D4FF" }}
+                />
+                <span
+                  className="text-base font-semibold text-white"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  Dmitrii Sudzerovskii
+                </span>
+                <span className="text-[#8899AA] text-sm">· SuVerse Labs</span>
+              </motion.div>
             </div>
 
-            <h1
-              className="text-3xl md:text-5xl font-bold text-[#F0F4F8] mb-3 tracking-tight"
-              style={{ fontFamily: 'var(--font-heading)' }}
+            {/* Right — avatar */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.15 }}
+              className="flex justify-center lg:justify-end"
             >
-              Dmitrii Sudzerovskii
-            </h1>
-            <p className="text-lg md:text-xl text-[#00FF88] font-medium mb-6">
-              Founder & Systems Architect
-            </p>
-            <p className="text-[#8899AA] max-w-2xl leading-relaxed">
-              Engineer and systems architect whose work sits at the intersection of transportation,
-              energy, and advanced digital infrastructure — building the bridge between real-world
-              logistics and the next generation of AI and blockchain technology.
-            </p>
-          </motion.div>
+              <div className="relative">
+                {/* Glow ring behind */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#00D4FF]/20 via-[#00FF88]/10 to-[#6366F1]/20 blur-[40px] scale-110" />
 
-          {/* Expertise badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-3"
-          >
-            {expertise.map((item, index) => (
-              <Badge
-                key={index}
-                variant="secondary"
-                className="px-4 py-2 bg-white/[0.04] text-[#F0F4F8] border-white/[0.06] text-sm hover:bg-white/[0.08] transition-colors"
-                data-testid={`badge-expertise-${index}`}
-              >
-                <item.icon className="w-4 h-4 mr-2 text-[#00FF88]" />
-                {item.label}
-              </Badge>
-            ))}
-          </motion.div>
+                {/* Gradient border wrapper */}
+                <div
+                  className="relative w-[200px] h-[200px] rounded-full p-[3px]"
+                  style={{
+                    background: "linear-gradient(135deg, #00D4FF, #00FF88, #6366F1)",
+                  }}
+                >
+                  {/* Avatar inner — dark bg with initials */}
+                  <div
+                    className="w-full h-full rounded-full flex items-center justify-center overflow-hidden"
+                    style={{ background: "#0C1018" }}
+                  >
+                    {/* Try to load actual image; fallback to initials */}
+                    <img
+                      src="/images/IMG_1423.jpeg"
+                      alt="Dmitrii Sudzerovskii"
+                      className="w-full h-full object-cover object-center"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = "none";
+                        const parent = (e.target as HTMLImageElement).parentElement;
+                        if (parent) {
+                          const initials = document.createElement("span");
+                          initials.textContent = "DZ";
+                          initials.className = "text-4xl font-bold text-[#00D4FF] select-none";
+                          parent.appendChild(initials);
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* ── CAREER TIMELINE ── */}
-      <Section className="bg-[#060910]">
-        <ContentSection>
-          <h2
-            className="text-2xl md:text-3xl font-semibold text-[#F0F4F8] mb-12 text-center"
-            style={{ fontFamily: 'var(--font-heading)' }}
+      {/* ──────────────────────────────────────────
+          BACKGROUND STORY — 3 column cards
+      ────────────────────────────────────────── */}
+      <section className="py-20 md:py-28" style={{ background: "#080C14" }}>
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeIn}
+            className="mb-14"
           >
-            The Journey
-          </h2>
-
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-6 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#8899AA]/30 via-[#00D4FF]/30 to-[#6366F1]/30" />
-
-            {timeline.map((item, i) => (
-              <motion.div
-                key={item.title}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                variants={fadeUp}
-                className={`relative flex items-start gap-6 mb-12 last:mb-0 ${
-                  i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                }`}
-              >
-                {/* Timeline node */}
-                <div className="absolute left-6 md:left-1/2 -translate-x-1/2 z-10">
-                  <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center border-2"
-                    style={{
-                      borderColor: item.color,
-                      background: `${item.color}15`,
-                      boxShadow: `0 0 20px ${item.color}20`,
-                    }}
-                  >
-                    <item.icon className="w-5 h-5" style={{ color: item.color }} />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className={`ml-20 md:ml-0 md:w-[calc(50%-40px)] ${
-                  i % 2 === 0 ? "md:pr-8 md:text-right" : "md:pl-8"
-                }`}>
-                  <span
-                    className="text-xs font-medium uppercase tracking-wider mb-1 block"
-                    style={{ color: item.color }}
-                  >
-                    {item.year}
-                  </span>
-                  <h3
-                    className="text-lg font-semibold text-[#F0F4F8] mb-2"
-                    style={{ fontFamily: 'var(--font-heading)' }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-[#8899AA] leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-
-                {/* Spacer for alternating layout */}
-                <div className="hidden md:block md:w-[calc(50%-40px)]" />
-              </motion.div>
-            ))}
-          </div>
-        </ContentSection>
-      </Section>
-
-      {/* ── FULL BIO ── */}
-      <Section>
-        <ContentSection>
-          <div className="space-y-4 text-[#8899AA] leading-relaxed">
-            <p>
-              Dmitrii Sudzerovskii is an engineer and systems architect whose work sits at the intersection of transportation, energy, and advanced digital infrastructure. Trained as an industrial engineer and starting his career as an electrician, he spent several years on the ground in heavy industry, steadily advancing his rank and responsibilities. He later served as an engineer at Gazprom Energoholding, working with complex energy and electrical systems before relocating to the United States.
+            <span className="text-xs font-semibold tracking-[0.2em] uppercase text-[#00D4FF] mb-4 block">
+              Background
+            </span>
+            <h2
+              className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              The Journey
+            </h2>
+            <p className="text-[#8899AA] text-lg max-w-2xl">
+              A career built across continents, industries, and disciplines — all converging on one
+              mission
             </p>
-            <p>
-              After moving to the U.S., Dmitrii gained direct, hands-on experience in American logistics as a long-haul truck driver. This combination of industrial engineering, energy-sector experience, and real-world trucking gives him a rare perspective on how technology can actually improve safety, efficiency, and sustainability in day-to-day freight operations.
-            </p>
-            <p>
-              Determined to bring modern infrastructure to this space, Dmitrii completed the PostHuman validator school in the Cosmos ecosystem and became deeply involved in blockchain and DePIN (decentralized physical infrastructure) networks. Building on this foundation, he founded SuVerse Labs, a company focused on AI agents, blockchain infrastructure, and tools for decarbonizing transportation.
-            </p>
-          </div>
-        </ContentSection>
-      </Section>
+          </motion.div>
 
-      {/* ── KEY INITIATIVES ── */}
-      <Section className="bg-[#060910]">
-        <ContentSection>
-          <h3 className="text-xl md:text-2xl font-semibold text-[#F0F4F8] mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
-            Key Initiatives at SuVerse Labs
-          </h3>
-          <p className="text-[#8899AA] mb-8">
-            At SuVerse Labs, Dmitrii leads several ongoing initiatives, including:
-          </p>
-
-          <div className="space-y-4">
-            {initiatives.map((initiative, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {backgroundStory.map((chapter, index) => (
               <motion.div
                 key={index}
                 custom={index}
@@ -274,41 +284,231 @@ export default function Founder() {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 variants={fadeUp}
-                className="rounded-xl border border-white/[0.04] bg-[#0C1018] p-5 transition-all duration-300 hover:border-white/[0.08] hover:-translate-y-0.5"
-                data-testid={`card-initiative-${index}`}
+                className="rounded-2xl border border-white/[0.05] p-8 flex flex-col transition-all duration-300 hover:-translate-y-1"
+                style={{ background: "#0C1018" }}
+                data-testid={`card-story-${index}`}
               >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#00D4FF]/10 to-[#00FF88]/10 flex items-center justify-center flex-shrink-0">
-                    <initiative.icon className="w-5 h-5 text-[#00FF88]" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-[#F0F4F8] mb-1">{initiative.title}</h4>
-                    <p className="text-sm text-[#8899AA]">{initiative.description}</p>
-                  </div>
+                {/* Icon */}
+                <div
+                  className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 flex-shrink-0"
+                  style={{
+                    background: chapter.bg,
+                    boxShadow: `0 0 0 1px ${chapter.ring}`,
+                  }}
+                >
+                  <chapter.icon className="w-7 h-7" style={{ color: chapter.color }} />
                 </div>
+
+                {/* Era label */}
+                <span
+                  className="text-xs font-semibold tracking-[0.15em] uppercase mb-2 block"
+                  style={{ color: chapter.color }}
+                >
+                  {chapter.era}
+                </span>
+
+                {/* Title */}
+                <h3
+                  className="text-xl font-semibold text-white mb-4"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  {chapter.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-[#8899AA] leading-relaxed text-sm flex-1">
+                  {chapter.description}
+                </p>
+
+                {/* Bottom accent */}
+                <div
+                  className="mt-6 h-px"
+                  style={{
+                    background: `linear-gradient(to right, ${chapter.color}40, transparent)`,
+                  }}
+                />
               </motion.div>
             ))}
           </div>
-        </ContentSection>
-      </Section>
+        </div>
+      </section>
 
-      {/* ── NATIONAL INTERESTS ── */}
-      <Section>
-        <ContentSection>
-          <h3 className="text-xl md:text-2xl font-semibold text-[#F0F4F8] mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
-            Supporting U.S. National Interests
-          </h3>
+      {/* ──────────────────────────────────────────
+          EXPERTISE TAGS
+      ────────────────────────────────────────── */}
+      <section className="py-16 md:py-20" style={{ background: "#060910" }}>
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeIn}
+            className="mb-10"
+          >
+            <span className="text-xs font-semibold tracking-[0.2em] uppercase text-[#00D4FF] mb-4 block">
+              Expertise
+            </span>
+            <h2
+              className="text-2xl md:text-3xl font-bold text-white tracking-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Domain Knowledge
+            </h2>
+          </motion.div>
 
-          <div className="space-y-4 text-[#8899AA] leading-relaxed">
-            <p>
-              Through these projects, Dmitrii's work is directly aligned with U.S. national interests: strengthening critical digital infrastructure, supporting cleaner and more efficient freight transportation, and enabling better use of data for climate and energy decisions. By combining practical trucking experience with deep technical knowledge, he designs systems that are not only innovative on paper but also realistic for adoption by American fleets and logistics companies.
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeIn}
+            className="flex flex-wrap gap-3"
+          >
+            {expertiseTags.map((tag, index) => (
+              <span
+                key={index}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium border transition-all duration-200"
+                style={{
+                  background: `${tag.color}0D`,
+                  borderColor: `${tag.color}25`,
+                  color: tag.color,
+                }}
+                data-testid={`badge-expertise-${index}`}
+              >
+                <span
+                  className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                  style={{ background: tag.color }}
+                />
+                {tag.label}
+              </span>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ──────────────────────────────────────────
+          INITIATIVES — grid of cards
+      ────────────────────────────────────────── */}
+      <section
+        className="py-20 md:py-28 relative overflow-hidden"
+        style={{ background: "#080C14" }}
+      >
+        {/* Subtle glow */}
+        <div className="absolute bottom-0 right-0 w-[500px] h-[400px] rounded-full bg-[#6366F1]/[0.03] blur-[120px] pointer-events-none" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeIn}
+            className="mb-14"
+          >
+            <span className="text-xs font-semibold tracking-[0.2em] uppercase text-[#00D4FF] mb-4 block">
+              Active Work
+            </span>
+            <h2
+              className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Key Initiatives at SuVerse Labs
+            </h2>
+            <p className="text-[#8899AA] text-lg max-w-2xl">
+              Projects currently in development or active deployment across AI, blockchain, and
+              sustainable logistics
             </p>
-            <p>
-              Dmitrii lives in the United States with his wife and two children and is committed to building long-term solutions that support sustainable economic growth, modern infrastructure, and the transition to a lower-carbon future.
-            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {initiatives.map((initiative, index) => (
+              <motion.div
+                key={index}
+                custom={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.15 }}
+                variants={fadeUp}
+                className="rounded-2xl border border-white/[0.05] p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.1]"
+                style={{ background: "#0C1018" }}
+                data-testid={`card-initiative-${index}`}
+              >
+                {/* Icon */}
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 flex-shrink-0"
+                  style={{
+                    background: initiative.bg,
+                    boxShadow: `0 0 0 1px ${initiative.color}20`,
+                  }}
+                >
+                  <initiative.icon className="w-6 h-6" style={{ color: initiative.color }} />
+                </div>
+
+                {/* Title */}
+                <h3
+                  className="text-lg font-semibold text-white mb-2"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  {initiative.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm text-[#8899AA] leading-relaxed flex-1">
+                  {initiative.description}
+                </p>
+
+                {/* Color accent */}
+                <div
+                  className="mt-5 h-px w-8"
+                  style={{ background: initiative.color, opacity: 0.5 }}
+                />
+              </motion.div>
+            ))}
           </div>
-        </ContentSection>
-      </Section>
+        </div>
+      </section>
+
+      {/* ──────────────────────────────────────────
+          CLOSING — National alignment note
+      ────────────────────────────────────────── */}
+      <section className="py-20 md:py-24" style={{ background: "#060910" }}>
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="max-w-4xl">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeIn}
+            >
+              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-[#00FF88] mb-4 block">
+                Building in America
+              </span>
+              <h2
+                className="text-3xl md:text-4xl font-bold text-white mb-8 tracking-tight"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Supporting U.S. National Interests
+              </h2>
+              <div className="space-y-5 text-[#8899AA] leading-relaxed text-lg">
+                <p>
+                  Through these projects, Dmitrii's work is directly aligned with U.S. national
+                  interests: strengthening critical digital infrastructure, supporting cleaner and more
+                  efficient freight transportation, and enabling better use of data for climate and
+                  energy decisions.
+                </p>
+                <p>
+                  By combining practical trucking experience with deep technical knowledge, he designs
+                  systems that are not only innovative on paper but also realistic for adoption by
+                  American fleets and logistics companies.
+                </p>
+                <p>
+                  Dmitrii lives in the United States with his wife and two children and is committed
+                  to building long-term solutions that support sustainable economic growth, modern
+                  infrastructure, and the transition to a lower-carbon future.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
     </PageShell>
   );
 }

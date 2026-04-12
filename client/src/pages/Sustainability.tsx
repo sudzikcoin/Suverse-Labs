@@ -1,153 +1,419 @@
 import { Link } from "wouter";
-import { PageShell, PageHeader, Section, ContentSection } from "@/components/layout/PageShell";
 import { Button } from "@/components/ui/button";
-import { SectionHeading } from "@/components/shared/SectionHeading";
-import { Truck, BarChart3, TrendingDown, ArrowRight, Check, X } from "lucide-react";
+import { PageShell } from "@/components/layout/PageShell";
+import { Truck, BarChart3, TrendingDown, Link2, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+
+/* ── Animation variants ── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.12,
+      duration: 0.75,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  }),
+};
+
+const cardFade = {
+  hidden: { opacity: 0, y: 28 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  }),
+};
+
+/* ── Impact stats ── */
+const impactStats = [
+  {
+    value: "16%",
+    gradient: "linear-gradient(90deg, #00D4FF 0%, #00FF88 100%)",
+    label: "Transportation's share of global greenhouse gas emissions",
+  },
+  {
+    value: "30%",
+    gradient: "linear-gradient(90deg, #00FF88 0%, #6366F1 100%)",
+    label: "Potential emissions reduction with AI-driven routing optimization",
+  },
+  {
+    value: "2030",
+    gradient: "linear-gradient(90deg, #6366F1 0%, #00D4FF 100%)",
+    label: "Target year for significant industry-wide decarbonization progress",
+  },
+];
+
+/* ── Three Pillars ── */
+const pillars = [
+  {
+    icon: BarChart3,
+    color: "#00D4FF",
+    title: "Measurement",
+    description:
+      "Accurate, granular carbon measurement through telematics integration and AI-powered analysis. You can't reduce what you can't measure — so we start there.",
+    testId: "card-pillar-measurement",
+  },
+  {
+    icon: TrendingDown,
+    color: "#00FF88",
+    title: "Reduction",
+    description:
+      "Actionable insights for reducing emissions through better routing, fewer empty miles, and AI-driven operational optimization delivered in real time.",
+    testId: "card-pillar-reduction",
+  },
+  {
+    icon: Link2,
+    color: "#6366F1",
+    title: "Connection to Carbon Markets",
+    description:
+      "Linking verified emissions reductions to carbon markets through transparent, blockchain-based tracking and certification that stands up to scrutiny.",
+    testId: "card-pillar-connection",
+  },
+];
 
 export default function Sustainability() {
   return (
     <PageShell>
-      <PageHeader
-        title="Sustainability & Impact"
-        subtitle="How SuVerse Labs is working to decarbonize transportation and build a more sustainable logistics industry"
-      />
-
-      <Section className="pt-0">
-        <ContentSection>
-          <div className="rounded-xl border border-white/[0.04] bg-[#0C1018] p-6 md:p-8">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#00FF88]/10 flex items-center justify-center flex-shrink-0" style={{ boxShadow: '0 0 0 1px rgba(0, 255, 136, 0.1)' }}>
-                <Truck className="w-6 h-6 text-[#00FF88]" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-[#F0F4F8] mb-3" style={{ fontFamily: 'var(--font-heading)' }}>Why Logistics Emissions Matter</h3>
-                <p className="text-[#8899AA] leading-relaxed">
-                  The transportation sector is responsible for approximately 16% of global
-                  greenhouse gas emissions, and heavy-duty trucking represents one of the
-                  most challenging segments to decarbonize. Unlike passenger vehicles,
-                  commercial trucks require solutions that work at scale while maintaining
-                  the operational efficiency that modern supply chains depend on. Every
-                  improvement in trucking emissions has an outsized impact on global climate goals.
-                </p>
-              </div>
-            </div>
-          </div>
-        </ContentSection>
-      </Section>
-
-      <Section className="bg-[#060910]">
-        <SectionHeading
-          title="How SuVerse Labs Contributes"
-          subtitle="Our three-pillar approach to sustainable transportation"
-          centered
+      {/* ════════════════════════════════════════════
+          HERO — Full-width background image
+      ════════════════════════════════════════════ */}
+      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/sustain-hero.png')" }}
         />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#060910]/90 via-[#060910]/65 to-[#060910]/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#060910]/40 via-transparent to-[#060910]/90" />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          <div className="rounded-xl border border-white/[0.04] bg-[#0C1018] p-6 md:p-8 text-center transition-all duration-300 hover:border-[#00D4FF]/15 gradient-border" data-testid="card-pillar-measurement">
-            <div className="w-14 h-14 rounded-2xl bg-[#00D4FF]/10 flex items-center justify-center mx-auto mb-6" style={{ boxShadow: '0 0 0 1px rgba(0, 212, 255, 0.1)' }}>
-              <BarChart3 className="w-7 h-7 text-[#00D4FF]" />
-            </div>
-            <h3 className="text-xl font-semibold text-[#F0F4F8] mb-3" style={{ fontFamily: 'var(--font-heading)' }}>Measurement</h3>
-            <p className="text-[#8899AA]/80 leading-relaxed">
-              Accurate, granular carbon measurement through telematics integration and
-              AI-powered analysis. You can't reduce what you can't measure.
-            </p>
-          </div>
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full py-32">
+          <div className="max-w-2xl">
+            <motion.div
+              custom={0}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              className="mb-6"
+            >
+              <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium border border-[#00FF88]/30 text-[#00FF88] tracking-widest uppercase bg-[#00FF88]/5">
+                Decarbonizing Transportation
+              </span>
+            </motion.div>
 
-          <div className="rounded-xl border border-white/[0.04] bg-[#0C1018] p-6 md:p-8 text-center transition-all duration-300 hover:border-[#00FF88]/15 gradient-border" data-testid="card-pillar-reduction">
-            <div className="w-14 h-14 rounded-2xl bg-[#00FF88]/10 flex items-center justify-center mx-auto mb-6" style={{ boxShadow: '0 0 0 1px rgba(0, 255, 136, 0.1)' }}>
-              <TrendingDown className="w-7 h-7 text-[#00FF88]" />
-            </div>
-            <h3 className="text-xl font-semibold text-[#F0F4F8] mb-3" style={{ fontFamily: 'var(--font-heading)' }}>Reduction</h3>
-            <p className="text-[#8899AA]/80 leading-relaxed">
-              Actionable insights for reducing emissions through better routing, fewer
-              empty miles, and AI-driven operational optimization.
-            </p>
-          </div>
+            <motion.h1
+              custom={1}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              className="text-5xl md:text-6xl xl:text-7xl font-bold text-white leading-[1.05] mb-6 tracking-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Sustainability &amp;{" "}
+              <span
+                style={{
+                  backgroundImage:
+                    "linear-gradient(90deg, #00FF88 0%, #00D4FF 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                Impact
+              </span>
+            </motion.h1>
 
-          <div className="rounded-xl border border-white/[0.04] bg-[#0C1018] p-6 md:p-8 text-center transition-all duration-300 hover:border-[#6366F1]/15 gradient-border" data-testid="card-pillar-connection">
-            <div className="w-14 h-14 rounded-2xl bg-[#6366F1]/10 flex items-center justify-center mx-auto mb-6" style={{ boxShadow: '0 0 0 1px rgba(99, 102, 241, 0.1)' }}>
-              <Truck className="w-7 h-7 text-[#6366F1]" />
-            </div>
-            <h3 className="text-xl font-semibold text-[#F0F4F8] mb-3" style={{ fontFamily: 'var(--font-heading)' }}>Connection</h3>
-            <p className="text-[#8899AA]/80 leading-relaxed">
-              Linking verified emissions reductions to carbon markets through transparent,
-              blockchain-based tracking and certification.
-            </p>
+            <motion.p
+              custom={2}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              className="text-lg md:text-xl text-white/60 max-w-xl leading-relaxed"
+            >
+              How SuVerse Labs is working to decarbonize transportation
+            </motion.p>
           </div>
         </div>
-      </Section>
 
-      <Section>
-        <ContentSection>
-          <SectionHeading
-            title="Traditional vs. SuVerse-Enabled Operations"
-            subtitle="How our technology transforms fleet sustainability"
-          />
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#060910] to-transparent" />
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-xl border border-white/[0.04] bg-[#0C1018] p-6 md:p-8" data-testid="card-comparison-traditional">
-              <h4 className="text-lg font-semibold text-[#F0F4F8] mb-4 flex items-center gap-2" style={{ fontFamily: 'var(--font-heading)' }}>
-                <X className="w-5 h-5 text-red-400" />
-                Traditional Operations
-              </h4>
-              <ul className="space-y-3">
-                {[
-                  "Emissions estimated using industry averages",
-                  "Limited visibility into per-trip carbon footprint",
-                  "Manual reporting and compliance processes",
-                  "No clear path to monetize sustainability efforts",
-                  "Reactive optimization based on fuel costs alone",
-                ].map((text, i) => (
-                  <li key={i} className="flex items-start gap-3 text-[#8899AA]/80">
-                    <span className="text-red-400/70 mt-0.5">•</span>
-                    <span>{text}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+      {/* ════════════════════════════════════════════
+          IMPACT STAT BANNER
+      ════════════════════════════════════════════ */}
+      <section className="relative z-10 bg-[#060910] py-4">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="grid grid-cols-1 md:grid-cols-3 border border-white/[0.06] rounded-2xl overflow-hidden"
+          >
+            {impactStats.map((stat, i) => (
+              <motion.div
+                key={stat.value}
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={cardFade}
+                className="flex flex-col items-center justify-center py-12 px-8 text-center border-b md:border-b-0 md:border-r border-white/[0.06] last:border-0"
+              >
+                <div
+                  className="text-5xl md:text-6xl font-bold mb-3 tabular-nums"
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    backgroundImage: stat.gradient,
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  {stat.value}
+                </div>
+                <p className="text-xs text-white/40 leading-relaxed max-w-[180px]">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
-            <div className="rounded-xl border border-[#00FF88]/10 bg-[#0C1018] p-6 md:p-8" data-testid="card-comparison-suverse">
-              <h4 className="text-lg font-semibold text-[#F0F4F8] mb-4 flex items-center gap-2" style={{ fontFamily: 'var(--font-heading)' }}>
-                <Check className="w-5 h-5 text-[#00FF88]" />
-                SuVerse-Enabled Operations
-              </h4>
-              <ul className="space-y-3">
-                {[
-                  "Real-time emissions calculated from actual telemetry",
-                  "Granular per-vehicle, per-trip carbon tracking",
-                  "Automated dashboards and stakeholder reporting",
-                  "Connection to carbon markets and REC opportunities",
-                  "Proactive AI recommendations for emissions reduction",
-                ].map((text, i) => (
-                  <li key={i} className="flex items-start gap-3 text-[#8899AA]/80">
-                    <span className="text-[#00FF88] mt-0.5">•</span>
-                    <span>{text}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+      {/* ════════════════════════════════════════════
+          WHY IT MATTERS
+      ════════════════════════════════════════════ */}
+      <section className="py-24 bg-[#060910]">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
+            {/* Left — heading */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.75 }}
+            >
+              <span className="text-xs text-[#00FF88] uppercase tracking-widest font-medium">
+                The Problem
+              </span>
+              <h2
+                className="text-4xl md:text-5xl font-bold text-white mt-3 tracking-tight leading-[1.1]"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Why it matters
+              </h2>
+            </motion.div>
+
+            {/* Right — paragraph */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.75, delay: 0.1 }}
+            >
+              <p className="text-white/55 leading-relaxed text-lg">
+                The transportation sector is responsible for approximately{" "}
+                <span className="text-white font-medium">
+                  16% of global greenhouse gas emissions
+                </span>
+                . Heavy-duty trucking is one of the hardest segments to
+                decarbonize. Unlike passenger vehicles, commercial trucks
+                require solutions that work at scale while maintaining the
+                operational efficiency that modern supply chains depend on.
+              </p>
+              <p className="text-white/55 leading-relaxed text-lg mt-5">
+                We're building the measurement, optimization, and incentive
+                infrastructure to change that — starting with the data layer
+                that makes real accountability possible.
+              </p>
+            </motion.div>
           </div>
-        </ContentSection>
-      </Section>
+        </div>
+      </section>
 
-      <Section className="relative overflow-hidden">
-        <div className="absolute inset-0 gradient-mesh opacity-30" />
-        <ContentSection className="relative z-10 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#F0F4F8] mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
-            Ready to Make Your Fleet More Sustainable?
-          </h2>
-          <p className="text-[#8899AA] mb-8">
-            Let's discuss how SuVerse Labs can help you measure, reduce, and report on your carbon footprint.
-          </p>
-          <Link href="/contact">
-            <Button className="bg-gradient-to-r from-[#00FF88] to-[#00D4FF] text-[#080B0F] font-semibold border-0 hover:shadow-lg hover:shadow-[#00FF88]/20 btn-shimmer" data-testid="button-sustainability-contact">
-              Get in Touch
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </Link>
-        </ContentSection>
-      </Section>
+      {/* ════════════════════════════════════════════
+          THREE PILLARS
+      ════════════════════════════════════════════ */}
+      <section className="py-24 bg-[#060910] border-t border-white/[0.04]">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="mb-14 text-center"
+          >
+            <span className="text-xs text-[#00D4FF] uppercase tracking-widest font-medium">
+              Our Framework
+            </span>
+            <h2
+              className="text-3xl md:text-4xl font-bold text-white mt-3 tracking-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Three Pillars of Impact
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {pillars.map((pillar, i) => (
+              <motion.div
+                key={pillar.title}
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={cardFade}
+                className="group relative rounded-2xl overflow-hidden border border-white/[0.06] hover:border-white/[0.12] transition-all duration-500 bg-[#0C1018] text-center p-8"
+                data-testid={pillar.testId}
+              >
+                <div
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-all duration-400 group-hover:scale-110"
+                  style={{
+                    background: `${pillar.color}12`,
+                    boxShadow: `0 0 0 1px ${pillar.color}22`,
+                  }}
+                >
+                  <pillar.icon className="w-7 h-7" style={{ color: pillar.color }} />
+                </div>
+
+                <h3
+                  className="text-xl font-semibold text-white mb-4"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  {pillar.title}
+                </h3>
+
+                <p className="text-white/45 leading-relaxed text-sm">
+                  {pillar.description}
+                </p>
+
+                {/* Bottom accent line on hover */}
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${pillar.color}, transparent)`,
+                  }}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════
+          OUR APPROACH — 2-column with image left
+      ════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden bg-[#060910] border-t border-white/[0.04]">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 min-h-[520px]">
+            {/* Left — image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 1.04 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9 }}
+              className="relative rounded-2xl overflow-hidden my-12 md:my-16"
+              style={{ minHeight: 360 }}
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: "url('/images/about.png')" }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#060910]/0 via-[#060910]/20 to-[#060910]/80 hidden md:block" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#060910]/70 via-[#060910]/20 to-[#060910]/0 md:hidden" />
+            </motion.div>
+
+            {/* Right — text */}
+            <motion.div
+              initial={{ opacity: 0, x: 28 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.75, delay: 0.15 }}
+              className="flex flex-col justify-center py-12 md:py-16 md:pl-14"
+            >
+              <span className="text-xs text-[#00D4FF] uppercase tracking-widest font-medium mb-4">
+                Our Approach
+              </span>
+              <h2
+                className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight leading-[1.1]"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                AI-Powered Emissions Intelligence
+              </h2>
+              <p className="text-white/50 leading-relaxed text-base mb-5">
+                Our AI continuously processes telematics streams — GPS tracks,
+                fuel consumption, idle time, load data — and generates
+                emissions insights in real time. Not estimates. Not averages.
+                Actual carbon accountability tied to individual vehicles and trips.
+              </p>
+              <p className="text-white/50 leading-relaxed text-base">
+                These insights surface through carrier dashboards,
+                automated reports, and direct feeds into carbon market
+                platforms — creating a closed loop between measuring
+                emissions and monetizing reductions.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════
+          CTA SECTION
+      ════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden py-28 bg-[#060910]">
+        {/* Ambient glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-[#00FF88]/[0.04] rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium border border-[#00FF88]/25 text-[#00FF88] tracking-widest uppercase bg-[#00FF88]/5 mb-8">
+              Get Involved
+            </span>
+            <h2
+              className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Ready to make your fleet{" "}
+              <span
+                style={{
+                  backgroundImage: "linear-gradient(90deg, #00FF88 0%, #00D4FF 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                more sustainable?
+              </span>
+            </h2>
+            <p className="text-white/45 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
+              Let's discuss how SuVerse Labs can help you measure, reduce, and
+              report on your carbon footprint — starting with your existing data.
+            </p>
+            <Link href="/contact">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-[#00FF88] to-[#00D4FF] text-[#060910] font-semibold border-0 px-10 hover:shadow-xl hover:shadow-[#00FF88]/25 transition-all duration-300"
+                data-testid="button-sustainability-contact"
+              >
+                Get in Touch
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
     </PageShell>
   );
 }

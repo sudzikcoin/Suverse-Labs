@@ -14,6 +14,7 @@ import FleetCarbonDashboard from "@/pages/projects/FleetCarbonDashboard";
 import CarbonVault from "@/pages/projects/CarbonVault";
 import AgentOS from "@/pages/projects/AgentOS";
 import Validators from "@/pages/projects/Validators";
+import LaunchLoop from "@/pages/projects/LaunchLoop";
 import TaxCredit from "@/pages/projects/TaxCredit";
 import Technology from "@/pages/Technology";
 import Sustainability from "@/pages/Sustainability";
@@ -33,6 +34,7 @@ function Router() {
       <Route path="/projects/fleet-carbon-dashboard" component={FleetCarbonDashboard} />
       <Route path="/projects/carbon-vault" component={CarbonVault} />
       <Route path="/projects/agentos" component={AgentOS} />
+      <Route path="/projects/launchloop" component={LaunchLoop} />
       <Route path="/projects/validators" component={Validators} />
       <Route path="/projects/tax-credit" component={TaxCredit} />
       <Route path="/technology" component={Technology} />

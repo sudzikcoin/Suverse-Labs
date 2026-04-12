@@ -15,12 +15,10 @@ export default function NewsArticle() {
       <PageShell>
         <Section>
           <ContentSection className="text-center py-20">
-            <h1 className="text-3xl font-bold text-foreground mb-4">Article Not Found</h1>
-            <p className="text-muted-foreground mb-6">
-              The article you're looking for doesn't exist or has been removed.
-            </p>
+            <h1 className="text-3xl font-bold text-[#F0F4F8] mb-4" style={{ fontFamily: 'var(--font-heading)' }}>Article Not Found</h1>
+            <p className="text-[#8899AA] mb-6">The article you're looking for doesn't exist or has been removed.</p>
             <Link href="/news">
-              <Button variant="outline" data-testid="button-back-news">
+              <Button variant="outline" className="bg-transparent border-white/10 text-[#F0F4F8] hover:bg-white/5" data-testid="button-back-news">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to News
               </Button>
@@ -43,7 +41,7 @@ export default function NewsArticle() {
         <ContentSection>
           <div className="mb-8">
             <Link href="/news">
-              <Button variant="ghost" size="sm" className="text-muted-foreground" data-testid="button-back-news">
+              <Button variant="ghost" size="sm" className="text-[#8899AA] hover:text-[#F0F4F8] hover:bg-white/5" data-testid="button-back-news">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to News
               </Button>
@@ -51,16 +49,17 @@ export default function NewsArticle() {
           </div>
 
           <div className="mb-6">
-            <Badge 
-              variant="secondary" 
-              className="text-xs bg-chart-1/10 text-chart-1 border-chart-1/20 mb-4"
+            <Badge
+              variant="secondary"
+              className="text-xs bg-[#00D4FF]/10 text-[#00D4FF] border-[#00D4FF]/20 mb-4"
             >
               <Calendar className="w-3 h-3 mr-1" />
               {formattedDate}
             </Badge>
-            
-            <h1 
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight"
+
+            <h1
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#F0F4F8] leading-tight"
+              style={{ fontFamily: 'var(--font-heading)' }}
               data-testid="text-article-title"
             >
               {post.title}
@@ -69,9 +68,9 @@ export default function NewsArticle() {
 
           <div className="prose prose-invert prose-lg max-w-none">
             {post.content.map((paragraph, index) => (
-              <p 
-                key={index} 
-                className="text-muted-foreground leading-relaxed mb-6"
+              <p
+                key={index}
+                className="text-[#8899AA] leading-relaxed mb-6"
                 data-testid={`text-article-paragraph-${index}`}
               >
                 {paragraph}
@@ -81,22 +80,22 @@ export default function NewsArticle() {
         </ContentSection>
       </Section>
 
-      <Section className="bg-section-alt">
+      <Section className="bg-[#060910]">
         <ContentSection className="text-center">
-          <h3 className="text-xl font-semibold text-foreground mb-4">
+          <h3 className="text-xl font-semibold text-[#F0F4F8] mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
             Want to Learn More?
           </h3>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-[#8899AA] mb-6">
             Stay updated on SuVerse Labs developments and sustainable transportation innovation.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/news">
-              <Button variant="outline" data-testid="button-more-articles">
+              <Button variant="outline" className="bg-transparent border-white/10 text-[#F0F4F8] hover:bg-white/5" data-testid="button-more-articles">
                 More Articles
               </Button>
             </Link>
             <Link href="/contact">
-              <Button className="bg-gradient-to-r from-chart-1 to-chart-1/80" data-testid="button-article-contact">
+              <Button className="bg-gradient-to-r from-[#00D4FF] to-[#00B4D8] text-[#080B0F] font-semibold border-0 btn-shimmer" data-testid="button-article-contact">
                 Get in Touch
               </Button>
             </Link>

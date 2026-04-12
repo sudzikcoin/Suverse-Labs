@@ -58,6 +58,15 @@ export const projects: Project[] = [
     href: "/projects/validators",
   },
   {
+    id: "launchloop",
+    slug: "launchloop",
+    name: "LaunchLoop",
+    shortTagline: "Creator-Led Product Growth Marketplace",
+    description: "B2B SaaS marketplace connecting technology product makers with vetted content creators for authentic, performance-driven product launches and promotion.",
+    tags: ["Marketplace", "B2B SaaS", "Growth"],
+    href: "/projects/launchloop",
+  },
+  {
     id: "tax-credit",
     slug: "tax-credit",
     name: "SuVerse Tax Credit",

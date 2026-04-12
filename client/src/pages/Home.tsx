@@ -2,11 +2,10 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { PageShell, Section } from "@/components/layout/PageShell";
 import { ProjectCard } from "@/components/shared/ProjectCard";
-import { ValueCard } from "@/components/shared/ValueCard";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { projects } from "@/data/projects";
 import { siteConfig } from "@/lib/siteConfig";
-import { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Leaf,
@@ -16,19 +15,18 @@ import {
   TrendingDown,
   BarChart3,
   Globe,
-  Wind,
-  Sun,
-  Truck,
-  Link2,
-  Cloud,
-  Server,
-  LucideIcon
 } from "lucide-react";
 
-const GlobeScene = lazy(() => import("@/components/three/GlobeScene"));
-
-/* ── Animated counter with formatting ── */
-function AnimatedCounter({ target, suffix = "", prefix = "" }: { target: number; suffix?: string; prefix?: string }) {
+/* ── Animated counter ── */
+function AnimatedCounter({
+  target,
+  suffix = "",
+  display,
+}: {
+  target: number;
+  suffix?: string;
+  display?: string;
+}) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
@@ -38,7 +36,7 @@ function AnimatedCounter({ target, suffix = "", prefix = "" }: { target: number;
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
           started.current = true;
-          const duration = 2200;
+          const duration = 2000;
           const steps = 60;
           const increment = target / steps;
           let current = 0;
@@ -59,76 +57,35 @@ function AnimatedCounter({ target, suffix = "", prefix = "" }: { target: number;
     return () => observer.disconnect();
   }, [target]);
 
-  const formatted = target >= 1000000
-    ? (count / 1000000).toFixed(1)
-    : target >= 1000
-      ? Math.floor(count).toLocaleString()
-      : count;
+  if (display) {
+    const millions = (count / 1000000).toFixed(1);
+    return (
+      <span ref={ref}>
+        {millions}
+        {display}
+      </span>
+    );
+  }
 
-  return <span ref={ref}>{prefix}{formatted}{suffix}</span>;
+  return (
+    <span ref={ref}>
+      {count}
+      {suffix}
+    </span>
+  );
 }
-
-/* ── Visual areas data ── */
-const visualAreas: { icon: LucideIcon; title: string; description: string }[] = [
-  {
-    icon: Wind,
-    title: "Wind Power",
-    description: "Modern wind turbines feeding clean electricity into digital logistics and data infrastructure.",
-  },
-  {
-    icon: Sun,
-    title: "Solar Farms",
-    description: "Utility-scale solar supporting low-carbon energy for fleets, data centers, and blockchains.",
-  },
-  {
-    icon: Truck,
-    title: "Freight Trucks",
-    description: "Real-world trucking data: routes, fuel, and operations that SuVerse Labs connects to AI and blockchain.",
-  },
-  {
-    icon: Link2,
-    title: "Blockchain Networks",
-    description: "Decentralized ledgers and validators securing the data and incentives behind sustainable logistics.",
-  },
-  {
-    icon: Bot,
-    title: "AI Agents",
-    description: "AgentOS and AI-driven automation orchestrating decisions across fleets, finance, and operations.",
-  },
-  {
-    icon: Cloud,
-    title: "CO2 & Climate Data",
-    description: "Emissions metrics and carbon signals that can be measured, reported, and tokenized over time.",
-  },
-  {
-    icon: Server,
-    title: "Data Centers",
-    description: "Infrastructure where AI models run and blockchain nodes live, powered by smarter energy choices.",
-  },
-];
-
-/* ── Metrics — real numbers ── */
-const metrics = [
-  { value: 2850000, suffix: "+", prefix: "", label: "Miles Tracked", display: "M+" },
-  { value: 58, suffix: "", prefix: "", label: "Carriers" },
-  { value: 15, suffix: "", prefix: "", label: "States" },
-  { value: 7, suffix: "", prefix: "", label: "Products" },
-];
-
-/* ── What We Build items ── */
-const buildItems = [
-  { icon: Leaf, title: "Green Logistics", description: "Focus on reducing emissions and increasing transparency in trucking and freight through data-driven measurement and optimization.", color: "#00FF88" },
-  { icon: Bot, title: "AI Robot Applications", description: "LLM-powered agents that automate operations for carriers, brokers, and finance teams, reducing manual work and improving efficiency.", color: "#00D4FF" },
-  { icon: Network, title: "Decentralized Infrastructure", description: "Validators and DePIN systems ensuring secure, scalable infrastructure for the next generation of logistics technology.", color: "#6366F1" },
-];
 
 /* ── Framer variants ── */
 const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 36 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.15, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: {
+      delay: i * 0.12,
+      duration: 0.8,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
   }),
 };
 
@@ -137,300 +94,366 @@ const cardFade = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: {
+      delay: i * 0.1,
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
   }),
 };
+
+/* ── Metrics ── */
+const metrics = [
+  { target: 2850000, display: "M+", label: "Miles Tracked" },
+  { target: 58, suffix: "", label: "Carriers" },
+  { target: 15, suffix: "", label: "States" },
+  { target: 7, suffix: "", label: "Products" },
+];
+
+/* ── What We Build ── */
+const buildItems = [
+  {
+    icon: Leaf,
+    title: "Green Logistics",
+    description:
+      "Reducing emissions and increasing transparency in trucking through data-driven measurement and optimization.",
+    color: "#00FF88",
+  },
+  {
+    icon: Bot,
+    title: "AI Robot Applications",
+    description:
+      "LLM-powered agents that automate operations for carriers, brokers, and finance teams.",
+    color: "#00D4FF",
+  },
+  {
+    icon: Network,
+    title: "Decentralized Infrastructure",
+    description:
+      "Validators and DePIN systems ensuring secure, scalable infrastructure for next-gen logistics.",
+    color: "#6366F1",
+  },
+];
 
 export default function Home() {
   const featuredProjects = projects.slice(0, 4);
 
   return (
     <PageShell>
-      {/* ── HERO with 3D Globe ── */}
-      <section className="relative min-h-[720px] md:min-h-[840px] flex items-center overflow-hidden">
-        {/* Layered animated background */}
-        <div className="absolute inset-0 gradient-mesh" />
-        <div className="absolute inset-0 dot-grid opacity-20" />
-        <div className="absolute inset-0 iso-grid" />
+      {/* ══════════════════════════════════════════
+          HERO — Full-screen cinematic background
+      ══════════════════════════════════════════ */}
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/hero.png')" }}
+        />
+        {/* Dark overlay — ensures text is always readable */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#060910]/95 via-[#060910]/75 to-[#060910]/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#060910]/40 via-transparent to-[#060910]/90" />
 
-        {/* Decorative orbs */}
-        <div className="absolute top-1/4 left-[10%] w-[500px] h-[500px] rounded-full bg-[#00D4FF]/[0.03] blur-[100px] animate-float" />
-        <div className="absolute bottom-1/4 right-[10%] w-[400px] h-[400px] rounded-full bg-[#00FF88]/[0.03] blur-[100px] animate-float" style={{ animationDelay: '-3s' }} />
-
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 w-full py-24">
-          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-4">
-            {/* Left: Text content */}
-            <div className="flex-1 text-center lg:text-left">
-              <motion.div
-                custom={0}
-                initial="hidden"
-                animate="visible"
-                variants={fadeUp}
-                className="mb-8"
-              >
-                <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium bg-white/[0.04] border border-white/[0.08] text-[#8899AA] tracking-wide uppercase">
-                  {siteConfig.siteName} · AI · Blockchain · Green Logistics
-                </span>
-              </motion.div>
-
-              <motion.h1
-                custom={1}
-                initial="hidden"
-                animate="visible"
-                variants={fadeUp}
-                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#F0F4F8] leading-[1.05] mb-8 tracking-tight"
-                style={{ fontFamily: 'var(--font-heading)' }}
-                data-testid="text-hero-title"
-              >
-                AI & Blockchain{" "}
-                <br className="hidden md:block" />
-                Infrastructure for{" "}
-                <span className="text-gradient">
-                  Sustainable Transportation
-                </span>
-              </motion.h1>
-
-              <motion.p
-                custom={2}
-                initial="hidden"
-                animate="visible"
-                variants={fadeUp}
-                className="text-lg md:text-xl text-[#8899AA] max-w-xl mx-auto lg:mx-0 mb-12 leading-relaxed"
-                data-testid="text-hero-subtitle"
-              >
-                SuVerse Labs builds AI agents, telematics tools, and blockchain infrastructure
-                to decarbonize trucking and modernize real-world logistics.
-              </motion.p>
-
-              <motion.div
-                custom={3}
-                initial="hidden"
-                animate="visible"
-                variants={fadeUp}
-                className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12"
-              >
-                <Link href="/projects">
-                  <Button
-                    size="lg"
-                    className="w-full sm:w-auto bg-gradient-to-r from-[#00D4FF] to-[#00B4D8] text-[#080B0F] font-semibold border-0 hover:shadow-lg hover:shadow-[#00D4FF]/25 btn-shimmer px-8"
-                    data-testid="button-explore-projects"
-                  >
-                    Explore Projects
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
-                <Link href="/partners">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full sm:w-auto bg-transparent border-white/[0.08] text-[#F0F4F8] hover:bg-white/[0.04] hover:border-white/[0.15] transition-all duration-300 px-8"
-                    data-testid="button-for-partners"
-                  >
-                    For Partners & Investors
-                  </Button>
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* Right: 3D Globe */}
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full py-32">
+          <div className="max-w-2xl">
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="flex-1 w-full max-w-[600px] h-[400px] md:h-[500px] lg:h-[560px] relative"
+              custom={0}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              className="mb-8"
             >
-              {/* Globe glow backdrop */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full bg-[#00D4FF]/[0.04] blur-[60px]" />
-              </div>
-              <Suspense fallback={
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="w-32 h-32 rounded-full border border-[#00D4FF]/20 animate-pulse" />
-                </div>
-              }>
-                <GlobeScene />
-              </Suspense>
+              <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium border border-[#00D4FF]/30 text-[#00D4FF] tracking-widest uppercase bg-[#00D4FF]/5">
+                {siteConfig.siteName} · AI · Blockchain · Green Logistics
+              </span>
+            </motion.div>
+
+            <motion.h1
+              custom={1}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              className="text-5xl md:text-6xl xl:text-7xl font-bold text-white leading-[1.05] mb-8 tracking-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              AI & Blockchain
+              <br />
+              Infrastructure for{" "}
+              <span className="text-gradient">
+                Sustainable Transportation
+              </span>
+            </motion.h1>
+
+            <motion.p
+              custom={2}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              className="text-lg md:text-xl text-white/60 max-w-xl mb-12 leading-relaxed"
+            >
+              SuVerse Labs builds AI agents, telematics tools, and blockchain
+              infrastructure to decarbonize trucking and modernize real-world
+              logistics.
+            </motion.p>
+
+            <motion.div
+              custom={3}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <Link href="/projects">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto bg-[#00D4FF] text-[#060910] font-semibold hover:bg-[#00B8E0] border-0 px-8 transition-all duration-300 hover:shadow-xl hover:shadow-[#00D4FF]/30"
+                >
+                  Explore Projects
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+              <Link href="/partners">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 px-8 backdrop-blur-sm"
+                >
+                  For Partners & Investors
+                </Button>
+              </Link>
             </motion.div>
           </div>
         </div>
+
+        {/* Bottom gradient fade into next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#060910] to-transparent" />
       </section>
 
-      {/* ── METRICS BAR ── */}
-      <section className="relative z-10 -mt-4 mb-8">
+      {/* ══════════════════════════════════════════
+          METRICS BAR
+      ══════════════════════════════════════════ */}
+      <section className="relative z-10 bg-[#060910]">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="flex items-center justify-center gap-6 md:gap-12 py-8 px-6 rounded-2xl bg-[#0C1018]/80 border border-white/[0.04] backdrop-blur-sm"
+            className="grid grid-cols-2 md:grid-cols-4 border border-white/[0.06] rounded-2xl overflow-hidden"
           >
             {metrics.map((m, i) => (
-              <div key={m.label} className="text-center relative">
-                {i > 0 && <div className="absolute -left-3 md:-left-6 top-1/2 -translate-y-1/2 w-px h-10 bg-white/[0.06]" />}
-                <div className="text-2xl md:text-4xl font-bold text-gradient" style={{ fontFamily: 'var(--font-heading)' }}>
-                  {m.value >= 1000000 ? (
-                    <AnimatedCounter target={m.value} suffix={m.display || m.suffix} prefix={m.prefix} />
-                  ) : (
-                    <AnimatedCounter target={m.value} suffix={m.suffix} prefix={m.prefix} />
-                  )}
+              <div
+                key={m.label}
+                className="flex flex-col items-center justify-center py-10 px-6 text-center border-r border-white/[0.06] last:border-r-0 odd:border-b md:border-b-0"
+              >
+                <div
+                  className="text-3xl md:text-4xl font-bold text-gradient mb-2"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  <AnimatedCounter
+                    target={m.target}
+                    suffix={m.suffix}
+                    display={m.display}
+                  />
                 </div>
-                <div className="text-[10px] md:text-xs text-[#8899AA]/70 mt-1.5 uppercase tracking-wider font-medium">{m.label}</div>
+                <div className="text-xs text-white/40 uppercase tracking-widest font-medium">
+                  {m.label}
+                </div>
               </div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* ── ENERGY LANDSCAPE ── */}
+      {/* ══════════════════════════════════════════
+          WHAT WE BUILD — 3 columns with image bg
+      ══════════════════════════════════════════ */}
       <Section className="bg-[#060910]">
-        <div className="mb-8 sm:mb-10">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-2xl md:text-3xl font-semibold text-[#F0F4F8] mb-3"
-            style={{ fontFamily: 'var(--font-heading)' }}
-          >
-            Energy & Infrastructure Landscape
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[#8899AA] max-w-2xl"
-          >
-            SuVerse Labs connects real-world energy and logistics—wind and solar assets, freight trucks,
-            data centers, and decentralized networks—into one AI- and blockchain-powered stack.
-          </motion.p>
-        </div>
-
-        <div className="grid gap-4 sm:gap-5 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-          {visualAreas.map((area, i) => (
-            <motion.div
-              key={area.title}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardFade}
-              className="group relative overflow-hidden rounded-xl border border-white/[0.04] bg-[#0C1018] hover:border-[#00D4FF]/20 transition-all duration-400 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/20"
-              data-testid={`card-visual-${area.title.toLowerCase().replace(/\s+/g, '-')}`}
-            >
-              <div className="p-4 sm:p-5 flex flex-col gap-3">
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-[#00D4FF]/10 to-[#00FF88]/10 group-hover:from-[#00D4FF]/20 group-hover:to-[#00FF88]/20 transition-all duration-400">
-                  <area.icon className="w-5 h-5 text-[#00D4FF]" />
-                </div>
-                <div className="space-y-1.5">
-                  <h3 className="text-sm font-semibold tracking-tight text-[#F0F4F8]">
-                    {area.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#8899AA]/80 leading-relaxed">
-                    {area.description}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── WHAT WE BUILD — horizontal scroll on mobile ── */}
-      <Section>
         <SectionHeading
           title="What We Build"
           subtitle="Technology solutions that connect physical logistics with digital infrastructure"
           centered
         />
 
-        {/* Desktop: grid, Mobile: horizontal scroll */}
-        <div className="hidden md:grid grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
           {buildItems.map((item, i) => (
             <motion.div
               key={item.title}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardFade}
-            >
-              <ValueCard
-                icon={item.icon}
-                title={item.title}
-                description={item.description}
-                accentColor={item.color}
-                testId={`card-value-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
-              />
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="md:hidden flex gap-4 overflow-x-auto scroll-x-mobile pb-4 -mx-6 px-6 snap-x snap-mandatory">
-          {buildItems.map((item, i) => (
-            <motion.div
-              key={item.title}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardFade}
-              className="flex-shrink-0 w-[280px] snap-center"
-            >
-              <ValueCard
-                icon={item.icon}
-                title={item.title}
-                description={item.description}
-                accentColor={item.color}
-                testId={`card-value-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
-              />
-            </motion.div>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── OUR PROJECTS ── */}
-      <Section className="bg-[#060910]">
-        <SectionHeading
-          title="Our Projects"
-          subtitle="Explore the initiatives driving our vision for sustainable transportation"
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {featuredProjects.map((project, i) => (
-            <motion.div
-              key={project.id}
               custom={i}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               variants={cardFade}
+              className="group relative rounded-2xl overflow-hidden border border-white/[0.06] hover:border-white/[0.12] transition-all duration-500 bg-[#0C1018]"
             >
-              <ProjectCard project={project} />
+              <div className="p-8">
+                <div
+                  className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-all duration-400 group-hover:scale-110"
+                  style={{
+                    background: `${item.color}15`,
+                    boxShadow: `0 0 0 1px ${item.color}20`,
+                  }}
+                >
+                  <item.icon className="w-6 h-6" style={{ color: item.color }} />
+                </div>
+                <h3
+                  className="text-xl font-semibold text-white mb-3"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  {item.title}
+                </h3>
+                <p className="text-white/50 leading-relaxed text-sm">
+                  {item.description}
+                </p>
+              </div>
+              {/* Bottom accent line on hover */}
+              <div
+                className="absolute bottom-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background: `linear-gradient(90deg, transparent, ${item.color}, transparent)`,
+                }}
+              />
             </motion.div>
           ))}
         </div>
-
-        <div className="mt-10 text-center">
-          <Link href="/projects">
-            <Button
-              variant="outline"
-              className="bg-transparent border-white/[0.08] text-[#F0F4F8] hover:bg-white/[0.04] hover:border-[#00D4FF]/30 hover:text-[#00D4FF] transition-all duration-300"
-              data-testid="button-view-all-projects"
-            >
-              View All Projects
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </Link>
-        </div>
       </Section>
 
-      {/* ── WHY THIS MATTERS ── */}
-      <Section>
-        <div className="max-w-4xl mx-auto">
+      {/* ══════════════════════════════════════════
+          PROJECTS — Full-width image section
+      ══════════════════════════════════════════ */}
+      <section className="relative overflow-hidden">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/images/projects.png')" }}
+        />
+        <div className="absolute inset-0 bg-[#060910]/85" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="mb-12"
+          >
+            <h2
+              className="text-3xl md:text-4xl font-bold text-white mb-4"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Our Projects
+            </h2>
+            <p className="text-white/50 max-w-xl">
+              Explore the initiatives driving our vision for sustainable transportation
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {featuredProjects.map((project, i) => (
+              <motion.div
+                key={project.id}
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={cardFade}
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-10 text-center"
+          >
+            <Link href="/projects">
+              <Button
+                variant="outline"
+                className="bg-transparent border-white/20 text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300"
+              >
+                View All Projects
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          TECHNOLOGY — Neural network image
+      ══════════════════════════════════════════ */}
+      <section className="relative overflow-hidden min-h-[500px] flex items-center">
+        {/* Background */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/images/technology.png')" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-l from-[#060910]/95 via-[#060910]/70 to-[#060910]/20" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-24 w-full">
+          <div className="ml-auto max-w-xl text-right">
+            <motion.span
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="inline-block text-xs text-[#00D4FF] uppercase tracking-widest mb-4 font-medium"
+            >
+              Technology Stack
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              AI-Powered
+              <br />
+              <span className="text-gradient">Intelligence Layer</span>
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              className="text-white/50 leading-relaxed mb-8"
+            >
+              Our AgentOS platform connects real-world freight data with AI models
+              and blockchain validators — building the intelligence layer for
+              sustainable logistics at scale.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.25 }}
+              className="flex flex-wrap gap-3 justify-end"
+            >
+              {["AgentOS", "DePIN", "Telematics", "Carbon Data", "Blockchain"].map(
+                (tag) => (
+                  <span
+                    key={tag}
+                    className="px-4 py-1.5 rounded-full text-xs font-medium border border-[#00D4FF]/20 text-[#00D4FF]/80 bg-[#00D4FF]/5"
+                  >
+                    {tag}
+                  </span>
+                )
+              )}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          WHY IT MATTERS
+      ══════════════════════════════════════════ */}
+      <Section className="bg-[#060910]">
+        <div className="max-w-5xl mx-auto">
           <SectionHeading
             title="Why This Matters"
             subtitle="Transportation is responsible for a significant share of global emissions. Here's how we're making a difference."
@@ -439,9 +462,27 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
             {[
-              { icon: TrendingDown, title: "Decarbonization", description: "Actively working to reduce emissions through better routing, monitoring, and optimization", color: "#00FF88" },
-              { icon: BarChart3, title: "Digital Infrastructure", description: "Building the measurement and tracking systems needed for transparent emissions reporting", color: "#00D4FF" },
-              { icon: Globe, title: "Climate Alignment", description: "Innovation aligned with national and global climate goals for a sustainable future", color: "#6366F1" },
+              {
+                icon: TrendingDown,
+                title: "Decarbonization",
+                description:
+                  "Actively reducing emissions through better routing, monitoring, and optimization of freight operations.",
+                color: "#00FF88",
+              },
+              {
+                icon: BarChart3,
+                title: "Digital Infrastructure",
+                description:
+                  "Building measurement and tracking systems needed for transparent, verifiable emissions reporting.",
+                color: "#00D4FF",
+              },
+              {
+                icon: Globe,
+                title: "Climate Alignment",
+                description:
+                  "Innovation aligned with national and global climate goals for a sustainable transportation future.",
+                color: "#6366F1",
+              },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
@@ -453,18 +494,24 @@ export default function Home() {
                 className="text-center group"
               >
                 <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-all duration-400 group-hover:scale-110"
-                  style={{ background: `${item.color}10`, boxShadow: `0 0 0 1px ${item.color}15` }}
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-all duration-400 group-hover:scale-110"
+                  style={{
+                    background: `${item.color}12`,
+                    boxShadow: `0 0 0 1px ${item.color}20`,
+                  }}
                 >
-                  <item.icon className="w-7 h-7" style={{ color: item.color }} />
+                  <item.icon
+                    className="w-7 h-7"
+                    style={{ color: item.color }}
+                  />
                 </div>
                 <h4
-                  className="text-lg font-semibold text-[#F0F4F8] mb-2"
-                  style={{ fontFamily: 'var(--font-heading)' }}
+                  className="text-lg font-semibold text-white mb-3"
+                  style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {item.title}
                 </h4>
-                <p className="text-sm text-[#8899AA]/80 leading-relaxed">
+                <p className="text-sm text-white/50 leading-relaxed">
                   {item.description}
                 </p>
               </motion.div>
@@ -473,26 +520,49 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* ── CTA ── */}
-      <Section className="relative overflow-hidden">
-        <div className="absolute inset-0 gradient-mesh opacity-40" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#00D4FF]/[0.03] blur-[120px]" />
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <h2
-            className="text-3xl md:text-5xl font-bold text-[#F0F4F8] mb-6 tracking-tight"
-            style={{ fontFamily: 'var(--font-heading)' }}
+      {/* ══════════════════════════════════════════
+          ABOUT / PORT — CTA section with image
+      ══════════════════════════════════════════ */}
+      <section className="relative overflow-hidden min-h-[420px] flex items-center">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/images/about.png')" }}
+        />
+        <div className="absolute inset-0 bg-[#060910]/80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060910]/95 via-[#060910]/50 to-transparent" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-24 w-full text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight"
+            style={{ fontFamily: "var(--font-heading)" }}
           >
             Ready to Learn More?
-          </h2>
-          <p className="text-lg text-[#8899AA] mb-10">
-            Whether you're a carrier, broker, investor, or technology partner, we'd love to connect.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-lg text-white/50 mb-10 max-w-2xl mx-auto"
+          >
+            Whether you're a carrier, broker, investor, or technology partner,
+            we'd love to connect.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
             <Link href="/contact">
               <Button
                 size="lg"
-                className="w-full sm:w-auto bg-gradient-to-r from-[#00D4FF] to-[#00B4D8] text-[#080B0F] font-semibold border-0 hover:shadow-lg hover:shadow-[#00D4FF]/25 btn-shimmer px-8"
-                data-testid="button-cta-contact"
+                className="w-full sm:w-auto bg-[#00D4FF] text-[#060910] font-semibold hover:bg-[#00B8E0] border-0 px-8 transition-all duration-300 hover:shadow-xl hover:shadow-[#00D4FF]/30"
               >
                 Get in Touch
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -502,15 +572,14 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto bg-transparent border-white/[0.08] text-[#F0F4F8] hover:bg-white/[0.04] hover:border-white/[0.15] transition-all duration-300 px-8"
-                data-testid="button-cta-about"
+                className="w-full sm:w-auto bg-white/5 border-white/20 text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 px-8 backdrop-blur-sm"
               >
                 About SuVerse Labs
               </Button>
             </Link>
-          </div>
+          </motion.div>
         </div>
-      </Section>
+      </section>
     </PageShell>
   );
 }

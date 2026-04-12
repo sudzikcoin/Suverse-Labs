@@ -19,10 +19,14 @@ export default function News() {
   return (
     <PageShell>
       {/* Hero */}
-      <section className="relative py-24 md:py-32 overflow-hidden" style={{ backgroundColor: "#060910" }}>
-        {/* Subtle cyan glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-[#00D4FF]/[0.05] rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 right-1/3 w-[300px] h-[200px] bg-[#00D4FF]/[0.02] rounded-full blur-[80px] pointer-events-none" />
+      <section className="relative py-24 md:py-32 overflow-hidden">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/news-hero.png')" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#060910]/95 via-[#060910]/75 to-[#060910]/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#060910]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
           <motion.h1

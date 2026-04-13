@@ -9,6 +9,19 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "verra-scope-3-standard-q3-2026-digital-infrastructure",
+    title: "Verra Pushes Scope 3 Standard to Q3 2026, Highlighting Need for Digital, Audit-Ready Emissions Data",
+    date: "2026-04-13",
+    summary:
+      "Verra says its upcoming Scope 3 Standard (S3S) will launch in Q3 2026 and is taking extra time to align with major climate accounting initiatives and build the program’s rules, tools, and infrastructure. For transportation and logistics, it’s another signal that verified, shareable Scope 3 data is becoming a procurement and compliance requirement — not a nice-to-have.",
+    content: [
+      "Verra says it is preparing to launch version 1.0 phase 1 of its Scope 3 Standard (S3S) Program in Q3 2026, with the initial release focused on letting companies list project pipelines using S3S-adapted methodologies. Verra frames the later-than-expected timing as deliberate: the organization says the additional development window is meant to refine program rules and tools, incorporate learnings from pilots, and build infrastructure and trainings to support broader market uptake.",
+      "In its update, Verra also emphasizes interoperability. It says the timing enables alignment with Verified Carbon Standard (VCS) Program version 5 (released in December 2025) and compatibility with several external initiatives, including updates from the Greenhouse Gas Protocol and the Science Based Targets initiative. For companies trying to measure and reduce value-chain emissions, especially those whose largest footprint sits in transportation, the message is that Scope 3 accounting is moving toward more standardized, system-integrated approaches.",
+      "For logistics providers, that trend has practical implications. Shippers facing mandatory reporting regimes increasingly want defensible activity-based numbers (per lane, per mode, per shipment), not only broad estimates. The data burden falls on carriers and 3PLs to provide consistent emissions calculations and evidence that can survive third-party assurance—creating demand for platforms that can ingest operational data, apply consistent methodologies, and share results across supply-chain partners.",
+      "This is the kind of ecosystem SuVerse Labs is building for: sustainable transportation powered by AI automation and blockchain-based carbon tracking, where emissions data can be captured closer to real operations and preserved as an auditable record. As standards like S3S move toward launch, the competitive advantage will increasingly go to fleets and logistics networks that can deliver trusted Scope 3 data at the same speed they deliver freight.",
+    ],
+  },
+  {
     slug: "ai-iot-blockchain-the-digital-trio-powering-green-logistics",
     title: "AI, IoT, and Blockchain: The Digital Trio Powering Green Logistics",
     date: "2026-04-12",
@@ -76,20 +89,6 @@ export const posts: Post[] = [
       "Freight and transportation emissions sit squarely within Category 4 (upstream transportation and distribution) and Category 9 (downstream transportation and distribution) of the GHG Protocol's Scope 3 framework. For goods-producing companies, these categories collectively represent some of the largest and most difficult-to-measure emission sources. Unlike Scope 1 and 2, which a company can measure directly from its own operations and energy bills, Scope 3 transportation data requires emissions information from every carrier, 3PL, and logistics partner in the supply chain — most of whom do not yet systematically track or report it.",
       "The CARB workshop confirmed that spend-based estimates using industry average emission factors are acceptable for initial Scope 3 reporting, but regulators expect progression toward supplier-specific primary data over time. This creates a direct commercial incentive for logistics providers: carriers and freight operators who can supply verified, per-shipment emissions data — ideally through standardized frameworks like the GLEC methodology — will gain a competitive advantage with large shippers who need that data to meet their own California disclosure obligations. Fines for non-compliance reach up to $500,000 per reporting year.",
       "The practical implication for the broader supply chain is a cascading disclosure requirement. Large shippers regulated under SB 253 are already requiring their logistics partners to provide emissions data as a condition of procurement. Mid-market carriers not directly subject to SB 253 are now receiving supplier questionnaires and data requests. Building the telematics infrastructure to capture, validate, and deliver per-shipment carbon data is no longer a future investment — it is an immediate operational priority for any freight company that wants to remain competitive in the California market and with enterprise customers globally.",
-    ],
-  },
-  {
-    slug: "ai-trade-intelligence-reshaping-supply-chain-2026",
-    title: "AI-Driven Trade Intelligence Is Reshaping Global Supply Chain Decision-Making in 2026",
-    date: "2026-04-01",
-    image: "/images/news-ai-trade.png",
-    summary:
-      "Global Trade Magazine's February 2026 analysis documents how AI-powered predictive analytics, real-time visibility platforms, and emissions tracking are converging to create a new standard for supply chain management — cutting costs by 20–30% while simultaneously advancing decarbonization.",
-    content: [
-      "Visibility has always been the central challenge in global logistics. Supply chains span multiple countries, currencies, regulatory environments, and transportation networks, making accurate real-time tracking historically difficult and expensive. According to Global Trade Magazine's February 2026 analysis, AI-driven systems are now changing this fundamentally: by analyzing data from IoT sensors, GPS tracking, and digital documentation, AI can identify port bottlenecks, predict weather-related delays, and automatically suggest alternate routes — delivering end-to-end shipment visibility that was previously impossible for all but the largest operators.",
-      "The sustainability dimension is increasingly inseparable from the efficiency story. AI route optimization systems now simultaneously minimize fuel consumption and maximize on-time performance — the same algorithm that cuts 18% off fuel costs also reduces Scope 3 emissions for every shipper using that carrier. Platforms like Shippeo report 92% demand forecasting accuracy, with predictive ETA improvements of 25% for carrier performance. For a 50-truck fleet, this translates to approximately $250,000 in annual fuel savings alongside measurable CO2 reductions — a combination that directly supports both corporate ESG targets and regulatory compliance under frameworks like CSRD and California's SB 253.",
-      "Blockchain integration is accelerating this further. Supply chain transparency platforms now use blockchain to create immutable audit trails across multimodal networks. One widely cited implementation — CarbonChain's integration with logistics data systems — has been reported to reduce Scope 3 emissions reporting errors by 94% by replacing manual data collection with automated, sensor-verified carbon accounting. For enterprise shippers facing mandatory Scope 3 disclosure deadlines, this accuracy improvement is not cosmetic: regulators and investors expect data that can withstand third-party assurance, and spend-based estimates that diverge significantly from activity-based calculations create legal and reputational exposure.",
-      "The convergence of these trends points to a structural shift in how logistics technology is valued. Carriers who can offer shippers a verified carbon data feed alongside competitive rates are no longer differentiating on a sustainability feature — they are providing a compliance service. As Scope 3 disclosure obligations expand through SB 253, CSRD, and the CBAM, the ability to deliver auditable, per-shipment emissions data is becoming as fundamental to freight procurement as price and transit time.",
     ],
   },
 ];

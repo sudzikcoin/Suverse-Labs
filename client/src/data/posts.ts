@@ -9,6 +9,19 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "agentos-vault-rag-knowledge-routing-fleet-intelligence",
+    title: "From Load Data to Fleet Intelligence: AgentOS Expands Vault + RAG for Corridor-Level Insights",
+    date: "2026-04-15",
+    summary:
+      "AgentOS now turns operational load history into queryable knowledge: corridor aggregations, per-driver context, and a new KNOWLEDGE routing path for the orchestrator. This makes it easier for fleets to answer questions quickly and consistently — without losing the audit trail needed for ESG and customer reporting.",
+    content: [
+      "This week, AgentOS’ Vault sync gained a major expansion: richer document coverage, extended load fields, and analytics outputs like top origin→destination corridors — all materialized into Markdown notes that stay close to the underlying operational record. The result is a durable, company-contextual knowledge layer that can be inspected, shared, and audited instead of living only in a database or a chat transcript.",
+      "On top of that foundation, we shipped Phase 2 of RAG with file-based knowledge retrieval over the vault notes and a dedicated KNOWLEDGE mode inside the v2 orchestrator. Practically, that means AgentOS can route questions like “which lanes do we run most often?” or “who hauled to Alabama recently?” into a consistent workflow that pulls the relevant notes, preserves context (including multilingual keywords), and returns an answer tied back to fleet activity.",
+      "For trucking and logistics operators, this is about speed and trust. When corridor performance, recent loads, and driver-specific route context can be queried in seconds, dispatch and operations teams get faster exception handling, better coaching signals, and fewer manual report cycles. Just as importantly, the same data structures that power operational Q&A can support defensible Scope 3 and customer sustainability requests — because the evidence trail is embedded in the vault.",
+      "SuVerse Labs is building AgentOS toward a world where AI agents automate freight execution, while emissions and activity data remain verifiable and shareable across the supply chain. Vault-backed knowledge and orchestration routing are foundational steps: they make fleet intelligence real-time enough for day-to-day decisions, and structured enough to plug into carbon accounting, blockchain verification, and audit-ready reporting workflows.",
+    ],
+  },
+  {
     slug: "project44-lunapath-ai-agent-orchestration-supply-chain-carbon-data",
     title: "project44 Acquires LunaPath.ai to Accelerate AI Agent Orchestration — and Why Carbon-Grade Freight Data Matters",
     date: "2026-04-15",

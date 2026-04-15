@@ -165,19 +165,6 @@ async function sendTelegram(message) {
   }
 }
 
-// ── Git ──
-
-function gitCommitAndPush(message) {
-  try {
-    execSync('git add client/src/data/posts.ts client/src/pages/Home.tsx', { cwd: ROOT, stdio: 'pipe' });
-    execSync(`git commit -m "${message}"`, { cwd: ROOT, stdio: 'pipe' });
-    execSync('git push origin main', { cwd: ROOT, stdio: 'pipe' });
-    log(`Git: pushed — ${message}`);
-  } catch (err) {
-    log(`Git: commit/push skipped — ${err.message}`);
-  }
-}
-
 // ── Deploy ──
 
 function buildAndDeploy() {
@@ -190,11 +177,25 @@ function buildAndDeploy() {
     execSync(`cp ${ROOT}/dist/index.cjs /var/www/suverse.io/index.cjs`, { stdio: "pipe" });
     execSync("systemctl reload nginx", { stdio: "pipe" });
     log("Build & deploy complete");
-    gitCommitAndPush(`deploy: site-agent update ${new Date().toISOString().slice(0,10)}`);
     return true;
   } catch (err) {
     log(`Build/deploy failed: ${err.message}`);
     return false;
+  }
+}
+
+// ── Git commit & push ──
+
+function gitCommitAndPush(message) {
+  try {
+    execSync('git config user.email "sudzikgroup@gmail.com"', { cwd: ROOT, stdio: "pipe" });
+    execSync('git config user.name "SuVerse Site Agent"', { cwd: ROOT, stdio: "pipe" });
+    execSync("git add client/src/data/posts.ts client/src/pages/Home.tsx", { cwd: ROOT, stdio: "pipe" });
+    execSync(`git commit -m ${JSON.stringify(message)}`, { cwd: ROOT, stdio: "pipe" });
+    execSync("git push origin main", { cwd: ROOT, stdio: "pipe" });
+    log(`Git: pushed — ${message}`);
+  } catch (err) {
+    log(`Git: commit/push skipped — ${err.message}`);
   }
 }
 
@@ -358,10 +359,9 @@ Return ONLY valid JSON (no markdown fences):
     const total = insertPost(newPost);
     log(`Inserted into posts.ts (${total} total)`);
 
-    gitCommitAndPush(`news: ${post.title.slice(0, 60)}`);
-
     // Build & deploy
     const deployed = buildAndDeploy();
+    gitCommitAndPush(`news: ${newPost.title.slice(0, 70)}`);
 
     await sendTelegram(
       `📰 <b>New Post Published</b>\n\n` +
@@ -558,9 +558,8 @@ Return ONLY a valid JSON object (no markdown fences):
       fs.writeFileSync(path.join(PAGES_DIR, "Home.tsx"), updatedHome, "utf-8");
       log(`Metrics updated: miles=${data.miles}, carriers=${data.carriers}, states=${data.states}`);
 
-      gitCommitAndPush(`chore: update homepage metrics`);
-
       const deployed = buildAndDeploy();
+      gitCommitAndPush(`chore: update homepage metrics ${todayISO()}`);
 
       await sendTelegram(
         `📊 <b>Metrics Updated — ${todayISO()}</b>\n\n` +

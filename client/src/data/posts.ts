@@ -9,6 +9,19 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "project44-lunapath-ai-agent-orchestration-supply-chain-carbon-data", 
+    title: "project44 Acquires LunaPath.ai to Accelerate AI Agent Orchestration — and Why Carbon-Grade Freight Data Matters",
+    date: "2026-04-17",
+    summary:
+      "project44 says it acquired LunaPath.ai in an all-cash deal to bring execution-focused logistics agents into its AI agent orchestration strategy. The news highlights a broader shift: as AI agents automate freight work, the quality and provenance of emissions data (for Scope 3 and carbon markets) becomes a competitive requirement, not an afterthought.",
+    content: [
+      "On April 9, 2026, project44 announced it acquired LunaPath.ai in an all-cash transaction, describing LunaPath as an AI-native logistics automation company specializing in orchestration and execution-focused agents. project44 positioned the deal as a way to combine its real-time logistics “data graph” with agentic automation so that AI can move from insights to coordinated operational execution across global supply chains.",
+      "In its announcement, project44 highlighted concrete, execution-oriented tasks these agents can automate — such as carrier check calls, proof-of-delivery retrieval, claims initiation, and appointment confirmations — grounded in live shipment data and historical performance patterns. This matters because the operational layer of logistics is where exceptions, dwell time, and manual work accumulate, and where automation can reduce friction across shippers, carriers, and 3PLs.",
+      "For sustainability teams, the same shift toward automation raises the bar for data integrity. If an agent is making or triggering operational decisions, companies increasingly need “carbon-grade” activity records: shipment-level data that can support defensible Scope 3 calculations, supplier questionnaires, and assurance processes. That’s where emerging digital infrastructure trends intersect — including standardized methods, better primary data exchange, and, in some cases, blockchain-style provenance to show what data came from where and when.",
+      "SuVerse Labs’ mission sits directly in this convergence: sustainable transportation powered by AI agents, paired with blockchain-ready carbon tracking for audit trails and partner-to-partner data sharing. As major logistics platforms scale agentic execution, the opportunity grows for emissions data layers that are verifiable, allocatable, and interoperable — enabling real decarbonization decisions and more credible participation in carbon markets without inventing numbers.",
+    ],
+  },
+  {
     slug: "ghg-protocol-scope-3-revision-raises-bar-for-supplier-and-freight-data",
     title: "GHG Protocol’s Draft Scope 3 Updates Raise the Bar for Supplier and Freight Emissions Data",
     date: "2026-04-17",

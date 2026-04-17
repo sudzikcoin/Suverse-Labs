@@ -9,6 +9,19 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "ghg-protocol-scope-3-revision-raises-bar-for-supplier-and-freight-data",
+    title: "GHG Protocol’s Draft Scope 3 Updates Raise the Bar for Supplier and Freight Emissions Data",
+    date: "2026-04-17",
+    summary:
+      "A new GHG Protocol progress update outlines draft revisions to the Scope 3 Standard that would require companies to report at least 95% of required Scope 3 emissions and to disaggregate results by data type, alongside clearer disclosure of third-party verification status. For transportation and logistics, the message is clear: upstream freight emissions and supplier-specific data quality are moving from best practice to an explicit reporting expectation.",
+    content: [
+      "The Greenhouse Gas Protocol published a March 2026 “Scope 3 Standard Revisions: Phase 1 Progress Update,” describing draft changes under development to update the Corporate Value Chain (Scope 3) Standard. Among the headline proposals are a requirement that companies account for and report at least 95% of total required Scope 3 emissions (with limited exclusions), plus a new requirement to disaggregate Scope 3 results by data type to improve transparency on how much of an inventory is based on more specific supplier data versus broader estimation methods.",
+      "For shippers, manufacturers, and retailers, these proposals directly touch freight: Scope 3 hotspots often sit in purchased goods and services and upstream transportation, and the new draft language is designed to push reporting toward more decision-useful, supplier-specific inputs. The progress update also proposes a verification disclosure label for Scope 3 inventories (e.g., fully verified vs. partially verified), signaling that assurance and auditability will increasingly influence how customers and investors trust emissions claims.",
+      "In parallel, the World Economic Forum has argued that many companies are moving beyond generic emission factors toward supplier-specific data, and that technologies like traceability platforms, sensor-based measurement, and book-and-claim systems are increasingly used to support Scope 3 measurement and incentive alignment. That convergence matters in freight: without operational-grade activity data (loads, miles, fuel, mode, and lane context), companies will struggle to meet emerging expectations for both completeness and credibility in transport-related Scope 3 reporting.",
+      "This is exactly where SuVerse Labs’ mission fits: sustainable transportation powered by AI agents, with blockchain-ready records for carbon tracking and audit trails. As reporting standards harden and verification expectations rise, logistics networks will need systems that can collect primary activity signals, compute emissions consistently, and share results across partners without losing provenance — enabling real decarbonization decisions and credible claims in carbon markets and ESG reporting alike.",
+    ],
+  },
+  {
     slug: "agentos-vault-rag-knowledge-routing-fleet-intelligence",
     title: "From Load Data to Fleet Intelligence: AgentOS Expands Vault + RAG for Corridor-Level Insights",
     date: "2026-04-15",

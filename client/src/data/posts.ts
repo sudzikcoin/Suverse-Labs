@@ -9,6 +9,19 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "gps-polyline-dimo-blockchain-scope3-verification-class8-trucks",
+    title: "No Odometer, No Problem: How GPS Polyline Distance Unlocks Blockchain-Verified Scope 3 for Class 8 Trucks",
+    date: "2026-04-18",
+    summary:
+      "AgentOS now computes real-world miles from 10-minute GPS samples when a truck's CAN bus doesn't expose odometer data — closing a critical gap in DIMO-verified carbon reporting and making blockchain-backed Scope 3 accessible for the majority of working Class 8 fleets.",
+    content: [
+      "One of the hardest problems in freight decarbonization isn't philosophy — it's plumbing. DIMO's blockchain verification platform offers tamper-evident vehicle telemetry, but many Class 8 trucks, including common Freightliner models, don't expose odometer readings over their CAN bus. Without a mile count, emissions calculations fall back to estimates, and the 'verified' label loses its meaning. This week, AgentOS solved that problem by implementing GPS polyline distance using the haversine formula across 10-minute location samples — reconstructing actual route miles from the vehicle's own breadcrumb trail instead of waiting for a sensor that doesn't transmit.",
+      "The practical impact is immediate. AgentOS now records the first fully DIMO-verified load carrying a `weight_dimo_verified` flag: a haul from Miami Gardens, FL to Cranbury, NJ, covering 1,074 GPS-computed miles and generating 1,603 kg CO2 with a full Scope 1 and Scope 3 breakdown. That figure isn't an average emission factor applied to a lane — it's computed from the truck's actual movement, anchored to a specific vehicle token on the DIMO network, and linkable to a public blockchain explorer for independent verification. For shippers and sustainability teams navigating the GHG Protocol's rising expectations around primary data and verification disclosure, that distinction is the whole game.",
+      "Two additional features shipped alongside the GPS fallback to make verified data visible and actionable. The Analytics dashboard's 'Verified Loads' card is now clickable, surfacing a per-load modal with CO2 figures, truck and driver context, GPS miles, and a direct link to the DIMO vehicle record. The Scope 3 ESG PDF report now includes a QR code on the Certification page pointing to the DIMO blockchain explorer — so a shipper, auditor, or carbon-market buyer can confirm provenance in seconds without requesting additional documentation. Together, these features turn blockchain verification from a backend ledger entry into something a non-technical stakeholder can actually inspect and trust.",
+      "The broader implication matters for the industry. GPS-based distance computation has existed in telematics for years, but pairing it with on-chain vehicle identity and an end-to-end carbon accounting workflow is still rare. As regulators and voluntary frameworks push freight emissions reporting toward primary activity data and third-party-verifiable audit trails, fleets need infrastructure that works with real hardware — including trucks that don't conform to ideal sensor configurations. AgentOS' approach demonstrates that blockchain-backed Scope 3 isn't a feature reserved for new, fully instrumented vehicles; it's achievable today, across the Class 8 fleet, by building intelligence around what the hardware actually provides.",
+    ],
+  },
+  {
     slug: "project44-lunapath-ai-agent-orchestration-supply-chain-carbon-data", 
     title: "project44 Acquires LunaPath.ai to Accelerate AI Agent Orchestration — and Why Carbon-Grade Freight Data Matters",
     date: "2026-04-17",

@@ -9,6 +9,19 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "reuters-eu-ets2-road-transport-carbon-price-2028-data-stack",
+    title: "Reuters: EU ETS2 Will Put a Carbon Price on Road Transport Fuels in 2028 — Why Audit-Grade Freight Data Matters Now",
+    date: "2026-04-20",
+    summary:
+      "A Reuters analysis warns that the EU’s upcoming ETS2 will price carbon from fossil fuels used in road transport and building heating starting in 2028, affecting a large share of EU emissions and household fuel costs. For freight networks, this policy shift raises the value of verifiable, shipment-level emissions data — the kind that can power both operational optimization and credible Scope 3 reporting.",
+    content: [
+      "A Reuters analysis highlights that the EU’s forthcoming “ETS2” will extend carbon pricing to fossil fuels used in land transport (and building heating), with a start date in 2028 after a one-year postponement. Reuters notes ETS2 could cover up to roughly 40% of EU emissions and could raise average household living costs by about 300–500 euros per year once fully phased in, mainly via higher heating and transport fuel prices.",
+      "For logistics, the most important part is the incentive structure: ETS2 makes the carbon intensity of road fuel a direct cost driver. That pushes fleets, shippers, and fuel suppliers toward cleaner fuels and efficiency — but it also increases pressure for credible measurement. If a shipper is trying to allocate transport emissions across products, lanes, and customers (Scope 3), or compare carriers on real decarbonization progress, it needs activity-based data that can be checked, not spreadsheets built from generic factors.",
+      "This is where the “AI + blockchain + green trucking” intersection becomes practical rather than theoretical. AI agents can automate the heavy operational work (route planning, load matching, idling reduction, exception handling) that reduces emissions, while blockchain-style provenance can preserve who reported what, when, and from which underlying activity signals. As carbon prices enter day-to-day freight economics, audit trails move from compliance paperwork to commercial infrastructure.",
+      "SuVerse Labs builds for that future: AI-driven freight execution paired with blockchain-ready carbon tracking so shipment records can be used confidently for customer reporting and verification workflows without inventing numbers. ETS2 is a reminder that decarbonization is becoming a market mechanism — and the winners will be logistics networks that can measure, optimize, and prove emissions performance at the same speed they move freight.",
+    ],
+  },
+  {
     slug: "gps-polyline-dimo-blockchain-scope3-verification-class8-trucks",
     title: "No Odometer, No Problem: How GPS Polyline Distance Unlocks Blockchain-Verified Scope 3 for Class 8 Trucks",
     date: "2026-04-18",

@@ -9,6 +9,19 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "agentos-pingpoint-telegram-vault-knowledge-graph-clickable-links",
+    title: "From Tracking Links to Queryable Truth: AgentOS Expands PingPoint Sync + Knowledge Graph for Faster Exceptions",
+    date: "2026-04-20",
+    summary:
+      "AgentOS now syncs PingPoint delivery signals into the Vault and Knowledge Graph, turning tracker events into queryable operations context. A small Telegram UX fix also makes driver app links open reliably, reducing friction during live loads.",
+    content: [
+      "AgentOS shipped a deeper PingPoint integration: delivery and tracking signals are now pulled back into AgentOS and synced into the Vault and Knowledge Graph as structured notes. Instead of leaving critical milestones inside a carrier portal, we materialize status, delivered timestamps, ping counts, and distance metrics alongside the load record — so operators and AI agents can reference the same source of truth when something goes off-plan.",
+      "This matters because exception management is only as good as the data you can retrieve quickly. When tracking events are stored as inspectable knowledge (not just an API response at the moment you asked), AgentOS can answer questions like “which loads are at risk?”, “what changed since last check?”, or “show me late deliveries by lane” with context that survives shift changes, audits, and downstream reporting.",
+      "Under the hood, this is also a step toward real-time, agentic operations. Vault + Knowledge Graph sync makes it possible to feed reliable, up-to-date delivery context into RAG workflows, orchestration routing, and analytics — enabling dispatch automation that is grounded in actual telematics and tracker data rather than estimates.",
+      "We also improved the day-to-day operator experience: the Telegram bot now sends a clickable driver-app link via a secure HTTPS redirect, reducing time lost to copy-paste and ensuring drivers can open tracking or workflow pages immediately. Small UX improvements like this compound, especially when fleets run hundreds of daily touchpoints across messaging, portals, and telematics.",
+    ],
+  },
+  {
     slug: "reuters-eu-ets2-road-transport-carbon-price-2028-data-stack",
     title: "Reuters: EU ETS2 Will Put a Carbon Price on Road Transport Fuels in 2028 — Why Audit-Grade Freight Data Matters Now",
     date: "2026-04-20",

@@ -9,6 +9,19 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "agentos-real-time-vault-sync-knowledge-graph-rag-fleet-intelligence",
+    title: "From Batch Ops to Live Fleet Intelligence: AgentOS Turns Vault Sync + Knowledge Graph Into Real-Time Context",
+    date: "2026-04-24",
+    summary: "AgentOS now writes operational and carbon signals into the Vault in real time, and makes that context searchable through a Knowledge Graph layer. The result is faster exception handling today and a stronger foundation for AI-native dispatch and audit-grade Scope 3 reporting.",
+    content: [
+      "This week, AgentOS pushed a major reliability and data-platform upgrade: Vault notes now update in real time after key operational changes (loads, trucks, documents, and driver statements), rather than waiting on a batch sync. In parallel, we expanded the Knowledge Graph layer so those same records become semantically searchable with pgvector — and then optimized retrieval performance by switching the vector index to HNSW for faster cosine search. Together, these changes turn the Vault from a static archive into a live operational ledger: the moment a load is updated, a POD is attached, or a telematics verification finishes, the “system of record” reflects it.",
+      "For trucking and logistics operators, the business value is immediate: exceptions get resolved with the latest truth, not yesterday’s snapshot. Real-time Vault writes mean a dispatcher (or an AI agent) can ask, “Which loads are at risk?”, “What changed since the last check?”, or “Show delivered loads missing paperwork,” and get answers grounded in current, inspectable data. That reduces manual follow-ups, eliminates duplicate data entry between portals, and shortens the time between a real-world event and an operational decision — the difference between reacting to a missed appointment and preventing it.",
+      "This architecture also sets up the next wave of AI in freight: retrieval-augmented generation (RAG) and agentic automation that can be trusted. When a Knowledge Graph is fed by real-time sync hooks — including DIMO telematics backfill and CO2 analytics updates — an assistant can reason over fleet state with fewer hallucinations and more provenance. That matters for enterprise shippers as well: shipment-level context can support more defensible Scope 3 calculations, and verifiable carbon metrics can flow into customer reporting workflows without rebuilding spreadsheets every quarter.",
+      "SuVerse Labs is building AgentOS toward a future where freight execution, decarbonization, and verification converge. Real-time operational context plus a queryable knowledge layer is the prerequisite for AI dispatch that actually works in the field — and for “carbon-grade” data that holds up under assurance. As regulations and buyer expectations continue shifting toward primary activity data and audit trails, these platform upgrades position fleets to move faster operationally while proving performance with confidence.",
+    ],
+  },
+
+  {
     slug: "pingpoint-formula-d-gps-verified-co2-scope3-accuracy-epa-to-7-percent",
     title:
       "Formula D: PingPoint's GPS-Verified CO2 Model Cuts Scope 3 Accuracy Gap From ±15% to ±7%",

@@ -104,10 +104,10 @@ const cardFade = {
 
 /* ── Metrics ── */
 const metrics = [
-  { target: 2850000, display: "M+", label: "Miles Tracked" },
-  { target: 58, suffix: "", label: "Carriers" },
-  { target: 15, suffix: "", label: "States" },
-  { target: 7, suffix: "", label: "Products" },
+  { value: 2850000, suffix: "+", prefix: "", label: "Miles Tracked", display: "M+" },
+  { value: 58, suffix: "", prefix: "", label: "Carriers" },
+  { value: 15, suffix: "", prefix: "", label: "States" },
+  { value: 7, suffix: "", prefix: "", label: "Products" },
 ];
 
 /* ── What We Build ── */
